@@ -1,747 +1,971 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beyond Dyscalculia: Every Mind Has Its Math</title>
+    <title>Math Minds: Aljabar Fase D</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        earth: { 100: '#F3F4F6', 200: '#FEF3C7', 300: '#FDBA74', 400: '#D97706', 500: '#B45309', 600: '#4D7C0F', 700: '#15803D', 800: '#3F2E3E', 900: '#1F2937' }
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Merriweather"', 'serif'],
                     },
-                    fontFamily: { sans: ['Poppins', 'sans-serif'], serif: ['Lora', 'serif'] }
+                    colors: {
+                        // EARTH TONE PALETTE
+                        earth: {
+                            50: '#FDFCF5',   // Cream White
+                            100: '#F4F1EA',  // Soft Beige
+                            200: '#E6E2D3',  // Stone
+                            300: '#D4C5A9',  // Sand
+                            400: '#B09E80',  // Khaki
+                            500: '#8C7B5D',  // Mud
+                            600: '#606C38',  // Sage Green (Primary)
+                            700: '#BC6C25',  // Terracotta / Orange (Warmth)
+                            800: '#5E4934',  // Deep Brown (Text)
+                            900: '#283618',  // Dark Forest Green
+                        },
+                        accent: {
+                            yellow: '#DDA15E', // Warm Ochre
+                            green: '#606C38',  // Sage
+                            orange: '#BC6C25', // Earth Orange
+                            red: '#9B2226',    // Brick Red
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                    }
                 }
             }
         }
     </script>
 
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #4D7C0F; border-radius: 4px; }
-        .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; transform: translateY(20px); }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        
-        .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
-        .media-card { transition: all 0.2s; cursor: pointer; }
-        .media-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        
-        #media-modal { transition: opacity 0.3s ease; }
-        #media-modal.hidden { pointer-events: none; opacity: 0; }
-        #media-modal:not(.hidden) { pointer-events: auto; opacity: 1; }
-        .force-hidden { display: none !important; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFCF5; }
+        ::-webkit-scrollbar-thumb { background: #606C38; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #283618; }
 
-        /* STORY STYLES */
-        .story-slide { display: none; animation: fadeIn 0.8s ease; }
-        .story-slide.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .blob-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            z-index: 0;
-            opacity: 0.4;
+        .earth-bg {
+            background: linear-gradient(135deg, #FEFAE0 0%, #F4F1EA 100%);
+            position: relative;
         }
+        /* Noise Texture */
+        .earth-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(96, 108, 56, 0.2);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(188, 108, 37, 0.15);
+            box-shadow: 0 10px 30px -10px rgba(94, 73, 52, 0.1);
+        }
+        
+        .media-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .media-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -5px rgba(188, 108, 37, 0.15);
+        }
+        
+        .story-slide { display: none; animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .story-slide.active { display: block; }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        #media-modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
+        #media-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #media-modal:not(.hidden) { opacity: 1; visibility: visible; pointer-events: auto; }
+        
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+
+        .badge-locked { filter: grayscale(100%); opacity: 0.5; }
+        .badge-unlocked { animation: bounce-slow; filter: none; opacity: 1; }
     </style>
 </head>
-<body class="bg-earth-100 text-earth-900 font-sans antialiased overflow-hidden h-screen flex flex-col">
+<body class="earth-bg text-earth-800 font-sans antialiased h-screen flex flex-col overflow-hidden">
 
-    <!-- MODAL OVERLAY (Dynamic Content) -->
-    <div id="media-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 hidden">
-        <div class="bg-white w-full max-w-4xl h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden relative animate-bounce-in">
-            <div id="modal-header" class="p-4 bg-earth-600 text-white flex justify-between items-center">
-                <h3 id="modal-title" class="text-xl font-bold"><i class="fas fa-star mr-2"></i>Media Title</h3>
-                <button onclick="closeModal()" class="hover:bg-white/20 p-2 rounded-full transition"><i class="fas fa-times text-xl"></i></button>
-            </div>
-            <div id="modal-content" class="flex-1 overflow-y-auto p-6 bg-gray-50"></div>
-            <div class="p-4 border-t bg-white text-right">
-                <button onclick="closeModal()" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-bold text-gray-700 transition">Tutup</button>
+    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FEFAE0]">
+        <div class="glass p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-md text-center relative overflow-hidden border-2 border-earth-300">
+            <div class="relative z-10">
+                <div class="w-24 h-24 bg-earth-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl text-white text-4xl animate-bounce-slow">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-earth-900 mb-2 font-serif tracking-tight">Math Minds</h1>
+                <p class="text-earth-700 font-medium mb-8">Eksplorasi Aljabar dengan Gayamu</p>
+                
+                <form id="login-form" class="space-y-4 relative">
+                    <div class="relative group">
+                        <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-earth-600 group-focus-within:text-earth-700 transition-colors"></i>
+                        <input type="text" id="student-name" placeholder="Siapa namamu?" required 
+                            class="w-full pl-12 pr-4 py-4 bg-white border-2 border-earth-200 focus:border-earth-700 rounded-xl shadow-sm focus:outline-none focus:ring-4 focus:ring-earth-700/10 transition-all placeholder-earth-400 text-earth-900 font-medium">
+                    </div>
+                    <button type="submit" 
+                        class="w-full py-4 bg-earth-700 hover:bg-earth-800 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Mulai Petualangan</span>
+                        <i class="fas fa-compass"></i>
+                    </button>
+                </form>
+                <p class="mt-6 text-xs text-earth-500 font-medium">© 2025 Pendidikan Matematika</p>
+                <p class="mt-2 text-[10px] text-earth-400">Data tersimpan lokal di perangkat ini.</p>
             </div>
         </div>
     </div>
 
-    <!-- LOGIN SCREEN -->
-    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-earth-700 via-earth-600 to-earth-400">
-        <div class="glass-panel p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4 text-center fade-in-up">
-            <i class="fas fa-brain text-6xl text-earth-600 mb-4"></i>
-            <h1 class="text-3xl font-bold text-earth-800 mb-2">Beyond Dyscalculia</h1>
-            <p class="text-earth-500 font-serif italic mb-6">"Setiap Otak Punya Matematikanya Sendiri"</p>
-            <form id="login-form" class="space-y-4">
-                <input type="text" id="student-name" placeholder="Nama Siswa" required class="w-full px-4 py-3 rounded-lg border-2 border-earth-200 focus:outline-none focus:border-earth-600 bg-white/80">
-                <button type="submit" class="w-full py-3 bg-earth-600 hover:bg-earth-700 text-white font-bold rounded-lg shadow-lg transition transform hover:scale-105">Masuk <i class="fas fa-arrow-right ml-2"></i></button>
-            </form>
-        </div>
-    </div>
-
-    <!-- APP LAYOUT -->
-    <div id="app-container" class="flex flex-1 h-full overflow-hidden" style="display: none;">
-        <!-- SIDEBAR -->
-        <aside class="w-64 bg-earth-800 text-white hidden md:flex flex-col shadow-xl z-20">
-            <div class="p-6 border-b border-earth-700">
-                <h2 class="text-xl font-bold text-earth-200">Math Minds</h2>
-                <p class="text-xs text-earth-300 mt-1" id="user-greeting">Halo!</p>
+    <div id="app-container" class="flex-1 h-full flex overflow-hidden opacity-0 pointer-events-none transition-opacity duration-1000 z-10 relative" style="display: none;">
+        
+        <aside class="w-20 md:w-72 glass border-r border-earth-300 flex flex-col z-30 transition-all duration-300 group shadow-lg">
+            <div class="p-6 border-b border-earth-300 flex items-center gap-4 bg-earth-600/5">
+                <div class="w-10 h-10 bg-earth-700 rounded-lg flex items-center justify-center text-white shadow-md flex-shrink-0">
+                    <i class="fas fa-shapes"></i>
+                </div>
+                <div class="hidden md:block">
+                    <h2 class="text-lg font-bold text-earth-900 leading-tight font-serif">Aljabar Fase D</h2>
+                    <p class="text-xs text-earth-700 font-medium" id="user-greeting">Halo, Siswa!</p>
+                </div>
             </div>
-            <nav class="flex-1 overflow-y-auto p-4 space-y-1" id="sidebar-menu"></nav>
-            <div class="p-4 border-t border-earth-700">
-                <button onclick="location.reload()" class="w-full py-2 text-red-300 hover:text-white hover:bg-red-900/50 rounded transition flex items-center justify-center gap-2"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+            
+            <nav id="sidebar-menu" class="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-hide"></nav>
+            
+            <div class="px-4 pb-2">
+                 <button onclick="openProfile()" class="w-full py-3 flex items-center gap-3 px-4 rounded-xl bg-earth-200 text-earth-900 hover:bg-earth-300 transition-colors md:justify-start justify-center font-bold">
+                    <i class="fas fa-seedling text-earth-700"></i>
+                    <span class="hidden md:inline">Profil & Insight</span>
+                </button>
+            </div>
+
+            <div class="p-4 border-t border-earth-300">
+                <button onclick="location.reload()" class="w-full py-3 flex items-center gap-3 px-4 rounded-xl text-accent-red hover:bg-red-50 transition-colors md:justify-start justify-center font-medium">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="hidden md:inline">Keluar</span>
+                </button>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="flex-1 overflow-y-auto bg-earth-100 relative scroll-smooth" id="main-scroll">
-            <!-- Mobile Header -->
-            <div class="md:hidden sticky top-0 bg-earth-800 text-white p-4 flex justify-between items-center z-30 shadow-md">
-                <span class="font-bold">Math Minds</span>
-                <button onclick="document.querySelector('aside').classList.toggle('hidden'); document.querySelector('aside').classList.toggle('absolute'); document.querySelector('aside').classList.toggle('h-full');" class="focus:outline-none"><i class="fas fa-bars"></i></button>
-            </div>
-
-            <div class="p-4 md:p-8 max-w-6xl mx-auto pb-24">
+        <main class="flex-1 overflow-y-auto relative scroll-smooth p-4 md:p-8" id="main-scroll">
+            <div class="max-w-7xl mx-auto pb-24">
                 
-                <!-- INTRODUCTION: STORY MODE -->
-                <section id="introduction" class="mb-16 min-h-[60vh] flex flex-col justify-center fade-in-up relative">
-                    <!-- Background Blobs -->
-                    <div class="blob-shape bg-yellow-300 w-64 h-64 top-0 right-0"></div>
-                    <div class="blob-shape bg-green-300 w-64 h-64 bottom-0 left-0"></div>
+                <section id="introduction" class="min-h-[85vh] flex items-center justify-center relative mb-20">
+                    <div class="glass rounded-[2.5rem] p-8 md:p-16 w-full shadow-xl border-t-4 border-earth-600 relative overflow-hidden min-h-[500px] flex flex-col justify-center">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-accent-yellow/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-earth-600/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-                    <div class="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/50 relative z-10">
-                        
-                        <!-- SLIDE 1: THE PROBLEM -->
-                        <div class="story-slide active p-8 md:p-12 text-center" id="slide-1">
-                            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl animate-pulse">😶‍🌫️</div>
-                            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 font-serif mb-4">Ketika Angka Terasa Asing...</h1>
-                            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                                Pernahkah kamu melihat angka-angka di papan tulis seolah menari dan kabur? Atau merasa seolah otakmu "macet" saat bertemu hitungan? <br><br>
-                                Itu bukan karena kamu tidak pintar. Itu mungkin <strong>Diskalkulia</strong>, atau sekadar karena kamu belum menemukan "kunci" yang tepat.
+                        <div class="story-slide active text-center relative z-10" id="slide-1">
+                            <div class="inline-flex items-center justify-center w-24 h-24 bg-earth-100 text-earth-700 rounded-full mb-8 animate-bounce-slow shadow-sm border border-earth-200">
+                                <i class="fas fa-search text-4xl"></i>
+                            </div>
+                            <h1 class="text-4xl md:text-6xl font-serif font-bold text-earth-900 mb-6">Menemukan Pola di Sekitarmu</h1>
+                            <p class="text-xl text-earth-700 max-w-2xl mx-auto leading-relaxed mb-10">
+                                Matematika bukan sekadar angka acak. Ia adalah bahasa untuk menjelaskan pola alam, struktur bangunan, hingga cara kita berbelanja.
+                                <br><span class="text-earth-600 text-base italic mt-2 block">"Fase D: Dari Pola Bilangan ke Sistem Persamaan"</span>
                             </p>
-                            <button onclick="nextSlide(2)" class="mt-8 px-8 py-3 bg-earth-600 text-white rounded-full font-bold hover:bg-earth-700 transition transform hover:scale-105 shadow-lg group">
-                                Temukan Kuncinya <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                            <button onclick="nextSlide(2)" class="px-10 py-4 bg-earth-700 text-white rounded-full font-bold hover:bg-earth-800 transition-all shadow-lg hover:shadow-earth-700/30 flex items-center gap-3 mx-auto">
+                                <span>Apa yang akan kita pelajari?</span> <i class="fas fa-chevron-right"></i>
                             </button>
                         </div>
 
-                        <!-- SLIDE 2: THE DISCOVERY -->
-                        <div class="story-slide p-8 md:p-12 text-center" id="slide-2">
-                            <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl animate-bounce">💡</div>
-                            <h1 class="text-3xl md:text-5xl font-bold text-earth-800 font-serif mb-4">Penemuan Prof. Gardner</h1>
-                            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                                Pada tahun 1983, <strong>Howard Gardner</strong> menemukan sebuah rahasia besar: <br>
-                                <em>"Kecerdasan itu tidak tunggal. Ia majemuk."</em><br><br>
-                                Bayangkan otakmu bukan sebagai satu gelas kosong, tapi sebagai orkestra musik dengan banyak alat musik berbeda.
-                            </p>
-                            <div class="flex justify-center gap-4 mt-8">
-                                <button onclick="nextSlide(1)" class="px-6 py-3 text-gray-500 hover:text-earth-600 font-bold transition">Kembali</button>
-                                <button onclick="nextSlide(3)" class="px-8 py-3 bg-earth-600 text-white rounded-full font-bold hover:bg-earth-700 transition transform hover:scale-105 shadow-lg">
-                                    Lihat Orkestramu <i class="fas fa-music ml-2"></i>
+                        <div class="story-slide text-center relative z-10" id="slide-2">
+                            <div class="inline-flex items-center justify-center w-24 h-24 bg-accent-green/10 text-earth-900 rounded-full mb-8 shadow-sm">
+                                <i class="fas fa-layer-group text-4xl text-accent-green"></i>
+                            </div>
+                            <h1 class="text-3xl md:text-5xl font-serif font-bold text-earth-900 mb-6">Misi Kita: Menguasai Aljabar</h1>
+                            <div class="grid md:grid-cols-2 gap-4 text-left max-w-4xl mx-auto mb-10 text-earth-700">
+                                <div class="bg-white/60 p-4 rounded-xl border border-earth-200"><i class="fas fa-check text-earth-600 mr-2"></i> Mengenali & Memprediksi Pola</div>
+                                <div class="bg-white/60 p-4 rounded-xl border border-earth-200"><i class="fas fa-check text-earth-600 mr-2"></i> Bentuk Aljabar & Sifat Operasi</div>
+                                <div class="bg-white/60 p-4 rounded-xl border border-earth-200"><i class="fas fa-check text-earth-600 mr-2"></i> Relasi & Fungsi (Linear vs Nonlinear)</div>
+                                <div class="bg-white/60 p-4 rounded-xl border border-earth-200"><i class="fas fa-check text-earth-600 mr-2"></i> Menyelesaikan PLSV & SPLDV</div>
+                            </div>
+                            <div class="flex justify-center gap-4">
+                                <button onclick="nextSlide(1)" class="px-8 py-3 rounded-full border-2 border-earth-400 text-earth-700 font-bold hover:bg-earth-100 transition">Kembali</button>
+                                <button onclick="nextSlide(3)" class="px-10 py-4 bg-earth-900 text-white rounded-full font-bold hover:bg-black transition-all shadow-lg flex items-center gap-3">
+                                    <span>Pilih Gaya Belajarmu</span> <i class="fas fa-users-rays"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- SLIDE 3: THE SOLUTION -->
-                        <div class="story-slide p-8 md:p-12 text-center" id="slide-3">
-                            <div class="flex justify-center gap-2 mb-6">
-                                <span class="text-2xl">🎨</span><span class="text-2xl">🏃</span><span class="text-2xl">🎵</span><span class="text-2xl">🌳</span>
-                            </div>
-                            <h1 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-earth-600 to-earth-400 font-serif mb-4">8 Jalan Menuju Matematika</h1>
-                            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6">
-                                Kami telah menyiapkan <strong>80 Alat Interaktif</strong> yang disesuaikan dengan 8 jenis kecerdasanmu.<br>
-                                Apakah kamu belajar lewat gambar? Musik? Atau gerakan? <br>
-                                Temukan "pintu masuk" matematikamu di bawah ini.
+                        <div class="story-slide text-center relative z-10" id="slide-3">
+                            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6 text-earth-900">
+                                8 Pintu Masuk
+                            </h1>
+                            <p class="text-lg text-earth-600 max-w-2xl mx-auto mb-10">
+                                Setiap orang punya cara unik memahami Aljabar. Apakah kamu tipe visual, logis, atau musikal? Semua ada jalannya di sini.
                             </p>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-w-2xl mx-auto text-xs font-bold text-earth-700 mb-8 opacity-70">
-                                <div class="bg-earth-100 p-2 rounded">Linguistic</div>
-                                <div class="bg-earth-100 p-2 rounded">Logical</div>
-                                <div class="bg-earth-100 p-2 rounded">Spatial</div>
-                                <div class="bg-earth-100 p-2 rounded">Kinesthetic</div>
-                                <div class="bg-earth-100 p-2 rounded">Musical</div>
-                                <div class="bg-earth-100 p-2 rounded">Interpersonal</div>
-                                <div class="bg-earth-100 p-2 rounded">Intrapersonal</div>
-                                <div class="bg-earth-100 p-2 rounded">Naturalist</div>
-                            </div>
-                            <button onclick="startJourney()" class="px-10 py-4 bg-earth-800 text-white rounded-full font-bold hover:bg-earth-900 transition transform hover:scale-110 shadow-xl text-lg animate-pulse">
-                                Mulai Petualangan Sekarang <i class="fas fa-rocket ml-2"></i>
+                            <button onclick="startApp()" class="px-12 py-5 bg-gradient-to-r from-earth-700 to-earth-600 text-white rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-2xl flex items-center gap-3 mx-auto animate-pulse">
+                                <span>Mulai Eksplorasi</span> <i class="fas fa-rocket"></i>
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- Slider Indicators -->
-                    <div class="flex justify-center gap-2 mt-6">
-                        <div class="h-2 w-8 rounded-full bg-earth-600 transition-all" id="dot-1"></div>
-                        <div class="h-2 w-2 rounded-full bg-earth-300 transition-all" id="dot-2"></div>
-                        <div class="h-2 w-2 rounded-full bg-earth-300 transition-all" id="dot-3"></div>
-                    </div>
                 </section>
 
-                <!-- DYNAMIC SECTIONS CONTAINER -->
-                <div id="intelligences-container">
-                    <!-- Sections injected by JS -->
-                </div>
-                
-                 <!-- CLOSING: STORY MODE -->
-                <section id="closing" class="mb-12 pt-20 fade-in-up">
-                    <div class="relative bg-earth-900 text-white rounded-3xl p-8 md:p-16 shadow-2xl overflow-hidden text-center border-4 border-earth-700">
-                        <!-- Decorative Elements -->
-                        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500 rounded-full blur-[80px] opacity-30"></div>
-                        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500 rounded-full blur-[80px] opacity-30"></div>
+                <div id="intelligences-container" class="space-y-24"></div>
 
-                        <div class="relative z-10">
-                            <div class="inline-block p-4 rounded-full bg-white/10 backdrop-blur-sm mb-6 border border-white/20">
-                                <i class="fas fa-flag-checkered text-4xl text-yellow-400"></i>
-                            </div>
-                            
-                            <h2 class="text-3xl md:text-5xl font-bold font-serif mb-6 leading-tight">
-                                "Bukan <span class="text-earth-300">Tidak Bisa</span>,<br>Kamu Hanya <span class="text-earth-300">Berbeda</span>."
-                            </h2>
-                            
-                            <div class="max-w-2xl mx-auto bg-white/5 p-6 rounded-xl border-l-4 border-earth-500 mb-8 text-left backdrop-blur-sm">
-                                <p class="text-lg text-gray-200 italic">
-                                    "Matematika itu seperti lukisan. Ada yang melukis dengan kuas (logika), ada yang dengan jari (kinestetik), dan ada yang dengan nyanyian (musikal). Jangan paksa ikan memanjat pohon. Berenanglah di lautan angkamu sendiri."
-                                </p>
-                            </div>
-
-                            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-8 py-3 bg-white text-earth-900 rounded-full font-bold hover:bg-gray-100 transition shadow-lg">
-                                    <i class="fas fa-redo mr-2"></i> Ulangi Cerita
-                                </button>
-                                <a href="#" onclick="alert('Terima kasih telah belajar bersama kami! Teruslah bereksplorasi.')" class="px-8 py-3 border-2 border-earth-400 text-earth-200 rounded-full font-bold hover:bg-earth-400 hover:text-white transition">
-                                    <i class="fas fa-heart mr-2"></i> Selesai
-                                </a>
-                            </div>
-                            
-                            <p class="mt-10 text-xs text-gray-500 font-mono">
-                                Beyond Dyscalculia Project &copy; 2025 Team 5<br>
-                                Universitas Negeri Surabaya
-                            </p>
-                        </div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>
 
-    <!-- JAVASCRIPT ENGINE -->
-    <script>
-        // --- STORY LOGIC ---
-        function nextSlide(slideNum) {
-            // Hide all
-            document.querySelectorAll('.story-slide').forEach(el => el.classList.remove('active'));
-            // Show target
-            document.getElementById(`slide-${slideNum}`).classList.add('active');
-            
-            // Update dots
-            [1,2,3].forEach(n => {
-                const dot = document.getElementById(`dot-${n}`);
-                if(n === slideNum) {
-                    dot.classList.remove('w-2', 'bg-earth-300');
-                    dot.classList.add('w-8', 'bg-earth-600');
-                } else {
-                    dot.classList.add('w-2', 'bg-earth-300');
-                    dot.classList.remove('w-8', 'bg-earth-600');
-                }
-            });
-        }
+    <div id="media-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-earth-900/90 backdrop-blur-md p-4 hidden">
+        <div class="modal-content-box bg-[#FDFCF5] w-full max-w-5xl h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden relative border border-earth-300">
+            <div id="modal-header" class="p-6 flex justify-between items-center text-white transition-colors duration-300 bg-earth-700">
+                <div class="flex items-center gap-4 overflow-hidden">
+                    <div>
+                        <p class="text-xs opacity-90 uppercase tracking-widest font-bold mb-1 text-white/80">Fase D: Aljabar</p>
+                        <h3 id="modal-title" class="text-2xl font-serif font-bold truncate max-w-md">Title</h3>
+                    </div>
+                    <div id="nav-controls" class="hidden flex items-center gap-2 ml-6 bg-black/20 rounded-full px-1 py-1 border border-white/10">
+                        <button onclick="navContent(-1)" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/30 hover:scale-105 transition active:scale-95 text-sm"><i class="fas fa-chevron-left"></i></button>
+                        <span id="nav-counter" class="text-sm font-mono font-bold px-2 min-w-[3.5rem] text-center">1/10</span>
+                        <button onclick="navContent(1)" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/30 hover:scale-105 transition active:scale-95 text-sm"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-accent-red hover:text-white flex items-center justify-center transition text-white min-h-[44px] min-w-[44px]"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="modal-content" class="flex-1 overflow-y-auto p-8 bg-[#F4F1EA] relative"></div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-earth-400 text-xs animate-pulse md:hidden pointer-events-none"><i class="fas fa-arrows-alt-h"></i> Geser untuk navigasi</div>
+        </div>
+    </div>
 
-        function startJourney() {
-            const firstSection = document.getElementById('linguistic');
-            firstSection.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- DATA & EXISTING LOGIC ---
-        // (Sama seperti sebelumnya, memastikan kompatibilitas penuh)
-        const intelligenceData = [
-            {
-                id: "linguistic",
-                name: "Verbal Linguistic",
-                icon: "fa-comments",
-                color: "yellow",
-                desc: "Kecerdasan Kata & Bahasa",
-                media: [
-                    { title: "Math Story Builder", icon: "fa-pen-nib", type: "app", appType: "story", desc: "Buat soal cerita matematikamu sendiri." },
-                    { title: "Kamus Matematika", icon: "fa-book", type: "card", content: "<b>Variabel:</b> Simbol (biasanya huruf) untuk nilai yang belum diketahui.<br><b>Konstanta:</b> Nilai yang tetap.", desc: "Istilah penting yang sering muncul." },
-                    { title: "Puisi Aljabar", icon: "fa-feather", type: "text", content: "<i>X yang hilang, kemana kau pergi?<br>Dicari Y yang setia menanti.<br>Dalam persamaan kita bertemu,<br>Menyeimbangkan sisi kiri dan kananmu.</i>", desc: "Memahami konsep lewat seni kata." },
-                    { title: "Teka Teki Silang", icon: "fa-border-all", type: "game", appType: "crossword", desc: "Isi kotak dengan istilah matematika." },
-                    { title: "Debat Matematika", icon: "fa-gavel", type: "task", content: "Topik: 'Apakah kalkulator membuat kita malas atau pintar?'<br>Coba argumenkan 3 poinmu!", desc: "Latih argumen logismu." },
-                    { title: "Sinonim Operasi", icon: "fa-equals", type: "quiz", question: "Kata lain untuk 'Pengurangan' dalam soal cerita?", options: ["Selisih", "Jumlah", "Produk"], answer: 0, desc: "Kenali kata kunci soal cerita." },
-                    { title: "Podcast Math", icon: "fa-microphone", type: "audio", desc: "Simulasi rekaman penjelasan konsep." },
-                    { title: "Jurnal Kata", icon: "fa-journal-whills", type: "input", desc: "Tuliskan definisi matematika versimu." },
-                    { title: "Sambung Cerita", icon: "fa-link", type: "game", appType: "chain", desc: "Lanjutkan cerita matematika." },
-                    { title: "Flashcard Rumus", icon: "fa-clone", type: "card", content: "Luas Persegi = Sisi x Sisi<br>Keliling Persegi = 4 x Sisi", desc: "Kartu ingat cepat." }
-                ]
-            },
-            {
-                id: "logical",
-                name: "Logical Mathematical",
-                icon: "fa-calculator",
-                color: "blue",
-                desc: "Kecerdasan Logika & Angka",
-                media: [
-                    { title: "Pattern Breaker", icon: "fa-puzzle-piece", type: "app", appType: "pattern", desc: "Tebak kelanjutan pola angka." },
-                    { title: "Kalkulator Logika", icon: "fa-calculator", type: "tool", desc: "Alat hitung dengan langkah." },
-                    { title: "Sudoku Mini", icon: "fa-border-none", type: "game", appType: "sudoku", desc: "Latih logika penempatan angka." },
-                    { title: "Detektif Angka", icon: "fa-user-secret", type: "quiz", question: "Aku bilangan ganjil, lebih besar dari 10, kurang dari 15. Siapa aku?", options: ["11", "12", "13", "14"], answer: 2, desc: "Pecahkan misteri bilangan." },
-                    { title: "Flowchart Solver", icon: "fa-project-diagram", type: "image", src: "https://mermaid.ink/img/pako:eNpVkMtuwjAQRX_FmnWg8gO0q0pVQaQuulC7yMRJjEV8yH40EOLfcR5Nq8t47rkzY88IDWcFCQZ1u29Uq_hYvjL0bX_Y6_1hTwfV4s_3p-0Rj_S0P9JevdG2bXXT_lB1p78fVIOQoVFSQ-Lz4y_kC4ISSiE1FPC_o6yC8o6yMsoWZa1sUa6irJUtlHXKNso25QblBuUryg3KT5SfKD9TfubyM5e_uPyTyz-5_M_l_9x4w4033HjDjTfceMONE26ccOONE26ccOOEG_8BN0648Y4bJ9w44cYJN0648Z4bJ9w44cYJN064ccKNE26ccOOEG2-4ccKNE26ccOOEG2-48YYbb7jxhhtvuPGGG2-4ccKNE26ccOOEG2_8A9sIk3U", desc: "Ikuti alur untuk solusi." },
-                    { title: "True or False", icon: "fa-check-double", type: "quiz", question: "Semua bilangan prima adalah ganjil.", options: ["Benar", "Salah"], answer: 1, desc: "Uji pemahaman konsep." },
-                    { title: "Urutkan Langkah", icon: "fa-list-ol", type: "task", content: "Urutkan: 1. Kurung 2. Kali/Bagi 3. Tambah/Kurang", desc: "Hierarki operasi hitung." },
-                    { title: "Timbangan Aljabar", icon: "fa-balance-scale", type: "app", appType: "balance", desc: "Seimbangkan persamaan." },
-                    { title: "Venn Diagram", icon: "fa-circle", type: "visual", content: "Visualisasi Himpunan.", desc: "Mengelompokkan angka." },
-                    { title: "Estimasi Cepat", icon: "fa-stopwatch", type: "game", appType: "estimation", desc: "Tebak hasil tanpa hitung detail." }
-                ]
-            },
-            {
-                id: "spatial",
-                name: "Visual Spatial",
-                icon: "fa-shapes",
-                color: "purple",
-                desc: "Kecerdasan Gambar & Ruang",
-                media: [
-                    { title: "Graph Explorer", icon: "fa-chart-line", type: "app", appType: "graph", desc: "Ubah grafik dengan slider." },
-                    { title: "Tangram Puzzle", icon: "fa-th-large", type: "game", desc: "Susun bentuk geometri." },
-                    { title: "Rotasi 3D", icon: "fa-cube", type: "app", appType: "rotate3d", desc: "Putar kubus dalam pikiranmu." },
-                    { title: "Peta Harta Karun", icon: "fa-map-marked-alt", type: "task", content: "Koordinat (3,4). Maju 2 langkah X, Turun 1 langkah Y.", desc: "Belajar sistem koordinat." },
-                    { title: "Ilusi Optik", icon: "fa-eye", type: "image", desc: "Geometri yang menipu mata." },
-                    { title: "Simetri Lipat", icon: "fa-columns", type: "app", appType: "symmetry", desc: "Gambar cermin." },
-                    { title: "Mind Mapping", icon: "fa-sitemap", type: "tool", desc: "Buat peta konsep materi." },
-                    { title: "Visual Memory", icon: "fa-memory", type: "game", desc: "Ingat posisi angka." },
-                    { title: "Sketchpad", icon: "fa-pencil-ruler", type: "app", appType: "draw", desc: "Coretan bebas matematika." },
-                    { title: "Shape Hunter", icon: "fa-camera", type: "task", content: "Temukan 3 benda berbentuk silinder di sekitarmu.", desc: "Cari geometri di dunia nyata." }
-                ]
-            },
-            {
-                id: "kinesthetic",
-                name: "Bodily Kinesthetic",
-                icon: "fa-running",
-                color: "red",
-                desc: "Kecerdasan Gerak Tubuh",
-                media: [
-                    { title: "Number Sorter", icon: "fa-hand-paper", type: "app", appType: "dragdrop", desc: "Drag & Drop Ganjil/Genap." },
-                    { title: "Math Workout", icon: "fa-dumbbell", type: "task", content: "Lakukan 5x Jumping Jack jika jawabannya 5!", desc: "Hitung dengan keringat." },
-                    { title: "Angle Pose", icon: "fa-child", type: "image", desc: "Bentuk sudut 90 derajat dengan tanganmu." },
-                    { title: "Walk the Line", icon: "fa-shoe-prints", type: "task", content: "Buat garis bilangan di lantai. Melangkahlah untuk menjumlah.", desc: "Garis bilangan fisik." },
-                    { title: "Jari Ajaib", icon: "fa-hand-sparkles", type: "card", content: "Trik perkalian 9 menggunakan 10 jari tangan.", desc: "Teknik hitung jari." },
-                    { title: "Bangun Ruang", icon: "fa-cubes", type: "task", content: "Gunakan kertas bekas untuk membuat kubus.", desc: "Konstruksi fisik." },
-                    { title: "Touch Math", icon: "fa-fingerprint", type: "app", appType: "touch", desc: "Ketuk layar sesuai jumlah." },
-                    { title: "Drama Matematika", icon: "fa-theater-masks", type: "task", content: "Perankan adegan jual beli di pasar.", desc: "Roleplay aritmatika sosial." },
-                    { title: "Slider Fisik", icon: "fa-sliders-h", type: "app", appType: "slider", desc: "Geser untuk melihat perubahan." },
-                    { title: "Target Throw", icon: "fa-bullseye", type: "game", desc: "Lempar bola ke jawaban benar (Simulasi)." }
-                ]
-            },
-            {
-                id: "musical",
-                name: "Musical",
-                icon: "fa-music",
-                color: "pink",
-                desc: "Kecerdasan Irama & Nada",
-                media: [
-                    { title: "Fraction Beats", icon: "fa-drum", type: "app", appType: "rhythm", desc: "Pecahan sebagai ketukan drum." },
-                    { title: "Nada Angka", icon: "fa-music", type: "app", appType: "piano", desc: "Do=1, Re=2. Mainkan angkamu." },
-                    { title: "Lirik Rumus", icon: "fa-microphone-alt", type: "text", content: "<i>(Nada: Balonku)<br>Luas lingkaran itu...<br>Pi kali r kuadrat...</i>", desc: "Hafal rumus lewat lagu." },
-                    { title: "Pattern Sound", icon: "fa-wave-square", type: "game", desc: "Tebak kelanjutan pola suara." },
-                    { title: "Frekuensi", icon: "fa-broadcast-tower", type: "card", content: "Setiap oktaf adalah frekuensi x 2. Matematika murni!", desc: "Fisika suara." },
-                    { title: "Clap Count", icon: "fa-hands-clapping", type: "task", content: "Tepuk tangan untuk bilangan kelipatan 3.", desc: "Belajar kelipatan." },
-                    { title: "Pi Song", icon: "fa-infinity", type: "audio", desc: "Dengarkan lagu 3.14..." },
-                    { title: "Tempo Graph", icon: "fa-tachometer-alt", type: "visual", desc: "Grafik kecepatan lagu." },
-                    { title: "Harmoni Rasio", icon: "fa-guitar", type: "tool", desc: "Rasio senar gitar." },
-                    { title: "Math Playlist", icon: "fa-headphones", type: "list", desc: "Daftar lagu untuk fokus belajar." }
-                ]
-            },
-            {
-                id: "interpersonal",
-                name: "Interpersonal",
-                icon: "fa-users",
-                color: "orange",
-                desc: "Kecerdasan Sosial",
-                media: [
-                    { title: "Tutor Simulator", icon: "fa-comment-dots", type: "app", appType: "chat", desc: "Bantu temanmu belajar." },
-                    { title: "Group Role", icon: "fa-id-badge", type: "card", content: "<b>Leader:</b> Atur strategi.<br><b>Writer:</b> Catat hasil.<br><b>Speaker:</b> Presentasi.", desc: "Peran kerja kelompok." },
-                    { title: "Survey Maker", icon: "fa-poll", type: "tool", desc: "Buat survei untuk teman sekelas." },
-                    { title: "Teaching Script", icon: "fa-chalkboard-teacher", type: "text", content: "Coba jelaskan Pitagoras ke anak SD...", desc: "Naskah mengajar." },
-                    { title: "Math Interview", icon: "fa-question-circle", type: "task", content: "Wawancarai 3 teman: 'Apa ketakutan matematikamu?'", desc: "Riset sosial." },
-                    { title: "Team Score", icon: "fa-trophy", type: "app", appType: "score", desc: "Papan skor tim." },
-                    { title: "Conflict Solve", icon: "fa-handshake", type: "quiz", desc: "Selesaikan perdebatan jawaban." },
-                    { title: "Social Scenario", icon: "fa-store", type: "image", desc: "Diskon mall: Beli 2 Gratis 1." },
-                    { title: "Collaborative Puzzle", icon: "fa-puzzle-piece", type: "game", desc: "Puzzle yang butuh 2 pemain (Sim)." },
-                    { title: "Feedback Form", icon: "fa-envelope-open-text", type: "input", desc: "Beri masukan untuk teman." }
-                ]
-            },
-            {
-                id: "intrapersonal",
-                name: "Intrapersonal",
-                icon: "fa-user",
-                color: "teal",
-                desc: "Kecerdasan Diri Sendiri",
-                media: [
-                    { title: "Mood Tracker", icon: "fa-smile", type: "app", appType: "mood", desc: "Pantau emosi belajarmu." },
-                    { title: "Goal Setting", icon: "fa-bullseye", type: "input", desc: "Target nilai semester ini." },
-                    { title: "SWOT Diri", icon: "fa-table", type: "card", content: "Strength: Aljabar<br>Weakness: Geometri", desc: "Analisis kekuatanmu." },
-                    { title: "Why Ladder", icon: "fa-stream", type: "task", content: "Tanya 'Kenapa' 5 kali untuk satu masalah.", desc: "Gali akar masalah." },
-                    { title: "Focus Timer", icon: "fa-hourglass-half", type: "app", appType: "timer", desc: "Teknik Pomodoro." },
-                    { title: "Jurnal Refleksi", icon: "fa-book-open", type: "input", desc: "Apa yang kupelajari hari ini?" },
-                    { title: "Pernapasan", icon: "fa-lungs", type: "app", appType: "breath", desc: "Atasi cemas saat ujian." },
-                    { title: "Biografi Math", icon: "fa-history", type: "text", desc: "Sejarah hubunganmu dengan angka." },
-                    { title: "Error Analysis", icon: "fa-eraser", type: "task", content: "Lihat ujian lamamu. Kenapa salah?", desc: "Belajar dari kesalahan." },
-                    { title: "Quote Motivasi", icon: "fa-quote-right", type: "card", desc: "Kata bijak harian." }
-                ]
-            },
-            {
-                id: "naturalist",
-                name: "Naturalist",
-                icon: "fa-leaf",
-                color: "green",
-                desc: "Kecerdasan Alam",
-                media: [
-                    { title: "Fibonacci Overlay", icon: "fa-sun", type: "app", appType: "fibonacci", desc: "Pola bunga matahari." },
-                    { title: "Fractal Tree", icon: "fa-tree", type: "app", appType: "fractal", desc: "Pola percabangan pohon." },
-                    { title: "Klasifikasi Batu", icon: "fa-gem", type: "game", desc: "Kelompokkan berdasar bentuk/berat." },
-                    { title: "Grafik Cuaca", icon: "fa-cloud-sun", type: "visual", desc: "Data suhu minggu ini." },
-                    { title: "Scavenger Hunt", icon: "fa-binoculars", type: "task", content: "Temukan daun simetris di halaman.", desc: "Berburu pola alam." },
-                    { title: "Animal Speed", icon: "fa-horse-head", type: "card", content: "Cheetah: 120km/h<br>Siput: 0.05km/h", desc: "Perbandingan kecepatan." },
-                    { title: "Golden Ratio", icon: "fa-spa", type: "image", desc: "Proporsi sempurna di alam." },
-                    { title: "Populasi", icon: "fa-chart-area", type: "visual", desc: "Grafik pertumbuhan bakteri." },
-                    { title: "Simetri Serangga", icon: "fa-bug", type: "app", appType: "symmetry_bug", desc: "Gambar sayap kupu-kupu." },
-                    { title: "Eco Math", icon: "fa-recycle", type: "quiz", question: "1 ton kertas daur ulang menyelamatkan berapa pohon?", options: ["5", "17", "50"], answer: 1, desc: "Matematika lingkungan." }
-                ]
-            }
-        ];
-
-        const loginForm = document.getElementById('login-form');
-        const loginScreen = document.getElementById('login-screen');
-        const appContainer = document.getElementById('app-container');
-        const userGreeting = document.getElementById('user-greeting');
-        const studentNameInput = document.getElementById('student-name');
-        const sidebarMenu = document.getElementById('sidebar-menu');
-        const intContainer = document.getElementById('intelligences-container');
-        const modal = document.getElementById('media-modal');
-        const modalContent = document.getElementById('modal-content');
-        const modalTitle = document.getElementById('modal-title');
-
-        function init() {
-            renderSidebar();
-            renderSections();
-        }
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = studentNameInput.value;
-            if(name.trim()) {
-                userGreeting.textContent = `Halo, ${name}!`;
-                loginScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    appContainer.style.display = 'flex'; 
-                    init();
-                }, 500);
-            }
-        });
-
-        function renderSidebar() {
-            let html = `<a href="#introduction" class="block px-4 py-2 rounded hover:bg-earth-700 bg-earth-700 mb-4 font-bold"><i class="fas fa-home w-6"></i> Intro</a>`;
-            html += `<div class="px-4 text-xs font-bold text-earth-400 uppercase mb-2">8 Kecerdasan</div>`;
-            intelligenceData.forEach(item => {
-                html += `<a href="#${item.id}" class="block px-4 py-2 rounded hover:bg-earth-700 text-sm flex items-center gap-3 text-earth-100">
-                    <i class="fas ${item.icon} w-5 text-${item.color}-400"></i> ${item.name}
-                </a>`;
-            });
-            html += `<div class="my-4 border-t border-earth-700"></div>`;
-            html += `<a href="#closing" class="block px-4 py-2 rounded hover:bg-earth-700"><i class="fas fa-star w-6"></i> Closing</a>`;
-            sidebarMenu.innerHTML = html;
-        }
-
-        function renderSections() {
-            intContainer.innerHTML = intelligenceData.map(item => `
-                <section id="${item.id}" class="mb-16 pt-4">
-                    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-earth-200">
-                        <div class="bg-${item.color}-100 p-6 flex items-center gap-4 border-b border-${item.color}-200">
-                            <i class="fas ${item.icon} text-4xl text-${item.color}-600"></i>
-                            <div>
-                                <h3 class="text-2xl font-bold text-earth-800">${item.name}</h3>
-                                <p class="text-sm text-earth-600">${item.desc}</p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <h4 class="font-bold text-gray-700 mb-4 flex items-center"><i class="fas fa-th mr-2"></i>Galeri 10 Media Pembelajaran</h4>
-                            <div class="media-grid">
-                                ${item.media.map((m, idx) => `
-                                    <div onclick="openMedia('${item.id}', ${idx})" class="media-card bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-${item.color}-400 flex flex-col items-center text-center h-full">
-                                        <div class="w-12 h-12 rounded-full bg-${item.color}-50 flex items-center justify-center mb-3 text-${item.color}-600 text-xl">
-                                            <i class="fas ${m.icon}"></i>
-                                        </div>
-                                        <h5 class="font-bold text-sm text-gray-800 leading-tight mb-1">${m.title}</h5>
-                                        <span class="text-[10px] uppercase tracking-wider font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded-full mt-auto">${m.type}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
+    <div id="profile-modal" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 hidden">
+        <div class="bg-[#FDFCF5] w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-earth-300">
+            <div class="p-6 bg-earth-800 text-white flex justify-between items-center">
+                <h3 class="text-xl font-bold font-serif"><i class="fas fa-leaf mr-2"></i> Jejak Belajar</h3>
+                <button onclick="document.getElementById('profile-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-accent-red flex items-center justify-center transition"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-8 overflow-y-auto space-y-8">
+                <div class="flex items-center gap-6 pb-6 border-b border-earth-200">
+                    <div class="w-20 h-20 bg-accent-yellow/20 rounded-full flex items-center justify-center text-4xl text-accent-yellow border-2 border-accent-yellow">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h4 id="profile-name" class="text-2xl font-bold text-earth-900">Guest</h4>
+                        <div class="flex gap-4 mt-2 text-sm text-earth-700 font-medium">
+                            <span><i class="fas fa-fire text-accent-orange"></i> Streak: <b id="streak-count">0</b> Hari</span>
+                            <span><i class="fas fa-star text-accent-yellow"></i> XP: <b id="xp-count">0</b></span>
                         </div>
                     </div>
-                </section>
-            `).join('');
+                </div>
+                <div class="bg-earth-100 border border-earth-200 rounded-2xl p-6 relative">
+                    <div class="absolute -top-3 -right-3 bg-earth-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">AI Insight</div>
+                    <h4 class="font-bold text-earth-800 mb-4 flex items-center gap-2"><i class="fas fa-brain text-earth-600"></i> Analisis Gaya Belajar</h4>
+                    <p id="ai-feedback-text" class="text-earth-700 leading-relaxed italic text-sm">Belum cukup data. Cobalah berinteraksi dengan beberapa modul Aljabar.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-earth-800 mb-4">Pencapaian</h4>
+                    <div id="badge-container" class="grid grid-cols-4 gap-4"></div>
+                </div>
+                <div class="pt-6 border-t border-earth-200 flex gap-3">
+                    <button onclick="exportData()" class="px-4 py-2 border border-earth-300 rounded-lg text-sm text-earth-700 hover:bg-white"><i class="fas fa-download"></i> Backup</button>
+                    <button onclick="clearData()" class="px-4 py-2 border border-accent-red text-accent-red rounded-lg text-sm hover:bg-red-50"><i class="fas fa-trash"></i> Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- 0. DATA PRIVACY & STORAGE MANAGER ---
+    const STORAGE_KEY = 'math_minds_user_v2_aljabar';
+    let userProfile = {
+        name: '', streak: 1, lastVisit: new Date().toDateString(), xp: 0, badges: [],
+        progress: { modulesVisited: {}, timePerType: {}, quizzesTaken: 0, quizzesCorrect: 0 }
+    };
+
+    function loadUser() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if(saved) {
+            userProfile = JSON.parse(saved);
+            const today = new Date().toDateString();
+            if(userProfile.lastVisit !== today) {
+                const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+                if(userProfile.lastVisit === yesterday.toDateString()) userProfile.streak++;
+                else userProfile.streak = 1;
+                userProfile.lastVisit = today;
+            }
         }
+        saveUser();
+    }
+    function saveUser() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userProfile)); updateProfileUI(); }
+    function addXP(amount) { userProfile.xp += amount; saveUser(); }
+    function unlockBadge(id) {
+        if(!userProfile.badges.includes(id)) {
+            userProfile.badges.push(id);
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#606C38', '#BC6C25', '#DDA15E'] });
+            saveUser();
+            alert(`🏅 Badge Unlocked: ${id.toUpperCase()}!`);
+        }
+    }
+    function clearData() { if(confirm('Hapus semua progres?')) { localStorage.removeItem(STORAGE_KEY); location.reload(); } }
+    function exportData() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userProfile));
+        const anchor = document.createElement('a'); anchor.setAttribute("href", dataStr); anchor.setAttribute("download", "math_backup.json");
+        document.body.appendChild(anchor); anchor.click(); anchor.remove();
+    }
 
-        function openMedia(catId, index) {
-            const item = intelligenceData.find(x => x.id === catId).media[index];
-            const color = intelligenceData.find(x => x.id === catId).color;
-            
-            modalTitle.innerHTML = `<i class="fas ${item.icon} mr-2"></i> ${item.title}`;
-            document.getElementById('modal-header').className = `p-4 flex justify-between items-center text-white bg-${color}-600`;
-            
-            let contentHtml = "";
+    // --- 1. DATA STRUCTURE (REVISED FOR ALGEBRA PHASE D) ---
+    const intelligenceData = [
+        { 
+            id: "linguistic", name: "Verbal Linguistic", icon: "fa-comments", color: "accent-yellow", hex: "#DDA15E", 
+            desc: "Memahami Aljabar lewat Kata & Cerita", 
+            media: [
+                { 
+                    title: "Penerjemah Aljabar", icon: "fa-language", type: "app", appType: "story", 
+                    desc: "Ubah kalimat sehari-hari menjadi bentuk aljabar.",
+                    contentList: [
+                        { prompt: "Uang Jajan", ex: "3x + 5000", obj1: "Hari (x)", obj2: "Sisa Uang" },
+                        { prompt: "Tarif Taksi", ex: "y = 3000x + 7000", obj1: "Jarak KM (x)", obj2: "Buka Pintu" },
+                        { prompt: "Keliling Kebun", ex: "K = 2(p + l)", obj1: "Panjang", obj2: "Lebar" },
+                        { prompt: "SPLDV: Belanja", ex: "2b + 3p = 15000", obj1: "Buku (b)", obj2: "Pena (p)" },
+                        { prompt: "Suhu Udara", ex: "T = -2h + 30", obj1: "Ketinggian (h)", obj2: "Suhu Awal" }
+                    ]
+                },
+                { 
+                    title: "Definisi Relasi & Fungsi", icon: "fa-book", type: "flashcard", 
+                    desc: "Hafalan istilah penting.",
+                    contentList: [
+                        { cards: [{f:"Domain", b:"Daerah Asal (Himpunan input)"}] },
+                        { cards: [{f:"Kodomain", b:"Daerah Kawan (Himpunan tujuan)"}] },
+                        { cards: [{f:"Range", b:"Daerah Hasil (Anggota kodomain yang terpilih)"}] },
+                        { cards: [{f:"Fungsi (Pemetaan)", b:"Relasi dimana setiap anggota domain punya TEPAT SATU pasangan"}] },
+                        { cards: [{f:"Korespondensi 1-1", b:"Setiap anggota domain dan kodomain berpasangan tepat satu"}] }
+                    ]
+                },
+                { 
+                    title: "Sifat Operasi (Narasi)", icon: "fa-microphone-alt", type: "input", inputType: "textarea", 
+                    desc: "Jelaskan sifat operasi dengan kata-katamu.",
+                    contentList: [
+                        { prompt: "Jelaskan Sifat Komutatif (a+b = b+a) dengan analogi perjalanan pulang-pergi." },
+                        { prompt: "Jelaskan Sifat Distributif a(b+c) = ab + ac menggunakan analogi membagikan permen." },
+                        { prompt: "Kenapa (a-b) tidak sama dengan (b-a)? Jelaskan dengan contoh hutang." },
+                        { prompt: "Buat cerita tentang Variabel X yang mencari nilai aslinya dalam persamaan 2x + 5 = 15." }
+                    ]
+                },
+                { 
+                    title: "Kamus SPLDV", icon: "fa-spell-check", type: "quiz", 
+                    desc: "Istilah Sistem Persamaan Linear.",
+                    contentList: [
+                        { question: "Metode menghilangkan satu variabel disebut?", options: ["Eliminasi", "Substitusi", "Campuran", "Grafik"], answer: 0 },
+                        { question: "Metode mengganti variabel dengan persamaan lain?", options: ["Substitusi", "Eliminasi", "Distribusi", "Asosiasi"], answer: 0 },
+                        { question: "Titik potong dua garis dalam grafik SPLDV menunjukan?", options: ["Himpunan Penyelesaian", "Gradien", "Intercept", "Domain"], answer: 0 }
+                    ]
+                }
+            ]
+        },
+        { 
+            id: "logical", name: "Logical Mathematical", icon: "fa-calculator", color: "earth-600", hex: "#606C38", 
+            desc: "Analisis Pola, Angka & Logika", 
+            media: [
+                { 
+                    title: "Detektif Pola", icon: "fa-search-plus", type: "app", appType: "pattern", 
+                    desc: "Prediksi suku berikutnya dari barisan bilangan."
+                },
+                { 
+                    title: "Logika PLSV", icon: "fa-balance-scale-right", type: "quiz", 
+                    desc: "Selesaikan Persamaan Linear Satu Variabel.",
+                    contentList: [
+                        { question: "Jika 3x + 5 = 14, maka x adalah...", options: ["3", "4", "2", "9"], answer: 0, explanation: "3x = 14-5 -> 3x = 9 -> x = 3" },
+                        { question: "Penyelesaian 2(x - 3) = 10", options: ["8", "5", "6", "7"], answer: 0, explanation: "2x - 6 = 10 -> 2x = 16 -> x = 8" },
+                        { question: "Pertidaksamaan: 2x < 10. Nilai x bilangan asli adalah?", options: ["{1,2,3,4}", "{1,2,3,4,5}", "{0,1,2,3,4}", "{5,6,7}"], answer: 0 }
+                    ]
+                },
+                { 
+                    title: "Linear vs Nonlinear", icon: "fa-chart-line", type: "quiz", 
+                    desc: "Bedakan fungsi berdasarkan logika perubahannya.",
+                    contentList: [
+                        { question: "Manakah yang merupakan fungsi linear (garis lurus)?", options: ["y = 2x + 1", "y = x²", "y = 2/x", "y = x³"], answer: 0, explanation: "Pangkat variabel x adalah 1." },
+                        { question: "Grafik y = x² berbentuk?", options: ["Parabola (Lengkung)", "Garis Lurus", "Lingkaran", "Zigzag"], answer: 0 },
+                        { question: "Pola bilangan: 2, 4, 6, 8... (Beda tetap 2). Ini adalah?", options: ["Linear", "Kuadratik", "Eksponensial", "Acak"], answer: 0 }
+                    ]
+                },
+                { 
+                    title: "Algoritma SPLDV", icon: "fa-cogs", type: "app", appType: "sort", 
+                    items: ["Eliminasi variabel x", "Temukan nilai y", "Substitusi nilai y ke persamaan", "Temukan nilai x"], 
+                    desc: "Urutkan langkah penyelesaian SPLDV." 
+                }
+            ]
+        },
+        { 
+            id: "spatial", name: "Visual Spatial", icon: "fa-shapes", color: "accent-orange", hex: "#BC6C25", 
+            desc: "Visualisasi Grafik & Diagram", 
+            media: [
+                { title: "Lab Grafik Linear", icon: "fa-chart-area", type: "app", appType: "graph", desc: "Eksplorasi Gradien (m) dan Konstanta (c). Lihat bagaimana garis berubah." },
+                { 
+                    title: "Diagram Panah", icon: "fa-project-diagram", type: "image", 
+                    imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Injection.svg/220px-Injection.svg.png", 
+                    desc: "Visualisasi Fungsi Injektif (Satu-satu). Cek apakah setiap panah punya pasangan?" 
+                },
+                { title: "Mind Map Aljabar", icon: "fa-sitemap", type: "app", appType: "draw", desc: "Gambar peta konsep: Hubungan Persamaan, Pertidaksamaan, dan Fungsi." },
+                { 
+                    title: "Tebak Grafik", icon: "fa-image", type: "quiz", 
+                    desc: "Identifikasi gambar grafik.",
+                    contentList: [
+                        { question: "Grafik yang naik dari kiri ke kanan memiliki gradien...", options: ["Positif", "Negatif", "Nol", "Tak Terhingga"], answer: 0 },
+                        { question: "Garis mendatar (horizontal) persamaan garisnya adalah...", options: ["y = c", "x = c", "y = x", "y = mx"], answer: 0 },
+                        { question: "Daerah penyelesaian pertidaksamaan y > x biasanya diarsir di...", options: ["Atas garis", "Bawah garis", "Pada garis", "Tidak ada"], answer: 0 }
+                    ]
+                }
+            ]
+        },
+        { 
+            id: "kinesthetic", name: "Bodily Kinesthetic", icon: "fa-running", color: "earth-800", hex: "#5E4934", 
+            desc: "Belajar dengan Gerak & Benda", 
+            media: [
+                { title: "Timbangan PLSV", icon: "fa-balance-scale", type: "app", appType: "balance", desc: "Seimbangkan sisi kiri dan kanan untuk mencari nilai x." },
+                { 
+                    title: "Gerak Gradien", icon: "fa-hiking", type: "task", 
+                    content: "Gunakan lenganmu! Tangan kiri bawah ke kanan atas = Gradien Positif. Tangan kiri atas ke kanan bawah = Gradien Negatif. Datar = Nol.", 
+                    desc: "Hafalan gerak tubuh untuk kemiringan garis." 
+                },
+                { title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", desc: "Pisahkan suku sejenis! (Misal: kumpulkan semua 'x' dan semua konstanta)." },
+                { 
+                    title: "Aljabar Tiles", icon: "fa-th-large", type: "task", 
+                    content: "Potong kertas karton: Persegi besar (x²), Persegi panjang (x), Kotak kecil (1). Susun untuk membuktikan (x+1)(x+2).", 
+                    desc: "Alat peraga manipulatif." 
+                }
+            ]
+        },
+        { 
+            id: "musical", name: "Musical", icon: "fa-music", color: "accent-green", hex: "#606C38", 
+            desc: "Pola Irama & Rumus Nada", 
+            media: [
+                { title: "Rhythm Pattern", icon: "fa-drum", type: "app", appType: "rhythm", desc: "Pola bilangan sebagai ketukan drum. 1, 2, 4, 8..." },
+                { 
+                    title: "Rap SPLDV", icon: "fa-microphone", type: "input", inputType: "textarea", 
+                    prompt: "Buat lirik rap pendek untuk menghafal langkah Eliminasi dan Substitusi.", 
+                    desc: "Menghafal langkah lewat lagu." 
+                },
+                { title: "Frekuensi Nada", icon: "fa-wave-square", type: "app", appType: "wave", desc: "Lihat gelombang suara (Fungsi Trigonometri/Nonlinear dasar)." },
+                { 
+                    title: "Barisan Nada", icon: "fa-music", type: "quiz", 
+                    desc: "Logika barisan dalam musik.",
+                    contentList: [
+                        { question: "Tangga nada Do-Re-Mi... frekuensinya naik mengikuti pola?", options: ["Geometri (Rasio)", "Aritmatika (Beda)", "Acak", "Tetap"], answer: 0 },
+                        { question: "Tempo 4/4 berarti ada 4 ketuk. Ini contoh pola...", options: ["Berulang", "Membesar", "Mengecil", "Fibonacci"], answer: 0 }
+                    ]
+                }
+            ]
+        },
+        { 
+            id: "interpersonal", name: "Interpersonal", icon: "fa-users", color: "accent-orange", hex: "#BC6C25", 
+            desc: "Belajar Bersama & Studi Kasus", 
+            media: [
+                { 
+                    title: "Tawar Menawar", icon: "fa-store", type: "app", appType: "chat", 
+                    chatData: [{sender:"Penjual", msg:"2 kg Apel dan 1 kg Jeruk harganya 50rb."}, {sender:"You", msg:"(Buat model matematika: 2a + j = 50000)"}], 
+                    desc: "Simulasi pasar SPLDV." 
+                },
+                { title: "Survey Fungsi", icon: "fa-poll", type: "input", inputType: "textarea", prompt: "Tanya 5 teman: Ukuran sepatu vs Tinggi Badan. Apakah ada relasi fungsi?", desc: "Pengumpulan data nyata." },
+                { title: "Split Bill", icon: "fa-receipt", type: "app", appType: "calculator", calcType: "bill", desc: "Aplikasi Aljabar: Menghitung patungan makan teman." },
+                { 
+                    title: "Diskusi Kelompok", icon: "fa-comments", type: "task", 
+                    content: "Jelaskan ke temanmu: Apa bedanya 'Relasi' dan 'Fungsi'? Gunakan analogi Siswa dan Nomor Absen.", 
+                    desc: "Teaching others technique." 
+                }
+            ]
+        },
+        { 
+            id: "intrapersonal", name: "Intrapersonal", icon: "fa-user", color: "earth-600", hex: "#606C38", 
+            desc: "Refleksi & Evaluasi Diri", 
+            media: [
+                { title: "Jurnal Kesalahan", icon: "fa-book-open", type: "input", inputType: "textarea", prompt: "Kesalahan apa yang sering aku buat saat memindahkan ruas persamaan? (Tanda +/-?)", desc: "Analisis error mandiri." },
+                { title: "Target Nilai", icon: "fa-bullseye", type: "input", inputType: "textarea", prompt: "Untuk menguasai SPLDV, aku perlu latihan berapa soal per hari?", desc: "Goal setting." },
+                { title: "Mood Tracker", icon: "fa-smile", type: "app", appType: "mood", desc: "Apakah aku cemas saat melihat variabel x dan y?" },
+                { title: "Review Mandiri", icon: "fa-check-square", type: "quiz", question: "Apakah aku sudah paham beda variabel dan koefisien?", options: ["Ya, Paham", "Masih Bingung"], answer: 0, desc: "Self-assessment checklist." }
+            ]
+        },
+        { 
+            id: "naturalist", name: "Naturalist", icon: "fa-leaf", color: "earth-900", hex: "#283618", 
+            desc: "Pola di Alam Semesta", 
+            media: [
+                { title: "Fibonacci Alam", icon: "fa-seedling", type: "app", appType: "draw", desc: "Gambar pola bunga matahari (Barisan Fibonacci: 1, 1, 2, 3, 5...)." },
+                { title: "Pertumbuhan Tanaman", icon: "fa-chart-line", type: "app", appType: "graph", desc: "Grafik tinggi tanaman per hari (Biasanya fungsi Linear atau Logistik)." },
+                { 
+                    title: "Klasifikasi Pola", icon: "fa-filter", type: "app", appType: "sort", 
+                    items: ["Cangkang Siput (Spiral)", "Sarang Lebah (Heksagon)", "Zebra Cross (Garis)", "Petir (Fraktal)"], 
+                    desc: "Mengelompokkan pola geometri alam." 
+                },
+                { 
+                    title: "Populasi Kelinci", icon: "fa-paw", type: "quiz", 
+                    question: "Populasi kelinci membelah diri menjadi 2 setiap bulan. Ini pola barisan?", 
+                    options: ["Geometri (Perkalian)", "Aritmatika (Penjumlahan)", "Linear", "Tetap"], answer: 0, 
+                    desc: "Aplikasi barisan geometri." 
+                }
+            ]
+        }
+    ];
 
-            if(item.type === "card") {
-                contentHtml = `
-                    <div class="flex flex-col items-center justify-center h-full text-center p-8">
-                        <div class="text-9xl text-${color}-200 mb-6"><i class="fas ${item.icon}"></i></div>
-                        <div class="text-2xl font-serif text-gray-700 bg-white p-8 rounded-xl shadow-lg border-l-8 border-${color}-500">
-                            ${item.content}
+    // --- 2. INITIALIZATION & RENDER LOGIC ---
+    document.addEventListener('DOMContentLoaded', () => {
+        loadUser(); renderSidebar(); renderSections(); updateProfileUI();
+        if(userProfile.streak > 1) setTimeout(() => confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 }, colors: ['#606C38'] }), 1000);
+    });
+
+    const loginForm = document.getElementById('login-form');
+    const loginScreen = document.getElementById('login-screen');
+    const appContainer = document.getElementById('app-container');
+
+    function renderSidebar() {
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        let html = `<a href="#introduction" class="group flex items-center gap-3 px-4 py-3 rounded-xl text-earth-800 font-bold hover:bg-earth-200 transition-colors mb-4 border border-transparent hover:border-earth-300">
+            <i class="fas fa-home text-earth-600"></i> <span>Beranda</span>
+        </a><div class="px-4 text-[10px] font-bold text-earth-500 uppercase mb-2 tracking-widest">Gaya Belajar</div>`;
+        intelligenceData.forEach(item => {
+            html += `<a href="#${item.id}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-earth-700 hover:bg-earth-100 transition-all group border border-transparent hover:border-earth-200">
+                <div class="w-6 h-6 rounded flex items-center justify-center text-xs" style="background-color:${item.hex}20; color:${item.hex}"><i class="fas ${item.icon}"></i></div>
+                <span class="group-hover:translate-x-1 transition-transform font-medium">${item.name}</span></a>`;
+        });
+        sidebarMenu.innerHTML = html;
+    }
+
+    function renderSections() {
+        const intContainer = document.getElementById('intelligences-container');
+        if (!intContainer) return;
+        intContainer.innerHTML = intelligenceData.map(item => `
+            <section id="${item.id}" class="scroll-mt-6">
+                <div class="glass-card rounded-3xl overflow-hidden p-1 transition-all duration-500 hover:shadow-2xl">
+                    <div class="p-8 border-b border-earth-200 flex items-center gap-6 relative overflow-hidden" style="background: linear-gradient(to right, ${item.hex}15, transparent)">
+                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm relative z-10 bg-white border border-earth-100" style="color:${item.hex}">
+                            <i class="fas ${item.icon}"></i>
                         </div>
-                        <p class="mt-6 text-gray-500">${item.desc}</p>
-                    </div>`;
-            } 
-            else if(item.type === "text") {
-                 contentHtml = `
-                    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                        <h4 class="text-xl font-bold mb-4 text-${color}-700">Bacaan</h4>
-                        <p class="text-lg leading-relaxed text-gray-700 font-serif">${item.content || item.desc}</p>
-                    </div>`;
-            }
-            else if(item.type === "task") {
-                contentHtml = `
-                    <div class="flex flex-col items-center justify-center h-full">
-                        <div class="bg-yellow-50 border-2 border-yellow-200 border-dashed rounded-2xl p-8 max-w-lg text-center">
-                            <i class="fas fa-tasks text-5xl text-yellow-500 mb-4"></i>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Tantangan Aktivitas!</h3>
-                            <p class="text-xl text-gray-700 mb-6">${item.content}</p>
-                            <button class="px-6 py-2 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 font-bold">Saya Sudah Melakukannya!</button>
+                        <div class="relative z-10">
+                            <h3 class="text-2xl md:text-3xl font-serif font-bold text-earth-900">${item.name}</h3>
+                            <p class="text-earth-600 text-sm md:text-base mt-1 font-medium">${item.desc}</p>
                         </div>
-                    </div>`;
-            }
-            else if(item.type === "quiz") {
-                contentHtml = `
-                    <div class="max-w-lg mx-auto mt-10 bg-white p-8 rounded-xl shadow-md text-center">
-                        <h4 class="text-xl font-bold mb-6 text-gray-800">${item.question}</h4>
-                        <div class="space-y-3">
-                            ${item.options.map((opt, i) => `
-                                <button onclick="checkQuiz(this, ${i === item.answer})" class="w-full p-3 border-2 border-gray-100 rounded-lg hover:bg-gray-50 transition font-medium text-left relative">
-                                    ${opt}
-                                    <span class="feedback absolute right-4 top-3 hidden"></span>
-                                </button>
+                        <div class="absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-white/40 to-transparent"></div>
+                    </div>
+                    <div class="p-6 md:p-8 bg-[#FDFCF5]">
+                        <h4 class="text-xs font-bold text-earth-500 uppercase tracking-widest mb-6 flex items-center gap-2">
+                            <i class="fas fa-cubes"></i> Media Pembelajaran
+                        </h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                            ${item.media.map((m, idx) => `
+                                <div onclick="openMedia('${item.id}', ${idx})" class="media-card bg-white rounded-xl p-4 border border-earth-200 cursor-pointer flex flex-col items-center text-center h-full group relative overflow-hidden hover:border-[${item.hex}]" style="--hover-color:${item.hex}">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform duration-300 bg-earth-50 text-earth-600" style="color:${item.hex}; background-color:${item.hex}15">
+                                        <i class="fas ${m.icon}"></i>
+                                    </div>
+                                    <h5 class="font-bold text-sm text-earth-800 leading-tight mb-2 line-clamp-2">${m.title}</h5>
+                                    <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded-full bg-earth-100 text-earth-500">${m.type === 'app' ? 'Interaktif' : m.type}</span>
+                                </div>
                             `).join('')}
                         </div>
-                    </div>`;
-            }
-            else if(item.type === "app") {
-                contentHtml = renderApp(item.appType, color);
-            }
-            else {
-                contentHtml = `<div class="text-center p-10"><i class="fas fa-tools text-6xl text-gray-300 mb-4"></i><h3 class="text-xl font-bold text-gray-500">Media Interaktif</h3><p>${item.desc}</p><p class="text-xs mt-2 text-gray-400">(Simulasi Tampilan)</p></div>`;
-            }
-
-            modalContent.innerHTML = contentHtml;
-            modal.classList.remove('hidden');
-            
-            if(item.appType === "graph") initGraphApp();
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-            modalContent.innerHTML = ''; 
-        }
-
-        function renderApp(type, color) {
-            if(type === "story") {
-                return `
-                    <div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-sm">
-                        <h4 class="font-bold text-lg mb-4 text-${color}-700">Buat Soal Cerita</h4>
-                        <div class="space-y-3">
-                            <input type="text" id="s-name" placeholder="Nama Tokoh" class="w-full p-2 border rounded">
-                            <input type="text" id="s-obj" placeholder="Nama Benda" class="w-full p-2 border rounded">
-                            <div class="flex gap-2">
-                                <input type="number" id="s-n1" placeholder="Angka 1" class="w-1/2 p-2 border rounded">
-                                <input type="number" id="s-n2" placeholder="Angka 2" class="w-1/2 p-2 border rounded">
-                            </div>
-                            <button onclick="buildStory()" class="w-full bg-${color}-500 text-white py-2 rounded font-bold">Buat!</button>
-                        </div>
-                        <div id="s-result" class="mt-6 p-4 bg-${color}-50 rounded hidden font-serif italic"></div>
-                    </div>`;
-            }
-            if(type === "pattern") {
-                return `
-                    <div class="text-center mt-10">
-                        <div class="text-4xl font-mono font-bold text-${color}-600 mb-8">2, 4, 8, 16, <span id="p-slot" class="bg-gray-200 px-2 rounded">?</span></div>
-                        <div class="flex justify-center gap-4">
-                            <button onclick="checkPattern(24)" class="px-6 py-2 border-2 rounded-full hover:bg-gray-50">24</button>
-                            <button onclick="checkPattern(32)" class="px-6 py-2 border-2 rounded-full hover:bg-gray-50">32</button>
-                            <button onclick="checkPattern(20)" class="px-6 py-2 border-2 rounded-full hover:bg-gray-50">20</button>
-                        </div>
-                        <p id="p-msg" class="mt-4 font-bold h-6"></p>
-                    </div>`;
-            }
-            if(type === "graph") {
-                return `
-                    <div class="grid md:grid-cols-3 gap-4 h-full">
-                        <div class="bg-white p-4 rounded shadow">
-                            <label>Slope (m): <span id="val-m">1</span></label>
-                            <input type="range" min="-5" max="5" step="0.5" value="1" id="sl-m" class="w-full" oninput="drawGraph()">
-                            <label class="mt-4 block">Y-Intercept (c): <span id="val-c">0</span></label>
-                            <input type="range" min="-5" max="5" step="1" value="0" id="sl-c" class="w-full" oninput="drawGraph()">
-                        </div>
-                        <div class="md:col-span-2 bg-gray-100 relative rounded overflow-hidden">
-                            <canvas id="cv-graph" width="500" height="300" class="w-full h-full"></canvas>
-                        </div>
-                    </div>`;
-            }
-            if(type === "dragdrop") {
-                return `
-                    <div class="text-center">
-                        <div class="flex justify-center gap-4 mb-8" id="dd-src">
-                            <div draggable="true" ondragstart="ddStart(event)" id="d1" class="bg-red-500 text-white p-3 rounded cursor-grab">12</div>
-                            <div draggable="true" ondragstart="ddStart(event)" id="d2" class="bg-red-500 text-white p-3 rounded cursor-grab">7</div>
-                            <div draggable="true" ondragstart="ddStart(event)" id="d3" class="bg-red-500 text-white p-3 rounded cursor-grab">25</div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-8 h-40">
-                            <div ondrop="ddDrop(event, 'even')" ondragover="event.preventDefault()" class="border-4 border-dashed border-red-200 bg-red-50 rounded flex items-center justify-center font-bold text-red-300">GENAP</div>
-                            <div ondrop="ddDrop(event, 'odd')" ondragover="event.preventDefault()" class="border-4 border-dashed border-red-200 bg-red-50 rounded flex items-center justify-center font-bold text-red-300">GANJIL</div>
-                        </div>
-                    </div>`;
-            }
-            if(type === "rhythm") {
-                return `
-                    <div class="flex justify-center gap-8 items-center h-full">
-                        <button onclick="playTone(400, 1000)" class="w-32 h-32 rounded-full bg-pink-200 hover:bg-pink-300 flex items-center justify-center text-center font-bold shadow-lg transform active:scale-95 transition">1<br><span class="text-xs font-normal">Whole</span></button>
-                        <button onclick="playTone(400, 500)" class="w-24 h-24 rounded-full bg-pink-300 hover:bg-pink-400 flex items-center justify-center text-center font-bold shadow-lg transform active:scale-95 transition">1/2<br><span class="text-xs font-normal">Half</span></button>
-                        <button onclick="playTone(400, 250)" class="w-16 h-16 rounded-full bg-pink-400 hover:bg-pink-500 flex items-center justify-center text-center font-bold text-white shadow-lg transform active:scale-95 transition">1/4<br><span class="text-xs font-normal">Quarter</span></button>
-                    </div>`;
-            }
-            if(type === "mood") {
-                return `
-                    <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
-                         <h4 class="mb-4 font-bold text-teal-700">Bagaimana Perasaanmu?</h4>
-                         <div class="flex justify-between mb-6 text-3xl cursor-pointer">
-                             <span onclick="alert('Semangat!')">😀</span>
-                             <span onclick="alert('Oke')">😐</span>
-                             <span onclick="alert('Jangan menyerah!')">😢</span>
-                             <span onclick="alert('Ambil napas...')">😠</span>
-                         </div>
-                         <textarea class="w-full border p-2 rounded mb-2" placeholder="Kenapa?"></textarea>
-                         <button class="w-full bg-teal-600 text-white py-2 rounded">Simpan</button>
-                    </div>`;
-            }
-            if(type === "fibonacci") {
-                return `
-                    <div class="flex flex-col items-center justify-center h-full">
-                        <div class="w-64 h-64 bg-yellow-400 rounded-full relative overflow-hidden animate-spin-slow flex items-center justify-center border-4 border-yellow-600">
-                           <div class="absolute w-full h-1 bg-yellow-800 rotate-45"></div>
-                           <div class="absolute w-full h-1 bg-yellow-800 -rotate-45"></div>
-                           <div class="absolute w-1 h-full bg-yellow-800 rotate-45"></div>
-                           <div class="absolute w-1 h-full bg-yellow-800 -rotate-45"></div>
-                           <div class="w-4 h-4 bg-black rounded-full z-10"></div>
-                        </div>
-                        <p class="mt-4 text-gray-600 text-center max-w-md">Bunga matahari menyusun bijinya dalam spiral logaritmik mengikuti deret Fibonacci (1, 1, 2, 3, 5, 8...) untuk efisiensi ruang.</p>
                     </div>
-                `;
-            }
-            return `<div class="p-10 text-center">Aktivitas Interaktif</div>`;
-        }
+                </div>
+            </section>
+        `).join('');
+    }
 
-        function buildStory() {
-            const n = document.getElementById('s-name').value;
-            const o = document.getElementById('s-obj').value;
-            const n1 = parseInt(document.getElementById('s-n1').value);
-            const n2 = parseInt(document.getElementById('s-n2').value);
-            const res = document.getElementById('s-result');
-            res.classList.remove('hidden');
-            res.innerHTML = `${n} memiliki ${n1} ${o}. Kemudian dia menemukan ${n2} ${o} lagi. Total ${o} yang dimiliki ${n} adalah <b>${n1+n2}</b>.`;
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('student-name').value;
+        if(name.trim()) {
+            userProfile.name = name; saveUser();
+            document.getElementById('user-greeting').textContent = `Halo, ${name}!`;
+            loginScreen.style.opacity = '0';
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                appContainer.style.display = 'flex'; void appContainer.offsetWidth; appContainer.style.opacity = '1'; appContainer.style.pointerEvents = 'auto';
+                renderSidebar(); renderSections();
+                const slides = document.querySelectorAll('.story-slide'); if(slides.length > 0) slides[0].classList.add('active');
+            }, 500);
         }
+    });
 
-        function checkQuiz(btn, isCorrect) {
-            const feedback = btn.querySelector('.feedback');
-            feedback.classList.remove('hidden');
-            if(isCorrect) {
-                btn.classList.add('bg-green-100', 'border-green-400');
-                feedback.innerHTML = '<i class="fas fa-check text-green-600"></i>';
-            } else {
-                btn.classList.add('bg-red-100', 'border-red-400');
-                feedback.innerHTML = '<i class="fas fa-times text-red-600"></i>';
-            }
-        }
+    // --- 3. CORE LOGIC (INTERACTIVE APPS) ---
+    let currentCatId, currentMediaIndex, currentSubContentIndex = 0, sessionStartTime = 0;
+    
+    function openMedia(catId, index) {
+        currentCatId = catId; currentMediaIndex = index; currentSubContentIndex = 0; sessionStartTime = Date.now();
+        renderModalContent();
+        document.getElementById('media-modal').classList.remove('hidden');
+        if(!userProfile.progress.modulesVisited[catId]) userProfile.progress.modulesVisited[catId] = 0;
+        userProfile.progress.modulesVisited[catId]++; addXP(5);
+    }
 
-        function checkPattern(ans) {
-            const el = document.getElementById('p-msg');
-            const slot = document.getElementById('p-slot');
-            if(ans === 32) {
-                el.textContent = "Benar! (x2)";
-                el.className = "mt-4 font-bold h-6 text-green-600";
-                slot.textContent = "32"; slot.className = "bg-green-200 px-2 rounded text-green-800";
-            } else {
-                el.textContent = "Coba lagi.";
-                el.className = "mt-4 font-bold h-6 text-red-500";
-            }
-        }
+    function closeModal() {
+        document.getElementById('media-modal').classList.add('hidden');
+        const duration = (Date.now() - sessionStartTime) / 1000;
+        if(!userProfile.progress.timePerType[currentCatId]) userProfile.progress.timePerType[currentCatId] = 0;
+        userProfile.progress.timePerType[currentCatId] += duration; saveUser();
+        setTimeout(() => document.getElementById('modal-content').innerHTML = '', 300);
+    }
 
-        function initGraphApp() { drawGraph(); }
-        function drawGraph() {
-            const canvas = document.getElementById('cv-graph');
-            if(!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const m = parseFloat(document.getElementById('sl-m').value);
-            const c = parseFloat(document.getElementById('sl-c').value);
-            document.getElementById('val-m').textContent = m;
-            document.getElementById('val-c').textContent = c;
-            
-            const w = canvas.width, h = canvas.height;
-            ctx.clearRect(0,0,w,h);
-            
-            ctx.strokeStyle = '#e5e7eb'; ctx.beginPath();
-            for(let i=0; i<=w; i+=20) { ctx.moveTo(i,0); ctx.lineTo(i,h); }
-            for(let i=0; i<=h; i+=20) { ctx.moveTo(0,i); ctx.lineTo(w,i); }
-            ctx.stroke();
-            
-            ctx.strokeStyle = '#374151'; ctx.lineWidth=2; ctx.beginPath();
-            ctx.moveTo(w/2, 0); ctx.lineTo(w/2, h);
-            ctx.moveTo(0, h/2); ctx.lineTo(w, h/2);
-            ctx.stroke();
-            
-            ctx.strokeStyle = '#9333ea'; ctx.lineWidth=3; ctx.beginPath();
-            const scale = 20;
-            for(let px=0; px<=w; px++) {
-                let cx = (px - w/2)/scale;
-                let cy = m*cx + c;
-                let py = h/2 - (cy*scale);
-                if(px===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-            }
-            ctx.stroke();
-        }
+    function navContent(dir) {
+        const cat = intelligenceData.find(x => x.id === currentCatId);
+        const item = cat.media[currentMediaIndex];
+        if(!item.contentList) return;
+        currentSubContentIndex += dir;
+        if(currentSubContentIndex >= item.contentList.length) currentSubContentIndex = 0;
+        else if(currentSubContentIndex < 0) currentSubContentIndex = item.contentList.length - 1;
+        renderModalContent();
+    }
 
-        function ddStart(e) { e.dataTransfer.setData("text", e.target.id); }
-        function ddDrop(e, type) {
-            e.preventDefault();
-            const data = e.dataTransfer.getData("text");
-            const el = document.getElementById(data);
-            const num = parseInt(el.textContent);
-            const isEven = num % 2 === 0;
-            if((type==='even' && isEven) || (type==='odd' && !isEven)) {
-                e.target.appendChild(el);
-                el.classList.remove('bg-red-500'); el.classList.add('bg-green-500');
-            }
-        }
+    // Swipe handlers for mobile
+    let ts = 0, te = 0;
+    document.getElementById('media-modal').addEventListener('touchstart', e => ts = e.changedTouches[0].screenX, {passive:true});
+    document.getElementById('media-modal').addEventListener('touchend', e => { te = e.changedTouches[0].screenX; if(te < ts - 50) navContent(1); if(te > ts + 50) navContent(-1); }, {passive:true});
 
-        const audCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playTone(freq, dur) {
-            const osc = audCtx.createOscillator();
-            const g = audCtx.createGain();
-            osc.connect(g); g.connect(audCtx.destination);
-            osc.frequency.value = freq;
-            osc.start(); 
-            g.gain.exponentialRampToValueAtTime(0.00001, audCtx.currentTime + (dur/1000));
-            setTimeout(() => osc.stop(), dur);
-        }
+    function renderModalContent() {
+        const cat = intelligenceData.find(x => x.id === currentCatId);
+        let item = {...cat.media[currentMediaIndex]};
+        const controls = document.getElementById('nav-controls');
+        
+        if(item.contentList && item.contentList.length > 0) {
+            item = { ...item, ...item.contentList[currentSubContentIndex] };
+            controls.classList.remove('hidden'); controls.classList.add('flex');
+            document.getElementById('nav-counter').innerText = `${currentSubContentIndex + 1}/${cat.media[currentMediaIndex].contentList.length}`;
+        } else { controls.classList.add('hidden'); }
 
-    </script>
+        document.getElementById('modal-title').innerHTML = item.title;
+        document.getElementById('modal-header').style.backgroundColor = cat.hex;
+        const container = document.getElementById('modal-content');
+        let html = '';
+
+        if(item.type === 'app') html = renderApp(item.appType, cat, item);
+        else if(item.type === 'quiz') html = `<div class="max-w-xl mx-auto mt-4 md:mt-10 bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-earth-200 animate-fade-in-up"><div class="w-16 h-16 rounded-full bg-earth-50 text-earth-700 mx-auto flex items-center justify-center text-2xl mb-6 shadow-sm border border-earth-100"><i class="fas fa-question"></i></div><h4 class="text-xl font-bold mb-8 text-earth-800 text-center leading-snug">${item.question}</h4><div class="space-y-3">${item.options.map((opt, i) => `<button onclick="checkQuiz(this, ${i === item.answer}, '${item.explanation || ''}')" class="w-full p-4 rounded-xl border-2 border-earth-100 hover:border-[${cat.hex}] hover:bg-earth-50 transition font-medium text-left relative group flex items-center text-earth-700" style="--hover-color:${cat.hex}"><div class="w-8 h-8 rounded-full bg-earth-200 text-earth-600 font-bold flex items-center justify-center mr-4 text-xs group-hover:bg-[${cat.hex}] group-hover:text-black transition">${String.fromCharCode(65+i)}</div><span class="flex-1">${opt}</span><span class="feedback absolute right-4 hidden text-xl"></span></button>`).join('')}</div><div id="quiz-explanation" class="hidden mt-6 p-4 bg-accent-cream border border-earth-200 rounded-xl text-sm font-medium text-earth-800"></div></div>`;
+        else if(item.type === 'flashcard') html = `<div class="flex flex-col items-center justify-center h-full cursor-pointer perspective-1000 animate-fade-in" onclick="this.querySelector('.f-inner').classList.toggle('rotate-y-180')"><div class="relative w-80 h-52 group"><div class="f-inner relative w-full h-full transition-transform duration-700 transform-style-3d"><div class="absolute inset-0 w-full h-full bg-white rounded-3xl shadow-xl border-2 border-earth-200 flex flex-col items-center justify-center backface-hidden p-6 text-center"><span class="text-xs font-bold text-earth-400 uppercase tracking-widest mb-2">Istilah</span><h3 class="text-2xl font-bold text-earth-800 font-serif">${item.cards[0].f}</h3><p class="text-xs text-earth-400 mt-4"><i class="fas fa-sync"></i> Klik balik</p></div><div class="absolute inset-0 w-full h-full bg-earth-700 text-white rounded-3xl shadow-xl flex flex-col items-center justify-center backface-hidden rotate-y-180 p-6 text-center" style="background-color:${cat.hex}"><span class="text-xs font-bold text-white/70 uppercase tracking-widest mb-2">Definisi</span><h3 class="text-lg font-medium leading-relaxed">${item.cards[0].b}</h3></div></div></div></div>`;
+        else if(item.type === 'image') html = `<div class="flex flex-col items-center justify-center h-full p-4 animate-fade-in"><img src="${item.imgSrc}" class="max-h-[60vh] rounded-2xl shadow-lg bg-white p-2 border border-earth-200" alt="${item.title}"><p class="mt-6 text-lg font-serif text-earth-700 italic text-center bg-white/50 p-4 rounded-xl max-w-xl">${item.desc}</p></div>`;
+        else if(item.type === 'input') html = `<div class="max-w-2xl mx-auto h-full flex flex-col p-4 animate-fade-in"><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-earth-100" style="color:${cat.hex}"><i class="fas ${item.icon}"></i></div><div><h3 class="font-bold text-earth-900 text-lg">${item.title}</h3><p class="text-sm text-earth-500">${item.prompt || item.desc}</p></div></div><textarea id="inp-area" class="flex-1 w-full p-6 bg-white rounded-2xl border-2 border-earth-200 focus:border-earth-400 focus:outline-none resize-none shadow-inner font-serif text-lg leading-relaxed text-earth-700" placeholder="Tulis pemikiranmu...">${localStorage.getItem(`inp_${currentCatId}_${currentMediaIndex}_${currentSubContentIndex}`)||''}</textarea><div class="mt-4 flex justify-between"><span id="saved-msg" class="text-green-600 opacity-0 transition text-sm font-bold">Tersimpan!</span><button onclick="saveInp('${cat.hex}')" class="px-6 py-2 bg-earth-700 text-white rounded-lg hover:opacity-90 transition font-bold shadow-md" style="background-color:${cat.hex}">Simpan</button></div></div>`;
+        else if(item.type === 'task') html = `<div class="flex flex-col items-center justify-center h-full text-center p-4 animate-fade-in"><div class="w-20 h-20 rounded-full bg-earth-100 flex items-center justify-center mb-6 text-3xl text-earth-600 animate-bounce-slow"><i class="fas fa-tasks"></i></div><h3 class="text-xl font-bold text-earth-800 mb-4">Aktivitas Fisik</h3><div class="text-xl font-serif text-earth-800 max-w-lg leading-relaxed bg-white p-8 rounded-2xl border-2 border-dashed border-earth-300 shadow-sm rotate-1 hover:rotate-0 transition duration-300">"${item.content}"</div><button onclick="this.innerHTML='<i class=\'fas fa-check\'></i> Bagus!'; this.className='mt-8 px-8 py-3 bg-accent-green text-white rounded-full font-bold shadow-lg'; addXP(20);" class="mt-8 px-8 py-3 border-2 border-earth-300 rounded-full font-bold text-earth-600 hover:bg-earth-800 hover:text-white transition-all">Selesai</button></div>`;
+
+        container.innerHTML = html;
+        setTimeout(() => {
+            if(item.appType === 'graph' || item.appType === 'balance') drawGraph(cat.hex);
+            if(item.appType === 'draw') initDraw(cat.hex);
+            if(item.appType === 'wave') initWave(cat.hex);
+        }, 100);
+    }
+
+    function renderApp(type, cat, item) {
+        const hex = cat.hex;
+
+        if(type === 'story') return `
+            <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl shadow-sm border border-earth-100 animate-fade-in">
+                <div class="space-y-4">
+                    <p class="text-sm text-earth-500 italic flex items-center gap-2"><i class="fas fa-info-circle"></i> Contoh Model: ${item.ex}</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div><label class="text-xs font-bold text-earth-400 uppercase">Nama Subjek</label><input id="s-n" placeholder="Mis: Budi" class="w-full p-3 bg-earth-50 rounded-lg border border-earth-200 outline-none focus:border-[${hex}] transition"></div>
+                        <div><label class="text-xs font-bold text-earth-400 uppercase">Objek 1 (${item.obj1})</label><input id="s-o1" value="${item.obj1}" class="w-full p-3 bg-earth-50 rounded-lg border border-earth-200"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div><label class="text-xs font-bold text-earth-400 uppercase">Koefisien/Nilai</label><input type="number" id="s-v" placeholder="Angka (Mis: 5)" class="w-full p-3 bg-earth-50 rounded-lg border border-earth-200"></div>
+                        <div><label class="text-xs font-bold text-earth-400 uppercase">Objek 2 (${item.obj2})</label><input id="s-o2" value="${item.obj2}" class="w-full p-3 bg-earth-50 rounded-lg border border-earth-200"></div>
+                    </div>
+                    <button onclick="genStory('${hex}')" class="w-full py-3 rounded-xl text-white font-bold shadow-md hover:opacity-90 mt-2 transition transform active:scale-95" style="background-color:${hex}"><i class="fas fa-magic mr-2"></i> Buat Soal Cerita</button>
+                    <div id="s-res" class="mt-4 p-4 bg-earth-50 rounded-xl hidden border-l-4 text-earth-800 font-serif" style="border-color:${hex}"></div>
+                </div>
+            </div>`;
+
+        if(type === 'pattern') return `
+            <div class="text-center py-8 animate-fade-in">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-earth-200 inline-block mb-8">
+                    <div class="flex justify-center items-center gap-2 text-2xl font-mono font-bold text-earth-800 flex-wrap">
+                        <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg">2</span><i class="fas fa-arrow-right text-earth-400 text-sm"></i>
+                        <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg">4</span><i class="fas fa-arrow-right text-earth-400 text-sm"></i>
+                        <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg">8</span><i class="fas fa-arrow-right text-earth-400 text-sm"></i>
+                        <span id="p-slot" class="w-12 h-12 flex items-center justify-center bg-earth-200 text-earth-500 rounded-lg animate-pulse">?</span>
+                    </div>
+                    <p class="text-xs text-earth-500 mt-4">Pola: Geometri (Dikali 2)</p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    ${[10, 16, 12].map(n => `<button onclick="checkPat(this, ${n===16})" class="w-16 h-16 rounded-xl bg-white border-b-4 border-earth-200 font-bold text-lg hover:-translate-y-1 shadow-sm transition active:border-b-0 active:translate-y-1">${n}</button>`).join('')}
+                </div>
+                <p id="p-msg" class="mt-6 font-bold text-lg h-6"></p>
+            </div>`;
+
+        if(type === 'chat') return `
+            <div class="max-w-md mx-auto h-full flex flex-col bg-white rounded-2xl shadow-lg border border-earth-200 overflow-hidden animate-fade-in">
+                <div class="p-4 bg-earth-100 border-b border-earth-200 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-earth-600"><i class="fas fa-store"></i></div>
+                    <div><h4 class="font-bold text-earth-900 text-sm">Pasar Aljabar</h4><p class="text-[10px] text-earth-500">Online</p></div>
+                </div>
+                <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 bg-[#FDFCF5]">
+                    ${item.chatData.map(c => `<div class="flex flex-col ${c.sender === 'You' ? 'items-end' : 'items-start'}"><div class="${c.sender === 'You' ? `bg-[${hex}] text-white` : 'bg-white text-earth-800 border border-earth-200'} px-4 py-2 rounded-2xl ${c.sender === 'You' ? 'rounded-tr-none' : 'rounded-tl-none'} shadow-sm max-w-[85%] text-sm" style="${c.sender === 'You' ? `background-color:${hex}` : ''}">${c.msg}</div><span class="text-[10px] text-earth-400 mt-1 px-1">${c.sender}</span></div>`).join('')}
+                </div>
+                <div class="p-3 bg-white border-t border-earth-200 flex gap-2">
+                    <input type="text" id="chat-inp" placeholder="Tulis model matematikanya..." class="flex-1 bg-earth-50 rounded-full px-4 py-2 text-sm focus:outline-none border border-transparent focus:border-[${hex}] transition">
+                    <button onclick="replyChat('${hex}')" class="w-10 h-10 rounded-full text-white flex items-center justify-center shadow-md hover:scale-105 transition" style="background-color:${hex}"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>`;
+
+        if(type === 'rhythm') return `
+            <div class="flex flex-col items-center justify-center h-full gap-8 animate-fade-in text-center">
+                <div class="bg-earth-800 text-white p-4 rounded-xl shadow-lg mb-4">
+                    <p class="font-mono text-2xl tracking-widest" id="beat-display">1 - 2 - 4 - 8</p>
+                    <p class="text-xs text-earth-300 mt-1">Barisan Geometri (Rasio 2)</p>
+                </div>
+                <div class="flex gap-4 items-end justify-center">
+                    <button onclick="playBeat(1, this)" class="beat-btn w-16 h-16 rounded-full bg-earth-200 border-4 border-earth-300 flex items-center justify-center text-xl font-bold text-earth-600 hover:bg-white transition active:scale-95">1</button>
+                    <button onclick="playBeat(2, this)" class="beat-btn w-20 h-20 rounded-full bg-earth-300 border-4 border-earth-400 flex items-center justify-center text-2xl font-bold text-earth-700 hover:bg-white transition active:scale-95">2</button>
+                    <button onclick="playBeat(4, this)" class="beat-btn w-24 h-24 rounded-full bg-earth-400 border-4 border-earth-500 flex items-center justify-center text-3xl font-bold text-earth-800 hover:bg-white transition active:scale-95">4</button>
+                    <button onclick="playBeat(8, this)" class="beat-btn w-28 h-28 rounded-full border-4 border-earth-600 flex items-center justify-center text-4xl font-bold text-white shadow-xl hover:scale-105 transition active:scale-95" style="background-color:${hex}">8</button>
+                </div>
+                <p class="text-sm text-earth-500 bg-earth-100 px-4 py-2 rounded-full">Ketuk tombol untuk mendengar pola pertambahan nilai</p>
+            </div>`;
+
+        if(type === 'mood') return `
+            <div class="max-w-lg mx-auto h-full flex flex-col justify-center animate-fade-in text-center">
+                <h4 class="text-xl font-serif text-earth-800 mb-8">Bagaimana perasaanmu melihat soal Aljabar hari ini?</h4>
+                <div class="flex justify-center gap-4 mb-8">
+                    <button onclick="setMood('cemas', '${hex}')" class="mood-btn group flex flex-col items-center transition hover:-translate-y-2"><div class="text-5xl mb-2 grayscale group-hover:grayscale-0 transition duration-300">😰</div><span class="text-xs font-bold text-earth-400 group-hover:text-earth-800">Cemas</span></button>
+                    <button onclick="setMood('bingung', '${hex}')" class="mood-btn group flex flex-col items-center transition hover:-translate-y-2"><div class="text-5xl mb-2 grayscale group-hover:grayscale-0 transition duration-300">🤔</div><span class="text-xs font-bold text-earth-400 group-hover:text-earth-800">Bingung</span></button>
+                    <button onclick="setMood('paham', '${hex}')" class="mood-btn group flex flex-col items-center transition hover:-translate-y-2"><div class="text-5xl mb-2 grayscale group-hover:grayscale-0 transition duration-300">🤩</div><span class="text-xs font-bold text-earth-400 group-hover:text-earth-800">Paham</span></button>
+                </div>
+                <div id="mood-response" class="hidden p-6 bg-white rounded-2xl border-2 border-dashed text-earth-700 shadow-sm" style="border-color:${hex}"></div>
+            </div>`;
+
+        if(type === 'calculator' && item.calcType === 'bill') return `
+            <div class="max-w-sm mx-auto bg-white p-6 rounded-3xl shadow-lg border border-earth-100 animate-fade-in">
+                <div class="text-center mb-6"><div class="w-12 h-12 bg-earth-100 rounded-full flex items-center justify-center mx-auto mb-2 text-earth-600"><i class="fas fa-receipt"></i></div><h4 class="font-bold text-earth-800">Patungan Aljabar</h4><p class="text-xs text-earth-500 font-mono">Rumus: y = (Total + Pajak) / n</p></div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-earth-100 pb-2"><label class="text-sm text-earth-600">Total Harga (Rp)</label><input type="number" id="bill-tot" value="100000" class="text-right font-bold text-earth-800 outline-none w-24"></div>
+                    <div class="flex justify-between items-center border-b border-earth-100 pb-2"><label class="text-sm text-earth-600">Pajak (%)</label><input type="number" id="bill-tax" value="10" class="text-right font-bold text-earth-800 outline-none w-16"></div>
+                    <div class="flex justify-between items-center border-b border-earth-100 pb-2"><label class="text-sm text-earth-600">Jml Orang (n)</label><input type="number" id="bill-ppl" value="4" class="text-right font-bold text-earth-800 outline-none w-16"></div>
+                    <div class="bg-earth-50 p-4 rounded-xl mt-4 text-center"><p class="text-xs text-earth-400 uppercase tracking-widest mb-1">Per Orang Bayar</p><h2 class="text-3xl font-bold" id="bill-res" style="color:${hex}">Rp 27.500</h2></div>
+                    <button onclick="calcBill()" class="w-full py-2 bg-earth-800 text-white rounded-lg text-sm font-bold hover:bg-earth-900 transition">Hitung Ulang</button>
+                </div>
+            </div>`;
+
+        if(type === 'wave') return `
+            <div class="flex flex-col h-full animate-fade-in">
+                <div class="bg-earth-900 rounded-2xl p-4 shadow-inner relative overflow-hidden flex-1 mb-4">
+                    <canvas id="cv-wave" class="w-full h-full block"></canvas>
+                    <div class="absolute top-4 left-4 text-xs font-mono text-green-400 opacity-70">f(x) = A sin(kx)</div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-earth-200">
+                    <div class="mb-4"><label class="flex justify-between text-xs font-bold text-earth-500 uppercase mb-2"><span>Amplitudo (A)</span> <span id="val-amp">50</span></label><input type="range" min="10" max="100" value="50" id="sl-amp" class="w-full accent-[${hex}]" oninput="updateWave('${hex}')"></div>
+                    <div><label class="flex justify-between text-xs font-bold text-earth-500 uppercase mb-2"><span>Frekuensi (k)</span> <span id="val-freq">5</span></label><input type="range" min="1" max="20" value="5" id="sl-freq" class="w-full accent-[${hex}]" oninput="updateWave('${hex}')"></div>
+                </div>
+            </div>`;
+
+        if(type === 'dragdrop') return `
+            <div class="h-full flex flex-col animate-fade-in relative">
+                <p class="text-center text-earth-600 mb-4 text-sm font-medium">Kelompokkan elemen aljabar ke keranjang yang benar!</p>
+                <div class="flex justify-center gap-3 mb-8 flex-wrap">
+                    ${['3x', '5', '-2y', '10', 'x', '-7'].map(val => `<div draggable="true" ondragstart="ddStart(event)" id="drag-${val}" class="px-4 py-2 bg-white border-2 rounded-lg shadow-sm cursor-grab hover:scale-105 transition font-bold text-earth-700 select-none z-10" style="border-color:${hex}">${val}</div>`).join('')}
+                </div>
+                <div class="grid grid-cols-2 gap-4 flex-1">
+                    <div ondrop="ddDrop(event, 'var')" ondragover="allowDrop(event)" class="bg-earth-50 border-2 border-dashed border-earth-300 rounded-2xl flex flex-col items-center justify-start p-4 transition hover:bg-white hover:border-[${hex}]"><i class="fas fa-cube text-2xl text-earth-300 mb-2"></i><span class="text-xs font-bold uppercase text-earth-500 mb-4">Variabel (Huruf)</span><div class="w-full flex flex-wrap gap-2 justify-center min-h-[50px]"></div></div>
+                    <div ondrop="ddDrop(event, 'const')" ondragover="allowDrop(event)" class="bg-earth-50 border-2 border-dashed border-earth-300 rounded-2xl flex flex-col items-center justify-start p-4 transition hover:bg-white hover:border-[${hex}]"><i class="fas fa-hashtag text-2xl text-earth-300 mb-2"></i><span class="text-xs font-bold uppercase text-earth-500 mb-4">Konstanta (Angka)</span><div class="w-full flex flex-wrap gap-2 justify-center min-h-[50px]"></div></div>
+                </div>
+            </div>`;
+
+        if(type === 'sort') return `
+            <div class="max-w-md mx-auto animate-fade-in">
+                <p class="text-center text-earth-500 mb-4 text-sm">Urutkan langkah yang benar</p>
+                <div class="space-y-2">${item.items.map((txt,i)=>`<div class="p-3 bg-white border border-earth-200 rounded-lg shadow-sm flex justify-between items-center group hover:border-[${hex}] transition"><span class="font-bold text-earth-700 text-sm">${i+1}. ${txt}</span><i class="fas fa-bars text-earth-300 group-hover:text-[${hex}]"></i></div>`).join('')}</div>
+                <button class="w-full mt-6 py-3 text-white font-bold rounded-lg shadow-md hover:opacity-90 transition active:scale-95" style="background-color:${hex}" onclick="this.innerText='Benar! (+10 XP)'; this.style.backgroundColor='#606C38'; addXP(10); confetti({particleCount:30, spread:50});">Cek Jawaban</button>
+            </div>`;
+
+        if(type === 'graph' || type === 'balance') return `
+            <div class="grid md:grid-cols-3 gap-6 h-full animate-fade-in">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-earth-100 flex flex-col justify-center order-2 md:order-1 space-y-6">
+                    <div><label class="flex justify-between text-xs font-bold text-earth-400 uppercase mb-2"><span>Gradien (m)</span> <span class="text-earth-800 font-mono bg-earth-100 px-2 rounded" id="val-m">1</span></label><input type="range" min="-5" max="5" step="0.5" value="1" id="sl-m" class="w-full accent-[${hex}]" oninput="drawGraph('${hex}')"></div>
+                    <div><label class="flex justify-between text-xs font-bold text-earth-400 uppercase mb-2"><span>Konstanta (c)</span> <span class="text-earth-800 font-mono bg-earth-100 px-2 rounded" id="val-c">0</span></label><input type="range" min="-5" max="5" value="0" id="sl-c" class="w-full accent-[${hex}]" oninput="drawGraph('${hex}')"></div>
+                    <p class="text-[10px] text-earth-400 italic text-center">Geser slider untuk melihat perubahan garis y = mx + c</p>
+                </div>
+                <div class="md:col-span-2 bg-white rounded-2xl shadow-inner border border-earth-200 relative p-2 order-1 md:order-2 overflow-hidden"><canvas id="cv-graph" width="600" height="350" class="w-full h-full object-contain"></canvas></div>
+            </div>`;
+
+        if(type === 'draw') return `
+            <div class="h-full flex flex-col animate-fade-in">
+                <div class="flex-1 bg-white rounded-2xl shadow-inner border border-earth-200 relative overflow-hidden touch-none cursor-crosshair">
+                    <canvas id="cv-draw" class="w-full h-full"></canvas>
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 p-1.5 rounded-full shadow-lg border border-earth-100 flex gap-3 backdrop-blur-sm">
+                        <button onclick="clsDraw()" class="w-9 h-9 rounded-full bg-red-50 text-red-500 hover:bg-red-100 transition flex items-center justify-center tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                        <div class="w-px h-6 bg-earth-200 my-auto"></div><div class="flex items-center gap-1 px-2 text-xs font-bold text-earth-400 uppercase">Mode Gambar</div>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-earth-400 mt-2">Gunakan jari atau mouse untuk menggambar</p>
+            </div>`;
+
+        return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
+    }
+
+    // --- 4. APP HELPER FUNCTIONS ---
+    
+    // Quiz
+    window.checkQuiz = function(btn, cor, exp) {
+        userProfile.progress.quizzesTaken++;
+        const fb = btn.querySelector('.feedback'); fb.classList.remove('hidden');
+        if(cor) { userProfile.progress.quizzesCorrect++; addXP(15); btn.className = "w-full p-4 rounded-xl border-2 border-green-500 bg-green-50 text-green-800 font-bold text-left flex items-center"; fb.innerHTML='<i class="fas fa-check"></i>'; if(userProfile.progress.quizzesCorrect>=5) unlockBadge('quiz_master'); } 
+        else { btn.className = "w-full p-4 rounded-xl border-2 border-red-400 bg-red-50 text-red-800 font-bold text-left flex items-center"; fb.innerHTML='<i class="fas fa-times"></i>'; }
+        if(exp) document.getElementById('quiz-explanation').innerHTML = `<strong class="block mb-1 text-earth-900">💡 Penjelasan:</strong> ${exp}`; document.getElementById('quiz-explanation').classList.remove('hidden');
+        saveUser();
+    };
+
+    // Story Builder
+    window.genStory = function(hex) {
+        const n = document.getElementById('s-n').value||'Budi'; const v = document.getElementById('s-v').value||5;
+        const o1 = document.getElementById('s-o1').value||'Buku'; const res = document.getElementById('s-res');
+        res.classList.remove('hidden');
+        res.innerHTML = `<b>Cerita Aljabar:</b><br>"${n} membeli ${v} buah ${o1} dengan harga total y rupiah."<br><br><span class="bg-earth-100 px-2 py-1 rounded text-sm font-mono border border-earth-200">Model: y = ${v}x</span>`;
+        addXP(10);
+    };
+
+    // Pattern
+    window.checkPat = function(btn, cor) {
+        if(cor) { document.getElementById('p-msg').innerText="Benar! (x2)"; document.getElementById('p-msg').className="mt-6 font-bold text-lg h-6 text-green-600"; document.getElementById('p-slot').innerText="16"; addXP(10); } 
+        else { document.getElementById('p-msg').innerText="Coba lagi..."; document.getElementById('p-msg').className="mt-6 font-bold text-lg h-6 text-red-500"; }
+    };
+
+    // Input Save
+    window.saveInp = function(hex) {
+        const val = document.getElementById('inp-area').value;
+        localStorage.setItem(`inp_${currentCatId}_${currentMediaIndex}_${currentSubContentIndex}`, val);
+        const m = document.getElementById('saved-msg'); m.style.opacity=1; setTimeout(()=>m.style.opacity=0, 2000); addXP(5);
+    };
+
+    // Graph Canvas
+    window.drawGraph = function(hex) {
+        const cv = document.getElementById('cv-graph'); if(!cv)return; const ctx = cv.getContext('2d');
+        const m = parseFloat(document.getElementById('sl-m').value); const c = parseFloat(document.getElementById('sl-c').value);
+        if(document.getElementById('val-m')) document.getElementById('val-m').innerText = m;
+        if(document.getElementById('val-c')) document.getElementById('val-c').innerText = c;
+        const w = cv.width, h = cv.height; ctx.clearRect(0,0,w,h);
+        ctx.strokeStyle='#E6E2D3'; ctx.lineWidth=1; ctx.beginPath(); for(let i=0;i<=w;i+=40){ctx.moveTo(i,0);ctx.lineTo(i,h);} for(let i=0;i<=h;i+=40){ctx.moveTo(0,i);ctx.lineTo(w,i);} ctx.stroke();
+        ctx.strokeStyle='#B09E80'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2,h); ctx.moveTo(0,h/2); ctx.lineTo(w,h/2); ctx.stroke();
+        ctx.strokeStyle=hex; ctx.lineWidth=4; ctx.beginPath();
+        const sc=40, x1=-8, y1=m*x1+c, x2=8, y2=m*x2+c;
+        ctx.moveTo(w/2+x1*sc, h/2-y1*sc); ctx.lineTo(w/2+x2*sc, h/2-y2*sc); ctx.stroke();
+    };
+
+    // Free Draw
+    window.initDraw = function(hex) {
+        const cv = document.getElementById('cv-draw'); if(!cv)return; const ctx = cv.getContext('2d');
+        cv.width = cv.parentElement.clientWidth; cv.height = cv.parentElement.clientHeight;
+        let p = false; 
+        const start = e => { p=true; draw(e); }; const end = () => { p=false; ctx.beginPath(); };
+        const draw = e => { 
+            if(!p) return; const r = cv.getBoundingClientRect();
+            ctx.lineWidth=3; ctx.lineCap='round'; ctx.strokeStyle=hex;
+            const x = (e.clientX||e.touches[0].clientX)-r.left; const y = (e.clientY||e.touches[0].clientY)-r.top;
+            ctx.lineTo(x,y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x,y);
+        };
+        cv.onmousedown=start; cv.onmouseup=end; cv.onmousemove=draw; cv.ontouchstart=start; cv.ontouchend=end; cv.ontouchmove=draw;
+    };
+    window.clsDraw = function() { const cv=document.getElementById('cv-draw'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height); };
+
+    // Chat Reply
+    window.replyChat = function(hex) {
+        const inp = document.getElementById('chat-inp'); const box = document.getElementById('chat-box');
+        if(!inp.value.trim()) return;
+        box.innerHTML += `<div class="flex flex-col items-end animate-fade-in-up"><div class="bg-[${hex}] text-white px-4 py-2 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-sm" style="background-color:${hex}">${inp.value}</div><span class="text-[10px] text-earth-400 mt-1 px-1">You</span></div>`;
+        const txt = inp.value; inp.value=''; box.scrollTop=box.scrollHeight;
+        setTimeout(() => {
+            let r = "Coba lagi..."; if(txt.includes('=')||txt.includes('+')) { r="Model matematikanya terlihat bagus!"; addXP(5); }
+            box.innerHTML += `<div class="flex flex-col items-start animate-fade-in-up"><div class="bg-white text-earth-800 border border-earth-200 px-4 py-2 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-sm">${r}</div><span class="text-[10px] text-earth-400 mt-1 px-1">Penjual</span></div>`; box.scrollTop=box.scrollHeight;
+        }, 800);
+    };
+
+    // Rhythm
+    window.playBeat = function(val, btn) {
+        btn.classList.add('scale-90', 'ring-4'); setTimeout(()=>btn.classList.remove('scale-90','ring-4'), 150);
+        const ctx = new (window.AudioContext||window.webkitAudioContext)();
+        const osc = ctx.createOscillator(); const g = ctx.createGain();
+        osc.connect(g); g.connect(ctx.destination);
+        const f = {1:261.63, 2:329.63, 4:392.00, 8:523.25}; osc.frequency.value=f[val];
+        osc.start(); g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime+0.5); setTimeout(()=>osc.stop(),500);
+    };
+
+    // Mood
+    window.setMood = function(m, hex) {
+        const r = document.getElementById('mood-response');
+        const map = {'cemas':"Tarik napas, matematika itu proses.", 'bingung':"Bingung tanda belajar!", 'paham':"Pertahankan!"};
+        r.classList.remove('hidden'); r.innerHTML=`<b>AI:</b> "${map[m]}"`; addXP(5);
+    };
+
+    // Bill
+    window.calcBill = function() {
+        const t = parseFloat(document.getElementById('bill-tot').value)||0;
+        const tx = parseFloat(document.getElementById('bill-tax').value)||0;
+        const n = parseFloat(document.getElementById('bill-ppl').value)||1;
+        document.getElementById('bill-res').innerText = "Rp "+Math.round((t+(t*tx/100))/n).toLocaleString('id-ID');
+    };
+
+    // Wave
+    window.initWave = function(hex) { window.updateWave(hex); };
+    window.updateWave = function(hex) {
+        const cv = document.getElementById('cv-wave'); if(!cv)return; const ctx = cv.getContext('2d');
+        const w=cv.width=cv.parentElement.clientWidth; const h=cv.height=cv.parentElement.clientHeight;
+        const a=parseInt(document.getElementById('sl-amp').value); const f=parseInt(document.getElementById('sl-freq').value);
+        if(document.getElementById('val-amp')) document.getElementById('val-amp').innerText=a;
+        if(document.getElementById('val-freq')) document.getElementById('val-freq').innerText=f;
+        ctx.clearRect(0,0,w,h); ctx.beginPath(); ctx.moveTo(0,h/2); ctx.strokeStyle=hex; ctx.lineWidth=3;
+        for(let x=0;x<w;x++) ctx.lineTo(x, h/2 + a*Math.sin((f*0.01)*x)); ctx.stroke();
+    };
+
+    // Drag Drop
+    window.allowDrop = e => e.preventDefault();
+    window.ddStart = e => e.dataTransfer.setData("text", e.target.id);
+    window.ddDrop = (e, t) => {
+        e.preventDefault(); const id = e.dataTransfer.getData("text"); const el = document.getElementById(id); if(!el)return;
+        const isV = /[a-zA-Z]/.test(el.innerText); const ok = (t==='var'&&isV) || (t==='const'&&!isV);
+        if(ok) { e.currentTarget.querySelector('div').appendChild(el); el.className="px-3 py-1 bg-white border border-green-500 text-green-700 rounded shadow-sm text-sm font-bold"; el.draggable=false; addXP(5); }
+        else { el.classList.add('bg-red-100','shake'); setTimeout(()=>el.classList.remove('bg-red-100','shake'),500); }
+    };
+    
+    // --- 5. PROFILE & AI ---
+    window.openProfile = function() {
+        updateProfileUI(); genAI(); document.getElementById('profile-modal').classList.remove('hidden');
+    }
+    function updateProfileUI() {
+        document.getElementById('profile-name').innerText = userProfile.name||'Tamu';
+        document.getElementById('streak-count').innerText = userProfile.streak;
+        document.getElementById('xp-count').innerText = userProfile.xp;
+        const badges = [{id:'quiz_master',n:'Master Kuis',i:'fa-crown'}, {id:'explorer',n:'Penjelajah',i:'fa-compass'}];
+        document.getElementById('badge-container').innerHTML = badges.map(b => {
+            const un = userProfile.badges.includes(b.id);
+            return `<div class="flex flex-col items-center text-center"><div class="w-10 h-10 rounded-full flex items-center justify-center text-sm mb-1 ${un?'bg-accent-yellow text-white badge-unlocked':'bg-earth-200 text-earth-400 badge-locked'}"><i class="fas ${b.i}"></i></div><span class="text-[10px] font-bold text-earth-600">${b.n}</span></div>`;
+        }).join('');
+    }
+    function genAI() {
+        const t = userProfile.progress.timePerType;
+        let max=0, type=''; for(const [k,v] of Object.entries(t)) if(v>max){max=v;type=k;}
+        const el = document.getElementById('ai-feedback-text');
+        if(max<10) { el.innerText="Data belum cukup. Selesaikan beberapa aktivitas dulu."; return; }
+        const map = {
+            spatial: "Kamu visual learner! Kamu memahami Aljabar paling baik saat melihat grafik garis dan diagram.",
+            logical: "Logika kuat! Kamu jago dalam memecahkan PLSV dan menemukan pola bilangan.",
+            linguistic: "Verbal learner! Kamu paham konsep 'variabel' lewat cerita dan analogi.",
+            kinesthetic: "Kinestetik! Kamu perlu memanipulasi objek atau bergerak untuk memahami gradien.",
+            musical: "Musikal! Pola irama membantumu mengingat barisan bilangan.",
+            interpersonal: "Sosial! Kamu belajar paling cepat saat diskusi masalah SPLDV dengan teman.",
+            intrapersonal: "Reflektif! Kamu butuh waktu sendiri untuk menganalisis kesalahan hitung.",
+            naturalist: "Naturalis! Kamu melihat pola matematika (Fibonacci/Fraktal) di alam sekitar."
+        };
+        el.innerText = map[type] || "Teruslah bereksplorasi!";
+    }
+    window.nextSlide = function(n) { document.querySelectorAll('.story-slide').forEach(e=>e.classList.remove('active')); document.getElementById(`slide-${n}`).classList.add('active'); };
+    window.startApp = function() { document.getElementById('linguistic').scrollIntoView({behavior:'smooth'}); };
+
+</script>
 </body>
 </html>
