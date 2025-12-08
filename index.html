@@ -2247,85 +2247,6 @@
                     </div>
                 </div>`;
             if(item.appType === 'plant_grow') return `
-            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-blue-50 rounded-3xl p-6 relative overflow-hidden">
-                <div class="absolute bottom-0 w-full h-24 bg-[#5D4037]"></div>
-                
-                <div id="plant-stem" class="w-4 bg-green-600 absolute bottom-24 transition-all duration-500 rounded-t-full" style="height: 50px; left: 50%; transform: translateX(-50%)">
-                    <div id="plant-leaf-l" class="absolute top-0 -left-6 w-8 h-8 bg-green-500 rounded-tr-[20px] rounded-bl-[20px] transition-all"></div>
-                    <div id="plant-leaf-r" class="absolute top-10 -right-6 w-8 h-8 bg-green-500 rounded-tl-[20px] rounded-br-[20px] transition-all"></div>
-                    <div id="plant-flower" class="absolute -top-8 left-1/2 -translate-x-1/2 text-4xl opacity-0 transition">🌻</div>
-                </div>
-
-                <div class="absolute top-10 right-10 bg-white/90 p-4 rounded-xl shadow-lg backdrop-blur text-sm">
-                    <div class="mb-2 font-bold text-earth-700">Rumus: y = 2x + 5</div>
-                    <label class="block text-xs font-bold text-blue-500 mb-1">Air (x): <span id="plant-x">0</span> liter</label>
-                    <input type="range" min="0" max="10" value="0" class="w-32 accent-blue-500" oninput="updatePlant(this.value)">
-                    <div class="mt-2 text-xs font-bold text-green-700">Tinggi (y): <span id="plant-y">5</span> cm</div>
-                </div>
-            </div>`;
-            if(item.appType === 'nature_calc') {
-            const isC = item.subtype === 'cricket';
-            return `
-            <div class="h-full flex flex-col items-center justify-center animate-fade-in ${isC?'bg-earth-900 text-white':'bg-gray-100 text-gray-800'} rounded-3xl p-6">
-                <i class="fas ${isC?'fa-bug':'fa-smog'} text-6xl mb-6 ${isC?'text-green-400':'text-gray-500'} animate-bounce-slow"></i>
-                <h3 class="text-2xl font-bold mb-2">${item.title}</h3>
-                <p class="mb-8 opacity-80 max-w-md text-center">${item.desc}</p>
-                
-                <div class="bg-white/10 p-6 rounded-2xl w-full max-w-sm backdrop-blur-sm border border-white/20">
-                    <label class="block text-xs font-bold uppercase mb-2 opacity-70">${isC ? 'Jumlah Jangkrik Berbunyi (per menit)' : 'Jarak Tempuh (km)'}</label>
-                    <input type="number" id="nat-inp" class="w-full p-3 rounded-xl bg-white text-earth-900 font-bold text-lg outline-none mb-4" placeholder="Input angka...">
-                    ${!isC ? `<label class="block text-xs font-bold uppercase mb-2 opacity-70">Listrik (kWh)</label><input type="number" id="nat-inp2" class="w-full p-3 rounded-xl bg-white text-earth-900 font-bold text-lg outline-none mb-4" placeholder="Input kWh...">` : ''}
-                    
-                    <button onclick="${isC ? 'calcCricket()' : 'calcCarbon()'}" class="w-full py-3 ${isC?'bg-green-600':'bg-gray-700'} text-white rounded-xl font-bold shadow-lg">Hitung</button>
-                    
-                    <div id="nat-res" class="mt-4 text-center font-mono text-xl font-bold opacity-0 transition">Result</div>
-                </div>
-            </div>`;
-          }      
-            if(item.appType === 'river') return `
-            <div class="h-full flex flex-col animate-fade-in bg-[#87CEEB] rounded-3xl relative overflow-hidden">
-                <div class="absolute top-10 left-10 text-yellow-300 text-6xl animate-spin-slow">☀️</div>
-                
-                <canvas id="cv-river" class="w-full h-full block z-10"></canvas>
-                
-                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 p-4 rounded-xl shadow-lg z-20 flex gap-4 items-center">
-                    <div>
-                        <label class="text-xs font-bold text-earth-600 block">Kemiringan (m)</label>
-                        <input type="range" min="0" max="50" value="10" class="w-32 accent-blue-600" oninput="drawRiver(this.value)">
-                    </div>
-                    <div id="river-speed" class="font-bold text-blue-800 text-sm">Aliran: Lambat</div>
-                </div>
-                <script>setTimeout(()=>drawRiver(10), 500);
-            </div>`;
-            if(item.appType === 'bacteria') return `
-            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gray-900 rounded-3xl p-6 relative">
-                <div class="w-64 h-64 rounded-full border-4 border-white/20 bg-white/5 relative flex items-center justify-center overflow-hidden" id="petri-dish">
-                    <div class="bacteria w-4 h-4 bg-green-400 rounded-full absolute shadow-[0_0_10px_#4ade80]" style="top:50%; left:50%"></div>
-                </div>
-                <div class="mt-8 flex gap-4 items-center z-10">
-                    <div class="text-white text-center">
-                        <div class="text-xs opacity-70 uppercase">Generasi (n)</div>
-                        <div id="bac-gen" class="text-2xl font-bold font-mono">0</div>
-                    </div>
-                    <button onclick="splitBacteria()" class="w-16 h-16 rounded-full bg-green-500 text-white text-2xl flex items-center justify-center shadow-lg hover:scale-110 transition"><i class="fas fa-dna"></i></button>
-                    <div class="text-white text-center">
-                        <div class="text-xs opacity-70 uppercase">Jumlah (2ⁿ)</div>
-                        <div id="bac-count" class="text-2xl font-bold font-mono">1</div>
-                    </div>
-                </div>
-                <p class="mt-4 text-xs text-green-300 italic">Klik tombol DNA untuk membelah diri!</p>
-            </div>`;
-            if(item.appType === 'food_chain' || item.appType === 'migration') return `
-            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-200 rounded-3xl p-6 text-center">
-                <i class="fas ${item.icon} text-6xl text-earth-600 mb-6"></i>
-                <h3 class="text-xl font-bold mb-2 text-earth-800">${item.title}</h3>
-                <p class="mb-6 text-earth-600 max-w-xs">${item.desc}</p>
-                <div class="p-4 bg-white rounded-xl shadow-sm border border-earth-300">
-                    <p class="font-serif italic text-earth-500">"Simulasi visual untuk topik ini akan segera hadir di update berikutnya!"</p>
-                    <button class="mt-4 px-6 py-2 bg-earth-700 text-white rounded-full text-sm" onclick="addXP(5); alert('Poin eksplorasi ditambahkan!')">Klaim Poin</button>
-                </div>
-            </div>`;
-            if(item.appType === 'plant_grow') return `
             <div class="h-full flex flex-col items-center justify-end animate-fade-in relative overflow-hidden bg-gradient-to-t from-[#8D6E63] to-[#B3E5FC] rounded-3xl border-4 border-[#5D4037]">
                 <div class="absolute top-6 right-6 text-6xl animate-spin-slow opacity-90">☀️</div>
                 <div class="absolute top-10 left-10 text-4xl opacity-80 animate-bounce-slow" style="animation-duration: 3s">☁️</div>
@@ -4477,6 +4398,7 @@
 </script>
 </body>
 </html>
+
 
 
 
