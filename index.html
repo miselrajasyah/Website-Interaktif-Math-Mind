@@ -1224,8 +1224,10 @@
         else if(item.type === 'task') html = `<div class="flex flex-col items-center justify-center h-full text-center p-4 animate-fade-in"><div class="w-20 h-20 rounded-full bg-earth-100 flex items-center justify-center mb-6 text-3xl text-earth-600 animate-bounce-slow"><i class="fas fa-tasks"></i></div><h3 class="text-xl font-bold text-earth-800 mb-4">Aktivitas Fisik</h3><div class="text-xl font-serif text-earth-800 max-w-lg leading-relaxed bg-white p-8 rounded-2xl border-2 border-dashed border-earth-300 shadow-sm rotate-1 hover:rotate-0 transition duration-300">"${item.content}"</div><button onclick="this.innerHTML='<i class=\'fas fa-check\'></i> Bagus!'; this.className='mt-8 px-8 py-3 bg-accent-green text-white rounded-full font-bold shadow-lg'; addXP(20);" class="mt-8 px-8 py-3 border-2 border-earth-300 rounded-full font-bold text-earth-600 hover:bg-earth-800 hover:text-white transition-all">Selesai</button></div>`;
 
         container.innerHTML = html;
+        // --- UPDATE BAGIAN INIT DI renderModalContent ---
         setTimeout(() => {
-            if(item.appType === 'graph' || item.appType === 'balance') drawGraph(cat.hex);
+            if(item.appType === 'graph') drawGraph(cat.hex);
+            if(item.appType === 'balance') initBalance(cat.hex); // <--- INI BARU
             if(item.appType === 'draw') initDraw(cat.hex);
             if(item.appType === 'wave') initWave(cat.hex);
         }, 100);
@@ -1366,7 +1368,9 @@
                 <button class="w-full mt-6 py-3 text-white font-bold rounded-lg shadow-md hover:opacity-90 transition active:scale-95" style="background-color:${hex}" onclick="this.innerText='Benar! (+10 XP)'; this.style.backgroundColor='#606C38'; addXP(10); confetti({particleCount:30, spread:50});">Cek Jawaban</button>
             </div>`;
 
-        if(type === 'graph' || type === 'balance') return `
+        // --- GANTI BAGIAN GRAPH/BALANCE LAMA DENGAN INI ---
+        
+        if(type === 'graph') return `
             <div class="grid md:grid-cols-3 gap-6 h-full animate-fade-in">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-earth-100 flex flex-col justify-center order-2 md:order-1 space-y-6">
                     <div><label class="flex justify-between text-xs font-bold text-earth-400 uppercase mb-2"><span>Gradien (m)</span> <span class="text-earth-800 font-mono bg-earth-100 px-2 rounded" id="val-m">1</span></label><input type="range" min="-5" max="5" step="0.5" value="1" id="sl-m" class="w-full accent-[${hex}]" oninput="drawGraph('${hex}')"></div>
@@ -1376,6 +1380,50 @@
                 <div class="md:col-span-2 bg-white rounded-2xl shadow-inner border border-earth-200 relative p-2 order-1 md:order-2 overflow-hidden"><canvas id="cv-graph" width="600" height="350" class="w-full h-full object-contain"></canvas></div>
             </div>`;
 
+        if(type === 'balance') return `
+            <div class="flex flex-col h-full animate-fade-in max-w-4xl mx-auto">
+                <div class="relative flex-1 bg-gradient-to-b from-blue-50 to-white rounded-3xl border border-earth-200 overflow-hidden mb-6 shadow-inner min-h-[300px]">
+                    <canvas id="cv-balance" class="w-full h-full block"></canvas>
+                    
+                    <div id="bal-msg" class="absolute top-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-6 py-2 rounded-full shadow-lg text-earth-800 font-bold text-sm hidden border border-green-200 transform scale-0 transition-transform duration-300 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-500"></i> <span>Seimbang!</span>
+                    </div>
+
+                    <button onclick="initBalance('${hex}')" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full hover:bg-red-50 hover:text-red-500 text-earth-400 shadow-md transition flex items-center justify-center border border-earth-100" title="Reset Timbangan">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    
+                    <div id="x-reveal" class="absolute bottom-4 left-4 text-xs font-mono text-earth-400 opacity-0 transition">Nilai x = ?</div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 md:gap-8">
+                    <div class="bg-white p-5 rounded-3xl border-2 border-blue-100 shadow-sm relative group">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Sisi Kiri</div>
+                        <div class="flex justify-center gap-3 mb-3 mt-2">
+                            <button onclick="updateBal('L', 'x', 1)" class="w-12 h-12 rounded-xl bg-blue-500 text-white font-bold shadow-blue-200 shadow-lg hover:-translate-y-1 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">+</span>x</button>
+                            <button onclick="updateBal('L', '1', 1)" class="w-12 h-12 rounded-xl bg-yellow-400 text-yellow-900 font-bold shadow-yellow-200 shadow-lg hover:-translate-y-1 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">+</span>1</button>
+                        </div>
+                        <div class="flex justify-center gap-3">
+                            <button onclick="updateBal('L', 'x', -1)" class="w-12 h-12 rounded-xl border-2 border-red-100 text-red-400 font-bold hover:bg-red-50 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">-</span>x</button>
+                            <button onclick="updateBal('L', '1', -1)" class="w-12 h-12 rounded-xl border-2 border-red-100 text-red-400 font-bold hover:bg-red-50 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">-</span>1</button>
+                        </div>
+                        <div id="txt-L" class="mt-3 text-center font-mono font-bold text-blue-600 text-lg">0</div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-3xl border-2 border-green-100 shadow-sm relative group">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-100 text-green-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Sisi Kanan</div>
+                        <div class="flex justify-center gap-3 mb-3 mt-2">
+                            <button onclick="updateBal('R', 'x', 1)" class="w-12 h-12 rounded-xl bg-blue-500 text-white font-bold shadow-blue-200 shadow-lg hover:-translate-y-1 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">+</span>x</button>
+                            <button onclick="updateBal('R', '1', 1)" class="w-12 h-12 rounded-xl bg-yellow-400 text-yellow-900 font-bold shadow-yellow-200 shadow-lg hover:-translate-y-1 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">+</span>1</button>
+                        </div>
+                        <div class="flex justify-center gap-3">
+                            <button onclick="updateBal('R', 'x', -1)" class="w-12 h-12 rounded-xl border-2 border-red-100 text-red-400 font-bold hover:bg-red-50 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">-</span>x</button>
+                            <button onclick="updateBal('R', '1', -1)" class="w-12 h-12 rounded-xl border-2 border-red-100 text-red-400 font-bold hover:bg-red-50 transition active:scale-95 flex flex-col items-center justify-center leading-none"><span class="text-xs opacity-70">-</span>1</button>
+                        </div>
+                        <div id="txt-R" class="mt-3 text-center font-mono font-bold text-green-600 text-lg">0</div>
+                    </div>
+                </div>
+            </div>`;
         if(type === 'draw') return `
             <div class="h-full flex flex-col animate-fade-in">
                 <div class="flex-1 bg-white rounded-2xl shadow-inner border border-earth-200 relative overflow-hidden touch-none cursor-crosshair">
@@ -1565,10 +1613,196 @@
     }
     window.nextSlide = function(n) { document.querySelectorAll('.story-slide').forEach(e=>e.classList.remove('active')); document.getElementById(`slide-${n}`).classList.add('active'); };
     window.startApp = function() { document.getElementById('linguistic').scrollIntoView({behavior:'smooth'}); };
+    // --- 6. LOGIKA LAB TIMBANGAN (PHYSICS) ---
+    let balState = { Lx:0, L1:0, Rx:0, R1:0, xVal:0, hex:'' };
 
+    window.initBalance = function(hex) {
+        // Tentukan nilai x misterius (antara 2 sampai 6)
+        const randX = Math.floor(Math.random() * 5) + 2;
+        balState = { Lx:0, L1:0, Rx:0, R1:0, xVal: randX, hex: hex || balState.hex };
+        
+        drawBalance();
+        updateBalUI();
+        document.getElementById('bal-msg').classList.add('hidden');
+        document.getElementById('bal-msg').classList.remove('scale-100');
+        document.getElementById('x-reveal').style.opacity = 0;
+    };
+
+    window.updateBal = function(side, type, diff) {
+        const key = side + type;
+        // Mencegah nilai negatif
+        if(balState[key] + diff >= 0) {
+            balState[key] += diff;
+            // Animasi kecil saat tombol ditekan
+            drawBalance();
+            updateBalUI();
+        }
+    };
+
+    window.updateBalUI = function() {
+        // Update teks persamaan matematika
+        const format = (x, c) => {
+            if(x===0 && c===0) return "0";
+            let s = "";
+            if(x > 0) s += (x===1 ? "x" : x+"x");
+            if(x > 0 && c > 0) s += " + ";
+            if(c > 0) s += c;
+            return s;
+        };
+        document.getElementById('txt-L').innerText = format(balState.Lx, balState.L1);
+        document.getElementById('txt-R').innerText = format(balState.Rx, balState.R1);
+    };
+
+    window.drawBalance = function() {
+        const cv = document.getElementById('cv-balance');
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        
+        // Resize canvas agar tajam
+        const rect = cv.parentElement.getBoundingClientRect();
+        cv.width = rect.width;
+        cv.height = rect.height;
+        
+        const w = cv.width, h = cv.height;
+        const cx = w/2, cy = h/2; // Titik pusat pivot
+
+        // --- 1. HITUNG FISIKA (TILT/KEMIRINGAN) ---
+        const totalL = (balState.Lx * balState.xVal) + balState.L1;
+        const totalR = (balState.Rx * balState.xVal) + balState.R1;
+        
+        // Hitung sudut kemiringan (max 20 derajat atau 0.35 radian)
+        // Jika Kanan lebih berat, sudut Positif (searah jarum jam)
+        // Jika Kiri lebih berat, sudut Negatif (lawan jarum jam)
+        let diff = totalR - totalL; 
+        let angle = diff * 0.05; 
+        angle = Math.max(-0.35, Math.min(0.35, angle)); // Clamp limit
+
+        // Cek Kemenangan
+        const msg = document.getElementById('bal-msg');
+        const reveal = document.getElementById('x-reveal');
+        if(totalL === totalR && totalL > 0) {
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('scale-100'), 50); // Animasi pop
+            msg.innerHTML = `<i class="fas fa-check-circle text-green-500"></i> <span>Seimbang! (x = ${balState.xVal})</span>`;
+            reveal.innerText = `Karena seimbang, maka nilai x terbukti adalah ${balState.xVal}`;
+            reveal.style.opacity = 1;
+            // Rayakan hanya jika baru pertama kali seimbang di sesi ini
+            if(!balState.won) { addXP(10); confetti({particleCount: 50, spread: 60, origin: {y: 0.5}}); balState.won = true; }
+        } else {
+            msg.classList.add('hidden');
+            msg.classList.remove('scale-100');
+            reveal.style.opacity = 0;
+            balState.won = false;
+        }
+
+        // --- 2. GAMBAR TIMBANGAN ---
+        ctx.clearRect(0,0,w,h);
+
+        // A. Gambar Tiang (Base)
+        ctx.fillStyle = balState.hex || '#5E4934';
+        ctx.beginPath();
+        ctx.moveTo(cx, cy); 
+        ctx.lineTo(cx - 15, h - 20); 
+        ctx.lineTo(cx + 15, h - 20); 
+        ctx.fill();
+        // Alas bawah
+        ctx.beginPath(); 
+        ctx.roundRect(cx - 40, h - 25, 80, 10, 5);
+        ctx.fill();
+
+        // B. Gambar Lengan (Beam) - ROTASI DIMULAI
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(angle);
+
+        // Batang Lengan
+        ctx.fillStyle = '#8C7B5D';
+        ctx.strokeStyle = '#5E4934';
+        ctx.lineWidth = 2;
+        const beamLen = w * 0.35; // Panjang setengah lengan
+        ctx.beginPath();
+        ctx.roundRect(-beamLen, -5, beamLen * 2, 10, 5);
+        ctx.fill(); ctx.stroke();
+
+        // Titik Pivot
+        ctx.fillStyle = '#FDFCF5';
+        ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI*2); ctx.fill();
+
+        // --- 3. GAMBAR PAN (PIRINGAN) ---
+        // Fungsi helper gambar piringan
+        const drawPan = (xPos, countX, count1) => {
+            ctx.save();
+            ctx.translate(xPos, 0); // Pindah ke ujung lengan
+            ctx.rotate(-angle); // ROTASI BALIK agar piringan tetap tegak lurus gravitasi!
+            
+            // Tali
+            ctx.strokeStyle = '#B09E80';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0, 80); ctx.stroke();
+            
+            // Piringan
+            ctx.fillStyle = '#F4F1EA';
+            ctx.strokeStyle = '#8C7B5D';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(0, 80, 40, 10, 0, 0, Math.PI*2);
+            ctx.fill(); ctx.stroke();
+            
+            // --- 4. GAMBAR BEBAN (ITEM) ---
+            let yStack = 80;
+            const itemW = 24; const itemH = 24;
+
+            // Gambar Balok X (Kotak Biru)
+            ctx.fillStyle = '#3B82F6'; // Blue-500
+            ctx.strokeStyle = '#2563EB';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            for(let i=0; i<countX; i++) {
+                yStack -= itemH;
+                ctx.fillRect(-itemW/2, yStack - 5, itemW, itemH);
+                ctx.strokeRect(-itemW/2, yStack - 5, itemW, itemH);
+                
+                ctx.fillStyle = 'white';
+                ctx.fillText('x', 0, yStack + 7 - 5);
+                ctx.fillStyle = '#3B82F6'; // Reset color
+            }
+
+            // Gambar Satuan 1 (Lingkaran Kuning)
+            ctx.fillStyle = '#FACC15'; // Yellow-400
+            ctx.strokeStyle = '#CA8A04';
+            
+            // Tumpuk lingkaran 1 di atas balok x (atau di dasar jika tidak ada x)
+            // Agar rapi, lingkaran disusun piramida atau baris jika banyak
+            let circleX = -15;
+            let circleY = yStack - 5; // Mulai dari atas tumpukan terakhir
+            
+            for(let i=0; i<count1; i++) {
+                if(i % 3 === 0) { // Baris baru setiap 3 item
+                    circleY -= 12; 
+                    circleX = -10; 
+                } else {
+                    circleX += 10;
+                }
+                ctx.beginPath();
+                ctx.arc(circleX, circleY, 5, 0, Math.PI*2);
+                ctx.fill(); ctx.stroke();
+            }
+
+            ctx.restore();
+        };
+
+        // Gambar Piringan Kiri dan Kanan
+        drawPan(-beamLen + 10, balState.Lx, balState.L1); // Kiri
+        drawPan(beamLen - 10, balState.Rx, balState.R1);  // Kanan
+
+        ctx.restore(); // Restore Rotasi Lengan
+    };
 </script>
 </body>
 </html>
+
 
 
 
