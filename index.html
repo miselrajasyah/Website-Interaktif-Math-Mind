@@ -290,6 +290,47 @@
             </div>
         </div>
     </div>
+    <div id="closing-overlay" class="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-500">
+        <div class="relative w-full max-w-lg p-8 mx-4">
+            <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 to-white rounded-[3rem] transform rotate-2"></div>
+            <div class="relative bg-white rounded-[3rem] p-8 text-center shadow-2xl border-4 border-earth-200 overflow-hidden">
+                
+                <div class="absolute -top-10 left-10 text-earth-300 text-9xl opacity-10"><i class="fas fa-certificate"></i></div>
+                <div class="absolute -bottom-10 right-10 text-accent-yellow text-9xl opacity-10"><i class="fas fa-star"></i></div>
+
+                <div class="mb-6 relative inline-block">
+                    <div class="text-6xl animate-bounce text-earth-700" style="animation-duration: 2s">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="absolute -right-4 -top-4 text-3xl animate-pulse text-yellow-400">✨</div>
+                    <div class="absolute -left-4 top-4 text-3xl animate-pulse text-yellow-400" style="animation-delay: 0.5s">✨</div>
+                </div>
+
+                <h2 class="text-3xl font-serif font-bold text-earth-800 mb-2">Luar Biasa, <span id="close-name" class="text-accent-orange">Teman</span>!</h2>
+                <p id="close-quote" class="text-earth-500 text-sm font-medium italic mb-8">"Setiap langkah kecil membawamu lebih dekat ke puncak."</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="bg-earth-50 p-4 rounded-2xl border border-earth-100">
+                        <div class="text-xs text-earth-400 font-bold uppercase tracking-widest">Total XP</div>
+                        <div class="text-3xl font-bold text-green-600" id="close-xp">0</div>
+                    </div>
+                    <div class="bg-earth-50 p-4 rounded-2xl border border-earth-100">
+                        <div class="text-xs text-earth-400 font-bold uppercase tracking-widest">Badge</div>
+                        <div class="text-3xl font-bold text-yellow-600" id="close-badge">0</div>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="location.reload()" class="w-full py-4 bg-earth-800 hover:bg-earth-900 text-white rounded-2xl font-bold shadow-lg transform hover:scale-105 transition flex items-center justify-center gap-3">
+                        <span>Sampai Jumpa Besok!</span> <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                    <button onclick="document.getElementById('closing-overlay').classList.add('hidden')" class="text-xs text-earth-400 hover:text-earth-600 font-bold">
+                        Masih mau belajar lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
     // --- 0. DATA PRIVACY & STORAGE MANAGER ---
@@ -1364,6 +1405,14 @@
             <div class="w-6 h-6 rounded flex items-center justify-center text-xs bg-red-100 text-red-600"><i class="fas fa-file-pdf"></i></div>
             <span class="group-hover:translate-x-1 transition-transform font-medium">Download PDF</span>
         </a>
+        `;
+        html += `
+        <div class="p-4 mt-4 border-t border-earth-200">
+            <button onclick="showClosing()" class="w-full py-3 flex items-center gap-3 px-4 rounded-xl text-accent-red bg-red-50 hover:bg-red-100 transition-colors md:justify-start justify-center font-bold shadow-sm">
+                <i class="fas fa-flag-checkered"></i>
+                <span class="hidden md:inline">Selesai Belajar</span>
+            </button>
+        </div>
         `;
 
         sidebarMenu.innerHTML = html;
@@ -3968,6 +4017,60 @@
         }
     };
     
+    // --- 16. LOGIKA CLOSING / CELEBRATION ---
+    window.showClosing = function() {
+        // 1. Update Data di Layar
+        document.getElementById('close-name').innerText = userProfile.name || 'Sobat';
+        document.getElementById('close-xp').innerText = userProfile.xp;
+        document.getElementById('close-badge').innerText = userProfile.badges.length;
+
+        // 2. Random Quotes Lucu/Bijak
+        const quotes = [
+            "Otakmu hari ini makin 'berotot' 💪!",
+            "Istirahatlah, kamu sudah hebat hari ini! 🌟",
+            "Matematika takluk di tanganmu! 😎",
+            "Simpan energimu, besok kita petualang lagi! 🚀",
+            "Rumus hari ini: Kamu + Belajar = Sukses! ✨"
+        ];
+        document.getElementById('close-quote').innerText = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
+
+        // 3. Tampilkan Overlay dengan Animasi
+        const overlay = document.getElementById('closing-overlay');
+        overlay.classList.remove('hidden');
+        // Delay sedikit agar transisi opacity jalan halus
+        setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+
+        // 4. Mainkan Efek Confetti (Hujan Kertas Warna-Warni)
+        playSuperConfetti();
+        
+        // 5. Mainkan Suara (Opsional jika audio context aktif)
+        if(window.playNote) {
+            playNote(0, 'piano'); setTimeout(()=>playNote(4, 'piano'), 200); setTimeout(()=>playNote(7, 'piano'), 400);
+        }
+    };
+
+    function playSuperConfetti() {
+        // Tembakan kiri
+        confetti({
+            particleCount: 100, spread: 70, origin: { x: 0.1, y: 0.6 },
+            colors: ['#606C38', '#BC6C25', '#DDA15E']
+        });
+        // Tembakan kanan
+        setTimeout(() => {
+            confetti({
+                particleCount: 100, spread: 70, origin: { x: 0.9, y: 0.6 },
+                colors: ['#283618', '#FEFAE0', '#DDA15E']
+            });
+        }, 300);
+        // Hujan dari atas
+        setTimeout(() => {
+            confetti({
+                particleCount: 150, spread: 100, origin: { y: 0 }, gravity: 1.5,
+                scalar: 1.2
+            });
+        }, 800);
+    }
+
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
         updateProfileUI(); genAI(); document.getElementById('profile-modal').classList.remove('hidden');
@@ -4514,8 +4617,8 @@
         drawPan(beamLen - 10, balState.Rx, balState.R1);  // Kanan
 
         ctx.restore(); // Restore Rotasi Lengan
+        
     };
 </script>
 </body>
 </html>
-
