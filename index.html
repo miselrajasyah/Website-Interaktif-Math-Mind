@@ -2125,9 +2125,11 @@
                     </div>
                 </div>
             </div>`;
-        if(['swot', 'analogy', 'time_calc', 'gratitude', 'letter'].includes(item.appType)) return renderIntraForms(item.appType, item);
+        if(['swot', 'analogy', 'time_calc', 'gratitude', 'letter'].includes(item.appType)) {
+            return renderIntraForms(item.appType, item);
+        }
 
-        // Helper function for forms
+        // --- DEFINISI FUNGSI HELPER (Bersarang di dalam renderApp) ---
         function renderIntraForms(t, item) {
             if(t === 'swot') return `
                 <div class="h-full flex flex-col animate-fade-in bg-white rounded-3xl p-6 overflow-y-auto">
@@ -2175,8 +2177,14 @@
                     </div>
                 </div>`;
 
+            // Fallback untuk helper forms
             return `<div class="p-10 text-center">App Under Construction</div>`;
         }
+
+        // --- FALLBACK UTAMA RENDERAPP (Jika tidak ada tipe yang cocok) ---
+        return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${cat.hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
+
+    } // <--- PASTIKAN KURUNG KURAWAL INI ADA! (Penutup renderApp)
 
     // --- 4. APP HELPER FUNCTIONS ---
     
@@ -3750,6 +3758,7 @@
 </script>
 </body>
 </html>
+
 
 
 
