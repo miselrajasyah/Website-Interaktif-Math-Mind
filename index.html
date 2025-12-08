@@ -306,15 +306,31 @@
             const today = new Date().toDateString();
             if(userProfile.lastVisit !== today) {
                 const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-                if(userProfile.lastVisit === yesterday.toDateString()) userProfile.streak++;
-                else userProfile.streak = 1;
+                // Cek Streak
+                if(userProfile.lastVisit === yesterday.toDateString()) {
+                    userProfile.streak++;
+                    // BADGE KONSISTEN (3 Hari)
+                    if(userProfile.streak >= 3) unlockBadge('streak_3');
+                } else {
+                    userProfile.streak = 1;
+                }
                 userProfile.lastVisit = today;
             }
         }
+        // Inisialisasi list modulesVisited jika belum ada (untuk Badge Explorer)
+        if(!userProfile.progress.modulesVisited) userProfile.progress.modulesVisited = {};
         saveUser();
     }
     function saveUser() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userProfile)); updateProfileUI(); }
-    function addXP(amount) { userProfile.xp += amount; saveUser(); }
+    function addXP(amount) {
+        userProfile.xp += amount;
+        
+        // BADGE VETERAN (500 XP)
+        if(userProfile.xp >= 500) unlockBadge('xp_500');
+        
+        saveUser();
+        updateProfileUI(); // Update tampilan real-time
+    }
     function unlockBadge(id) {
         if(!userProfile.badges.includes(id)) {
             userProfile.badges.push(id);
@@ -1390,8 +1406,15 @@
         currentCatId = catId; currentMediaIndex = index; currentSubContentIndex = 0; sessionStartTime = Date.now();
         renderModalContent();
         document.getElementById('media-modal').classList.remove('hidden');
-        if(!userProfile.progress.modulesVisited[catId]) userProfile.progress.modulesVisited[catId] = 0;
-        userProfile.progress.modulesVisited[catId]++; addXP(5);
+        
+        // Tracking untuk Badge Explorer
+        if(!userProfile.progress.modulesVisited) userProfile.progress.modulesVisited = {};
+        userProfile.progress.modulesVisited[catId] = (userProfile.progress.modulesVisited[catId] || 0) + 1;
+        
+        // BADGE PENJELAJAH (Buka 5 Kategori Berbeda)
+        if(Object.keys(userProfile.progress.modulesVisited).length >= 5) unlockBadge('explorer');
+        
+        addXP(5);
     }
 
     function closeModal() {
@@ -2440,9 +2463,27 @@
     window.checkQuiz = function(btn, cor, exp) {
         userProfile.progress.quizzesTaken++;
         const fb = btn.querySelector('.feedback'); fb.classList.remove('hidden');
-        if(cor) { userProfile.progress.quizzesCorrect++; addXP(15); btn.className = "w-full p-4 rounded-xl border-2 border-green-500 bg-green-50 text-green-800 font-bold text-left flex items-center"; fb.innerHTML='<i class="fas fa-check"></i>'; if(userProfile.progress.quizzesCorrect>=5) unlockBadge('quiz_master'); } 
-        else { btn.className = "w-full p-4 rounded-xl border-2 border-red-400 bg-red-50 text-red-800 font-bold text-left flex items-center"; fb.innerHTML='<i class="fas fa-times"></i>'; }
-        if(exp) document.getElementById('quiz-explanation').innerHTML = `<strong class="block mb-1 text-earth-900">💡 Penjelasan:</strong> ${exp}`; document.getElementById('quiz-explanation').classList.remove('hidden');
+        
+        if(cor) { 
+            userProfile.progress.quizzesCorrect++; 
+            addXP(15); 
+            btn.className = "w-full p-4 rounded-xl border-2 border-green-500 bg-green-50 text-green-800 font-bold text-left flex items-center"; 
+            fb.innerHTML='<i class="fas fa-check"></i>'; 
+            
+            // BADGE MASTER KUIS (10 Benar)
+            if(userProfile.progress.quizzesCorrect >= 10) unlockBadge('quiz_master');
+        } else { 
+            btn.className = "w-full p-4 rounded-xl border-2 border-red-400 bg-red-50 text-red-800 font-bold text-left flex items-center"; 
+            fb.innerHTML='<i class="fas fa-times"></i>'; 
+        }
+        
+        if(exp) {
+            const expBox = document.getElementById('quiz-explanation');
+            if(expBox) {
+                expBox.innerHTML = `<strong class="block mb-1 text-earth-900">💡 Penjelasan:</strong> ${exp}`; 
+                expBox.classList.remove('hidden');
+            }
+        }
         saveUser();
     };
 
@@ -2452,6 +2493,7 @@
         const o1 = document.getElementById('s-o1').value||'Buku'; const res = document.getElementById('s-res');
         res.classList.remove('hidden');
         res.innerHTML = `<b>Cerita Aljabar:</b><br>"${n} membeli ${v} buah ${o1} dengan harga total y rupiah."<br><br><span class="bg-earth-100 px-2 py-1 rounded text-sm font-mono border border-earth-200">Model: y = ${v}x</span>`;
+        unlockBadge('linguist');
         addXP(10);
     };
 
@@ -2469,7 +2511,7 @@
             slot.className = "w-12 h-12 flex items-center justify-center bg-green-100 text-green-700 rounded-lg font-bold border-2 border-green-500 shadow-lg transform scale-110 transition";
             
             btn.className = "min-w-[4rem] px-4 py-3 rounded-xl bg-green-500 border-b-4 border-green-700 text-white font-bold text-lg shadow-md";
-            
+            unlockBadge('logician');
             addXP(10); 
             confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         } else { 
@@ -2498,6 +2540,7 @@
         ctx.strokeStyle=hex; ctx.lineWidth=4; ctx.beginPath();
         const sc=40, x1=-8, y1=m*x1+c, x2=8, y2=m*x2+c;
         ctx.moveTo(w/2+x1*sc, h/2-y1*sc); ctx.lineTo(w/2+x2*sc, h/2-y2*sc); ctx.stroke();
+        if(!userProfile.badges.includes('visualizer')) unlockBadge('visualizer');
     };
 
     // Free Draw
@@ -2520,6 +2563,7 @@
     window.replyChat = function(hex) {
         const inp = document.getElementById('chat-inp'); const box = document.getElementById('chat-box');
         if(!inp.value.trim()) return;
+        unlockBadge('socialite');
         box.innerHTML += `<div class="flex flex-col items-end animate-fade-in-up"><div class="bg-[${hex}] text-white px-4 py-2 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-sm" style="background-color:${hex}">${inp.value}</div><span class="text-[10px] text-earth-400 mt-1 px-1">You</span></div>`;
         const txt = inp.value; inp.value=''; box.scrollTop=box.scrollHeight;
         setTimeout(() => {
@@ -2696,6 +2740,7 @@
                 else { ctx.fillStyle='#F87171'; ctx.font='20px bold'; ctx.fillText(gameState.pos>gameState.enemy?"Terlalu Cepat!":"Terlalu Lambat!", w/2-80, h/2); }
                 // Reset setelah 2 detik
                 if(gameState.active) setTimeout(()=>{ gameState.pos=0; gameState.enemy=0; }, 2000);
+                unlockBadge('athlete'); // <--- TAMBAHKAN INI
             }
         }
 
@@ -2743,6 +2788,7 @@
                 ctx.fillStyle = '#FACC15'; ctx.font = '30px bold'; 
                 ctx.fillText("KENA! 💥", w/2 - 60, h/2);
                 if(Math.random() < 0.05) addXP(5); // Random reward agar tidak spam XP
+                unlockBadge('sniper'); // <--- TAMBAHKAN INI
             }
         }
 
@@ -2756,6 +2802,7 @@
             ctx.fillStyle='black'; ctx.beginPath(); ctx.arc(x-5, h/2-25, 2, 0, Math.PI*2); ctx.arc(x+5, h/2-25, 2, 0, Math.PI*2); ctx.fill();
             ctx.fillStyle = 'rgba(255,255,0,0.3)'; ctx.beginPath(); ctx.arc((3*unit + w/2), h/2, 20, 0, Math.PI*2); ctx.fill();
             if(gameState.pos === 3) { ctx.fillStyle='gold'; ctx.fillText('MENANG!', w/2-30, h/2-50); addXP(1); }
+                unlockBadge('athlete'); // <--- TAMBAHKAN INI
         }
 
         // --- 4. MAZE (EXISTING) ---
@@ -2911,6 +2958,7 @@
         if(val === ans) {
             msg.innerText = "Benar! (19.000) +10 XP";
             msg.className = "mt-4 font-bold h-6 text-green-600";
+            unlockBadge('money_maker');
             addXP(10);
         } else {
             msg.innerText = "Salah. Coba hitung lagi (3x + 2y)";
@@ -3330,6 +3378,7 @@
         document.getElementById('j-topic').value = '';
         document.getElementById('j-desc').value = '';
         renderJournal();
+        unlockBadge('philosopher');
         addXP(5);
     };
     function renderJournal() {
@@ -3667,6 +3716,7 @@
 
         if(val >= 8) {
             flower.style.transform = "scale(1)";
+            unlockBadge('ranger');
             addXP(1);
         } else {
             flower.style.transform = "scale(0)";
@@ -3900,13 +3950,58 @@
         updateProfileUI(); genAI(); document.getElementById('profile-modal').classList.remove('hidden');
     }
     function updateProfileUI() {
-        document.getElementById('profile-name').innerText = userProfile.name||'Tamu';
+        document.getElementById('profile-name').innerText = userProfile.name || 'Tamu';
         document.getElementById('streak-count').innerText = userProfile.streak;
         document.getElementById('xp-count').innerText = userProfile.xp;
-        const badges = [{id:'quiz_master',n:'Master Kuis',i:'fa-crown'}, {id:'explorer',n:'Penjelajah',i:'fa-compass'}];
+
+        // --- DAFTAR 16 BADGES BARU ---
+        const badges = [
+            // UMUM
+            { id: 'explorer', n: 'Penjelajah', i: 'fa-compass', desc: 'Membuka 5 menu berbeda' },
+            { id: 'quiz_master', n: 'Master Kuis', i: 'fa-crown', desc: 'Benar 10 soal kuis' },
+            { id: 'streak_3', n: 'Konsisten', i: 'fa-fire', desc: 'Login 3 hari berturut-turut' },
+            { id: 'xp_500', n: 'Veteran', i: 'fa-star', desc: 'Mencapai 500 XP' },
+
+            // PER KECERDASAN
+            { id: 'linguist', n: 'Pujangga', i: 'fa-feather-alt', desc: 'Menulis Pantun/Cerita' }, // Linguistic
+            { id: 'logician', n: 'Detektif', i: 'fa-search', desc: 'Memecahkan Pola/Kode' }, // Logical
+            { id: 'visualizer', n: 'Visioner', i: 'fa-eye', desc: 'Menggambar Grafik/Peta' }, // Spatial
+            { id: 'athlete', n: 'Atlet Math', i: 'fa-running', desc: 'Memainkan Game Lari/Lompat' }, // Kinesthetic
+            
+            { id: 'maestro', n: 'Komposer', i: 'fa-music', desc: 'Membuat Musik/Beat' }, // Musical
+            { id: 'socialite', n: 'Mediator', i: 'fa-users', desc: 'Simulasi Debat/Pasar' }, // Interpersonal
+            { id: 'philosopher', n: 'Reflektif', i: 'fa-user-astronaut', desc: 'Mengisi Jurnal/Meditasi' }, // Intrapersonal
+            { id: 'ranger', n: 'Penjaga Alam', i: 'fa-leaf', desc: 'Simulasi Karbon/Tanaman' }, // Naturalist
+
+            // SPESIAL GAME
+            { id: 'builder', n: 'Arsitek', i: 'fa-cubes', desc: 'Menyusun Aljabar Tiles' },
+            { id: 'racer', n: 'Pembalap', i: 'fa-flag-checkered', desc: 'Main Gradient Racer' },
+            { id: 'sniper', n: 'Jitu', i: 'fa-bullseye', desc: 'Menembak di Meriam Linear' },
+            { id: 'money_maker', n: 'Ekonom', i: 'fa-wallet', desc: 'Menghitung Anggaran/Kasir' }
+        ];
+
+        // RENDER BADGES
         document.getElementById('badge-container').innerHTML = badges.map(b => {
             const un = userProfile.badges.includes(b.id);
-            return `<div class="flex flex-col items-center text-center"><div class="w-10 h-10 rounded-full flex items-center justify-center text-sm mb-1 ${un?'bg-accent-yellow text-white badge-unlocked':'bg-earth-200 text-earth-400 badge-locked'}"><i class="fas ${b.i}"></i></div><span class="text-[10px] font-bold text-earth-600">${b.n}</span></div>`;
+            // Style: Jika unlocked (berwarna), jika locked (abu-abu/transparan)
+            const style = un ? 
+                'bg-gradient-to-br from-yellow-100 to-yellow-300 text-yellow-800 border-yellow-400 shadow-md transform hover:scale-105' : 
+                'bg-gray-100 text-gray-400 border-gray-200 grayscale opacity-60';
+            
+            const iconColor = un ? 'text-yellow-700' : 'text-gray-400';
+
+            return `
+            <div class="flex flex-col items-center text-center p-2 rounded-xl border ${style} transition-all duration-300 group relative cursor-help" title="${b.desc}">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-xl mb-1 bg-white/50 ${iconColor}">
+                    <i class="fas ${b.i}"></i>
+                </div>
+                <span class="text-[9px] font-bold uppercase tracking-wider">${b.n}</span>
+                ${un ? '<div class="absolute -top-1 -right-1 text-green-500 bg-white rounded-full text-xs shadow-sm"><i class="fas fa-check-circle"></i></div>' : ''}
+                
+                <div class="absolute bottom-full mb-2 w-32 bg-black/80 text-white text-[10px] p-2 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition z-50">
+                    ${un ? 'Tercapai!' : 'Syarat: ' + b.desc}
+                </div>
+            </div>`;
         }).join('');
     }
     function genAI() {
@@ -4049,6 +4144,7 @@
             clearInterval(seqInterval); seqInterval=null;
             btn.innerHTML = '<i class="fas fa-play"></i>';
         } else {
+            unlockBadge('maestro');
             initAudio();
             btn.innerHTML = '<i class="fas fa-stop"></i>';
             let step = 0;
@@ -4200,6 +4296,7 @@
             };
 
             canvas.appendChild(el);
+            unlockBadge('builder');
             addXP(1); // Reward kecil
         });
     };
@@ -4398,31 +4495,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
