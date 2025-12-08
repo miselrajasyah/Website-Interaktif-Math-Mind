@@ -1163,7 +1163,13 @@
     }
 
     function closeModal() {
+        // --- TAMBAHAN FIX ---
+        if(window.stopGame) window.stopGame();
+        if(window.stopReflex) window.stopReflex(); 
+        // --------------------
+
         document.getElementById('media-modal').classList.add('hidden');
+        // ... (lanjutan kode asli) ...
         const duration = (Date.now() - sessionStartTime) / 1000;
         if(!userProfile.progress.timePerType[currentCatId]) userProfile.progress.timePerType[currentCatId] = 0;
         userProfile.progress.timePerType[currentCatId] += duration; saveUser();
@@ -1186,7 +1192,16 @@
     document.getElementById('media-modal').addEventListener('touchend', e => { te = e.changedTouches[0].screenX; if(te < ts - 50) navContent(1); if(te > ts + 50) navContent(-1); }, {passive:true});
 
     function renderModalContent() {
+        // --- TAMBAHAN FIX: Reset semua game saat pindah konten ---
+        if(window.stopGame) window.stopGame();     // Matikan Jumper/Racer/Maze
+        if(window.stopReflex) window.stopReflex(); // Matikan Reflex Math
+        if(window.stopSimon) window.stopSimon();   // Matikan Simon Says
+        if(window.stopLooper) window.stopLooper(); // Matikan Musik Looper
+        if(window.stopCond) window.stopCond();     // Matikan Dirigen
+        // ---------------------------------------------------------
+
         const cat = intelligenceData.find(x => x.id === currentCatId);
+        // ... (lanjutan kode asli di bawahnya jangan dihapus) ...
         let item = {...cat.media[currentMediaIndex]};
         const controls = document.getElementById('nav-controls');
         
@@ -1881,19 +1896,37 @@
     // Global Game State
     let gameLoop, gameState = { active: false, type: '', pos: 0, score: 0 };
 
-    window.startGame = function(type) {
-        if(gameState.active) return; // Prevent double start
-        gameState = { active: true, type: type, pos: 50, score: 0, enemy: 100, vel: 0 };
-        document.getElementById(`overlay-${type}`).style.opacity = '0';
-        document.getElementById(`overlay-${type}`).style.pointerEvents = 'none';
-        
-        if(type === 'jumper') gameState.pos = 1; // Posisi awal di garis bilangan
-        if(type === 'maze') gameState.pos = {x:1, y:1}; // Grid 10x10
-        if(type === 'racer') gameState.angle = 0;
-
-        gameLoop = requestAnimationFrame(() => gameTick(type));
+    // --- FIX LOGIKA GAME KINESTETIK (Agar bisa ganti game) ---
+    
+    // Tambahkan fungsi ini untuk mematikan game
+    window.stopGame = function() {
+        if(gameLoop) cancelAnimationFrame(gameLoop); // Hentikan animasi
+        gameLoop = null;
+        gameState.active = false; // Reset status aktif
     };
 
+    // Update fungsi startGame
+    window.startGame = function(type) {
+        // FIX: Selalu matikan game sebelumnya sebelum memulai yang baru
+        stopGame(); 
+
+        gameState = { active: true, type: type, pos: 50, score: 0, enemy: 100, vel: 0 };
+        
+        // Hilangkan Overlay (Judul Klik Main)
+        const overlay = document.getElementById(`overlay-${type}`);
+        if(overlay) {
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+        }
+        
+        // Inisialisasi Posisi Awal
+        if(type === 'jumper') gameState.pos = 1;
+        if(type === 'maze') gameState.pos = {x:1, y:1};
+        if(type === 'racer') gameState.angle = 0;
+
+        // Mulai Loop
+        gameLoop = requestAnimationFrame(() => gameTick(type));
+    };
     window.gameInput = function(val) {
         if(!gameState.active) return;
         if(gameState.type === 'jumper') {
@@ -2962,6 +2995,7 @@
 </script>
 </body>
 </html>
+
 
 
 
