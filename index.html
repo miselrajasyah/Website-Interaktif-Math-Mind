@@ -1254,23 +1254,125 @@
         },
         { 
             id: "naturalist", name: "Naturalist", icon: "fa-leaf", color: "earth-900", hex: "#283618", 
-            desc: "Pola di Alam Semesta", 
+            desc: "Belajar dari Alam: Pola, Lingkungan & Makhluk Hidup", 
             media: [
-                { title: "Fibonacci Alam", icon: "fa-seedling", type: "app", appType: "draw", desc: "Gambar pola bunga matahari (Barisan Fibonacci: 1, 1, 2, 3, 5...)." },
-                { title: "Pertumbuhan Tanaman", icon: "fa-chart-line", type: "app", appType: "graph", desc: "Grafik tinggi tanaman per hari (Biasanya fungsi Linear atau Logistik)." },
+                // --- 1. MEDIA LAMA (DIPERLUAS) ---
                 { 
-                    title: "Klasifikasi Pola", icon: "fa-filter", type: "app", appType: "sort", 
-                    items: ["Cangkang Siput (Spiral)", "Sarang Lebah (Heksagon)", "Zebra Cross (Garis)", "Petir (Fraktal)"], 
-                    desc: "Mengelompokkan pola geometri alam." 
+                    title: "Fibonacci Alam", icon: "fa-seedling", type: "app", appType: "pattern", 
+                    desc: "Tebak jumlah kelopak bunga atau cangkang siput.",
+                    seq: ["1", "1", "2", "3", "5"], ans: "8", hint: "Jumlahkan 2 angka sebelumnya (Fibonacci)", opts: ["7", "8", "9", "10"]
+                },
+                { 
+                    title: "Simulasi Tumbuh", icon: "fa-tree", type: "app", appType: "plant_grow", 
+                    desc: "Atur penyiraman (x) untuk melihat tinggi tanaman (y). Model: y = 2x + 5.", 
+                },
+                { 
+                    title: "Taksonomi Aljabar", icon: "fa-sitemap", type: "app", appType: "dragdrop", 
+                    desc: "Klasifikasikan spesies aljabar ke habitat yang benar.", 
+                    items: ["2x", "5y", "x²", "7", "-3x", "10"], 
+                    explanation: "Kelompokkan Suku Sejenis (Satu Spesies) dan Konstanta (Abiotik)."
                 },
                 { 
                     title: "Populasi Kelinci", icon: "fa-paw", type: "quiz", 
-                    question: "Populasi kelinci membelah diri menjadi 2 setiap bulan. Ini pola barisan?", 
-                    options: ["Geometri (Perkalian)", "Aritmatika (Penjumlahan)", "Linear", "Tetap"], answer: 0, 
-                    desc: "Aplikasi barisan geometri." 
+                    desc: "Pola perkembangbiakan hewan.",
+                    contentList: [
+                        { question: "Sepasang kelinci melahirkan 2 anak setiap bulan. Polanya: 2, 4, 8, 16... Ini adalah barisan?", options: ["Geometri (Rasio)", "Aritmatika (Beda)", "Linear", "Tetap"], answer: 0 },
+                        { question: "Jika wabah menyerang, populasi turun drastis. Grafiknya akan...", options: ["Turun curam (Gradien Negatif)", "Naik terus", "Mendatar", "Vertikal"], answer: 0 }
+                    ]
+                },
+
+                // --- 2. 12 MEDIA BARU (NATURE MATH) ---
+
+                // 5. HUKUM JANGKRIK (Dolbear's Law)
+                {
+                    title: "Suhu Jangkrik", icon: "fa-bug", type: "app", appType: "nature_calc", subtype: "cricket",
+                    desc: "Hitung suhu udara berdasarkan bunyi jangkrik. Rumus: T = 50 + (n-40)/4.",
+                },
+
+                // 6. JEJAK KARBON (Environmental Math)
+                {
+                    title: "Jejak Karbon", icon: "fa-smog", type: "app", appType: "nature_calc", subtype: "carbon",
+                    desc: "Hitung emisi CO2 harianmu. Transportasi (x) + Listrik (y).",
+                },
+
+                // 7. PREDIKSI CUACA (Fungsi)
+                {
+                    title: "Pola Cuaca", icon: "fa-cloud-sun-rain", type: "quiz",
+                    desc: "Baca grafik suhu vs waktu.",
+                    contentList: [
+                        { question: "Suhu naik 2°C setiap jam dari jam 6 pagi. Model matematikanya?", options: ["T = 2x + T_awal", "T = x - 2", "T = 2x²", "T = 2"], answer: 0 },
+                        { question: "Kapan suhu mencapai puncaknya? (Lihat titik balik maksimum pada grafik parabola)", options: ["Siang Hari", "Malam Hari", "Pagi Hari", "Subuh"], answer: 0 }
+                    ]
+                },
+
+                // 8. GRADIEN SUNGAI (Topografi)
+                {
+                    title: "Gradien Sungai", icon: "fa-water", type: "app", appType: "river",
+                    desc: "Air mengalir dari tinggi ke rendah. Atur kemiringan sungai agar aliran lancar.",
+                },
+
+                // 9. FOTOSINTESIS (Input Output)
+                {
+                    title: "Mesin Daun", icon: "fa-sun", type: "app", appType: "quiz",
+                    desc: "Input: Cahaya & Air. Output: Gula & Oksigen.",
+                    contentList: [
+                        { question: "Semakin banyak cahaya (x), semakin banyak Oksigen (y). Ini hubungan...", options: ["Berbanding Lurus (Linear Positif)", "Berbanding Terbalik", "Konstan", "Nol"], answer: 0 },
+                        { question: "Tanaman mati jika air = 0. Maka grafik harus dimulai dari...", options: ["Titik (0,0)", "Titik (0, 10)", "Titik Negatif", "Tak Terhingga"], answer: 0 }
+                    ]
+                },
+
+                // 10. SARANG LEBAH (Pola Geometri)
+                {
+                    title: "Sarang Lebah", icon: "fa-cube", type: "app", appType: "pattern",
+                    desc: "Kenapa lebah memilih Hexagon? (Efisiensi Luas).",
+                    seq: ["▲", "■", "⬡", "?"], ans: "⬡", hint: "Segitiga(3), Kotak(4), Hexagon(6) adalah tiling pattern. Pilih Hexagon lagi untuk pola sarang.", opts: ["⬡", "●", "★", "▲"]
+                },
+
+                // 11. RANTAI MAKANAN (Sistem Persamaan)
+                {
+                    title: "Rantai Makanan", icon: "fa-link", type: "app", appType: "food_chain",
+                    desc: "Seimbangkan ekosistem. Jika Rumput (x) habis, Rusa (y) punah.",
+                },
+
+                // 12. KONSERVASI AIR (Linear)
+                {
+                    title: "Hemat Air", icon: "fa-tint", type: "input", inputType: "textarea",
+                    desc: "Keran bocor menetes 5ml per menit. Buat model aljabarnya!",
+                    prompt: "Jika y = total air terbuang dan x = menit. Tulis rumusnya (y = ...)"
+                },
+
+                // 13. LINGKARAN TAHUN (Usia Pohon)
+                {
+                    title: "Usia Pohon", icon: "fa-history", type: "quiz",
+                    desc: "Menghitung umur dari pola lingkaran batang.",
+                    contentList: [
+                        { question: "Setiap tahun pohon menambah 1 lingkaran (Cincin). Jika ada 50 cincin, umurnya?", options: ["50 Tahun", "25 Tahun", "100 Tahun", "Tidak tahu"], answer: 0 },
+                        { question: "Lingkaran lebar berarti musim hujan (tumbuh cepat). Lingkaran sempit berarti...", options: ["Musim Kemarau", "Pohon Mati", "Musim Salju", "Kebakaran"], answer: 0 }
+                    ]
+                },
+
+                // 14. BAKTERI BELAH DIRI (Eksponensial)
+                {
+                    title: "Petri Dish", icon: "fa-vial", type: "app", appType: "bacteria",
+                    desc: "Lihat bakteri membelah diri 1 jadi 2, 2 jadi 4 (2^n).",
+                },
+
+                // 15. MIGRASI BURUNG (Koordinat)
+                {
+                    title: "Navigasi Burung", icon: "fa-dove", type: "app", appType: "migration",
+                    desc: "Burung terbang dari (2,2) ke (8,10). Hitung jarak tempuhnya.",
+                },
+
+                // 16. DATA BENCANA (Statistik Alam)
+                {
+                    title: "Data Gempa", icon: "fa-house-damage", type: "app", appType: "quiz",
+                    desc: "Interpretasi data Scatter Plot.",
+                    contentList: [
+                        { question: "Semakin dekat ke pusat gempa (x kecil), kerusakan (y) semakin besar. Ini korelasi...", options: ["Negatif", "Positif", "Nol", "Linear"], answer: 0 }
+                    ]
                 }
             ]
-        }
+        },
     ];
 
     // --- 2. INITIALIZATION & RENDER LOGIC ---
@@ -2212,6 +2314,85 @@
                         <i class="fas fa-info-circle mr-2"></i> Geser slider untuk melihat analisismu.
                     </div>
                 </div>`;
+            if(item.appType === 'plant_grow') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-blue-50 rounded-3xl p-6 relative overflow-hidden">
+                <div class="absolute bottom-0 w-full h-24 bg-[#5D4037]"></div>
+                
+                <div id="plant-stem" class="w-4 bg-green-600 absolute bottom-24 transition-all duration-500 rounded-t-full" style="height: 50px; left: 50%; transform: translateX(-50%)">
+                    <div id="plant-leaf-l" class="absolute top-0 -left-6 w-8 h-8 bg-green-500 rounded-tr-[20px] rounded-bl-[20px] transition-all"></div>
+                    <div id="plant-leaf-r" class="absolute top-10 -right-6 w-8 h-8 bg-green-500 rounded-tl-[20px] rounded-br-[20px] transition-all"></div>
+                    <div id="plant-flower" class="absolute -top-8 left-1/2 -translate-x-1/2 text-4xl opacity-0 transition">🌻</div>
+                </div>
+
+                <div class="absolute top-10 right-10 bg-white/90 p-4 rounded-xl shadow-lg backdrop-blur text-sm">
+                    <div class="mb-2 font-bold text-earth-700">Rumus: y = 2x + 5</div>
+                    <label class="block text-xs font-bold text-blue-500 mb-1">Air (x): <span id="plant-x">0</span> liter</label>
+                    <input type="range" min="0" max="10" value="0" class="w-32 accent-blue-500" oninput="updatePlant(this.value)">
+                    <div class="mt-2 text-xs font-bold text-green-700">Tinggi (y): <span id="plant-y">5</span> cm</div>
+                </div>
+            </div>`;
+            if(item.appType === 'nature_calc') {
+            const isC = item.subtype === 'cricket';
+            return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in ${isC?'bg-earth-900 text-white':'bg-gray-100 text-gray-800'} rounded-3xl p-6">
+                <i class="fas ${isC?'fa-bug':'fa-smog'} text-6xl mb-6 ${isC?'text-green-400':'text-gray-500'} animate-bounce-slow"></i>
+                <h3 class="text-2xl font-bold mb-2">${item.title}</h3>
+                <p class="mb-8 opacity-80 max-w-md text-center">${item.desc}</p>
+                
+                <div class="bg-white/10 p-6 rounded-2xl w-full max-w-sm backdrop-blur-sm border border-white/20">
+                    <label class="block text-xs font-bold uppercase mb-2 opacity-70">${isC ? 'Jumlah Jangkrik Berbunyi (per menit)' : 'Jarak Tempuh (km)'}</label>
+                    <input type="number" id="nat-inp" class="w-full p-3 rounded-xl bg-white text-earth-900 font-bold text-lg outline-none mb-4" placeholder="Input angka...">
+                    ${!isC ? `<label class="block text-xs font-bold uppercase mb-2 opacity-70">Listrik (kWh)</label><input type="number" id="nat-inp2" class="w-full p-3 rounded-xl bg-white text-earth-900 font-bold text-lg outline-none mb-4" placeholder="Input kWh...">` : ''}
+                    
+                    <button onclick="${isC ? 'calcCricket()' : 'calcCarbon()'}" class="w-full py-3 ${isC?'bg-green-600':'bg-gray-700'} text-white rounded-xl font-bold shadow-lg">Hitung</button>
+                    
+                    <div id="nat-res" class="mt-4 text-center font-mono text-xl font-bold opacity-0 transition">Result</div>
+                </div>
+            </div>`;
+          }      
+            if(item.appType === 'river') return `
+            <div class="h-full flex flex-col animate-fade-in bg-[#87CEEB] rounded-3xl relative overflow-hidden">
+                <div class="absolute top-10 left-10 text-yellow-300 text-6xl animate-spin-slow">☀️</div>
+                
+                <canvas id="cv-river" class="w-full h-full block z-10"></canvas>
+                
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 p-4 rounded-xl shadow-lg z-20 flex gap-4 items-center">
+                    <div>
+                        <label class="text-xs font-bold text-earth-600 block">Kemiringan (m)</label>
+                        <input type="range" min="0" max="50" value="10" class="w-32 accent-blue-600" oninput="drawRiver(this.value)">
+                    </div>
+                    <div id="river-speed" class="font-bold text-blue-800 text-sm">Aliran: Lambat</div>
+                </div>
+                <script>setTimeout(()=>drawRiver(10), 500);
+            </div>`;
+            if(item.appType === 'bacteria') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gray-900 rounded-3xl p-6 relative">
+                <div class="w-64 h-64 rounded-full border-4 border-white/20 bg-white/5 relative flex items-center justify-center overflow-hidden" id="petri-dish">
+                    <div class="bacteria w-4 h-4 bg-green-400 rounded-full absolute shadow-[0_0_10px_#4ade80]" style="top:50%; left:50%"></div>
+                </div>
+                <div class="mt-8 flex gap-4 items-center z-10">
+                    <div class="text-white text-center">
+                        <div class="text-xs opacity-70 uppercase">Generasi (n)</div>
+                        <div id="bac-gen" class="text-2xl font-bold font-mono">0</div>
+                    </div>
+                    <button onclick="splitBacteria()" class="w-16 h-16 rounded-full bg-green-500 text-white text-2xl flex items-center justify-center shadow-lg hover:scale-110 transition"><i class="fas fa-dna"></i></button>
+                    <div class="text-white text-center">
+                        <div class="text-xs opacity-70 uppercase">Jumlah (2ⁿ)</div>
+                        <div id="bac-count" class="text-2xl font-bold font-mono">1</div>
+                    </div>
+                </div>
+                <p class="mt-4 text-xs text-green-300 italic">Klik tombol DNA untuk membelah diri!</p>
+            </div>`;
+            if(item.appType === 'food_chain' || item.appType === 'migration') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-200 rounded-3xl p-6 text-center">
+                <i class="fas ${item.icon} text-6xl text-earth-600 mb-6"></i>
+                <h3 class="text-xl font-bold mb-2 text-earth-800">${item.title}</h3>
+                <p class="mb-6 text-earth-600 max-w-xs">${item.desc}</p>
+                <div class="p-4 bg-white rounded-xl shadow-sm border border-earth-300">
+                    <p class="font-serif italic text-earth-500">"Simulasi visual untuk topik ini akan segera hadir di update berikutnya!"</p>
+                    <button class="mt-4 px-6 py-2 bg-earth-700 text-white rounded-full text-sm" onclick="addXP(5); alert('Poin eksplorasi ditambahkan!')">Klaim Poin</button>
+                </div>
+            </div>`;
 
             // Fallback untuk helper forms
             return `<div class="p-10 text-center">App Under Construction</div>`;
@@ -3332,6 +3513,114 @@
             msg.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i> Awas! Hiburan terlalu mendominasi.`;
         }
     };
+
+    // --- 14. LOGIKA NATURALIST APPS ---
+
+    // A. PLANT GROW
+    window.updatePlant = function(x) {
+        // y = 2x + 5
+        const y = (2 * x) + 5;
+        document.getElementById('plant-x').innerText = x;
+        document.getElementById('plant-y').innerText = y;
+        
+        // Visual Update
+        const stem = document.getElementById('plant-stem');
+        const h = Math.min(200, y * 5); // Scale visual
+        stem.style.height = h + 'px';
+        
+        // Flower bloom at max
+        const flo = document.getElementById('plant-flower');
+        if(x >= 9) { flo.style.opacity = 1; flo.classList.add('animate-bounce'); }
+        else { flo.style.opacity = 0; flo.classList.remove('animate-bounce'); }
+    };
+
+    // B. NATURE CALCULATOR
+    window.calcCricket = function() {
+        const n = parseFloat(document.getElementById('nat-inp').value);
+        if(!n) return;
+        // T = 50 + (n-40)/4 (Fahrenheit approx formula)
+        // Let's use simpler Celcius logic for students: T_celcius = 10 + (n - 40) / 7
+        const t = 10 + (n - 40) / 7;
+        const res = document.getElementById('nat-res');
+        res.innerText = `Suhu Sekitar: ±${t.toFixed(1)}°C`;
+        res.style.opacity = 1;
+        addXP(5);
+    };
+    window.calcCarbon = function() {
+        const dist = parseFloat(document.getElementById('nat-inp').value) || 0;
+        const elec = parseFloat(document.getElementById('nat-inp2').value) || 0;
+        // Dummy formula: 0.2kg per km + 0.5kg per kWh
+        const total = (dist * 0.2) + (elec * 0.5);
+        const res = document.getElementById('nat-res');
+        res.innerText = `Jejak Karbon: ${total.toFixed(1)} kg CO₂`;
+        res.style.opacity = 1;
+        addXP(5);
+    };
+
+    // C. RIVER (CANVAS)
+    window.drawRiver = function(slope) {
+        const cv = document.getElementById('cv-river');
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        cv.width = cv.parentElement.clientWidth; cv.height = cv.parentElement.clientHeight;
+        const w=cv.width, h=cv.height;
+
+        ctx.clearRect(0,0,w,h);
+
+        // Tanah (Segitiga miring)
+        ctx.fillStyle = '#5D4037';
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        const startY = h - (slope * 5); // Semakin besar slope, semakin tinggi titik awal
+        ctx.lineTo(0, startY);
+        ctx.lineTo(w, h);
+        ctx.fill();
+
+        // Air
+        ctx.strokeStyle = '#4FC3F7';
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(0, startY);
+        ctx.lineTo(w, h);
+        ctx.stroke();
+
+        // Teks Speed
+        const spd = document.getElementById('river-speed');
+        if(slope < 10) spd.innerText = "Aliran: Lambat (Arus Tenang)";
+        else if(slope < 30) spd.innerText = "Aliran: Sedang (Ideal)";
+        else spd.innerText = "Aliran: Cepat (Air Terjun!)";
+    };
+
+    // D. BACTERIA (EXPONENTIAL)
+    let bacGen = 0;
+    window.splitBacteria = function() {
+        if(bacGen >= 6) { alert("Petri Dish Penuh! Reset."); bacGen=0; document.getElementById('petri-dish').innerHTML='<div class="bacteria w-4 h-4 bg-green-400 rounded-full absolute shadow-[0_0_10px_#4ade80]" style="top:50%; left:50%"></div>'; }
+        
+        bacGen++;
+        const count = Math.pow(2, bacGen);
+        document.getElementById('bac-gen').innerText = bacGen;
+        document.getElementById('bac-count').innerText = count;
+
+        const dish = document.getElementById('petri-dish');
+        // Tambah visual bakteri
+        // Kita tambah sejumlah (count - count_prev) bakteri baru
+        const newBac = count - Math.pow(2, bacGen-1);
+        
+        for(let i=0; i<newBac; i++) {
+            const b = document.createElement('div');
+            b.className = "bacteria w-3 h-3 bg-green-400 rounded-full absolute shadow-[0_0_5px_#4ade80] transition transform scale-0";
+            // Random pos
+            const r = (Math.random() * 80) + 10;
+            const theta = Math.random() * 360;
+            b.style.top = (Math.random() * 80 + 10) + '%';
+            b.style.left = (Math.random() * 80 + 10) + '%';
+            dish.appendChild(b);
+            
+            setTimeout(() => b.style.transform = "scale(1)", 50);
+        }
+        addXP(2);
+    };
     
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -3836,6 +4125,7 @@
 </script>
 </body>
 </html>
+
 
 
 
