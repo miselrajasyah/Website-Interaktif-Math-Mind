@@ -1007,19 +1007,141 @@
         },
         { 
             id: "interpersonal", name: "Interpersonal", icon: "fa-users", color: "accent-orange", hex: "#BC6C25", 
-            desc: "Belajar Bersama & Studi Kasus", 
+            desc: "Belajar Lewat Interaksi, Diskusi & Empati", 
             media: [
+                // --- 1. MEDIA LAMA (DIPERLUAS VARIASINYA) ---
                 { 
-                    title: "Tawar Menawar", icon: "fa-store", type: "app", appType: "chat", 
-                    chatData: [{sender:"Penjual", msg:"2 kg Apel dan 1 kg Jeruk harganya 50rb."}, {sender:"You", msg:"(Buat model matematika: 2a + j = 50000)"}], 
-                    desc: "Simulasi pasar SPLDV." 
+                    title: "Simulasi Tawar Menawar", icon: "fa-comments-dollar", type: "app", appType: "chat", 
+                    desc: "Latihan negosiasi menggunakan model matematika.",
+                    contentList: [
+                        { title: "Pasar Buah", chatData: [{sender:"Penjual", msg:"2 kg Apel dan 1 kg Jeruk harganya 50rb."}, {sender:"You", msg:"(Modelkan: 2a + j = 50000)"}] },
+                        { title: "Toko Baju", chatData: [{sender:"Kasir", msg:"Diskon 20% untuk pembelian di atas 100rb."}, {sender:"You", msg:"(Modelkan: Bayar = 0.8x jika x > 100000)"}] },
+                        { title: "Ojek Online", chatData: [{sender:"Driver", msg:"Tarif dasar 10rb, plus 2rb per km."}, {sender:"You", msg:"(Rumus: y = 2000x + 10000)"}] }
+                    ]
                 },
-                { title: "Survey Fungsi", icon: "fa-poll", type: "input", inputType: "textarea", prompt: "Tanya 5 teman: Ukuran sepatu vs Tinggi Badan. Apakah ada relasi fungsi?", desc: "Pengumpulan data nyata." },
-                { title: "Split Bill", icon: "fa-receipt", type: "app", appType: "calculator", calcType: "bill", desc: "Aplikasi Aljabar: Menghitung patungan makan teman." },
                 { 
-                    title: "Diskusi Kelompok", icon: "fa-comments", type: "task", 
-                    content: "Jelaskan ke temanmu: Apa bedanya 'Relasi' dan 'Fungsi'? Gunakan analogi Siswa dan Nomor Absen.", 
-                    desc: "Teaching others technique." 
+                    title: "Survey Sosial", icon: "fa-poll", type: "input", inputType: "textarea", 
+                    desc: "Kumpulkan data dari teman-temanmu.",
+                    contentList: [
+                        { prompt: "Tanya 5 teman: Ukuran sepatu vs Tinggi Badan. Apakah ada pola linear?" },
+                        { prompt: "Cek uang saku 3 teman. Buat rata-rata (mean) dalam bentuk aljabar (x+y+z)/3." }
+                    ]
+                },
+                { 
+                    title: "Split Bill", icon: "fa-receipt", type: "app", appType: "calculator", calcType: "bill", 
+                    desc: "Aplikasi hitung patungan makan biar adil." 
+                },
+                { 
+                    title: "Kartu Diskusi", icon: "fa-comments", type: "task", 
+                    desc: "Topik seru untuk dibahas bareng teman sebangku.",
+                    contentList: [
+                        { content: "Debat: Apakah 0 itu bilangan genap? Gunakan aljabar (2n) untuk membuktikannya!" },
+                        { content: "Jelaskan ke temanmu: Kenapa pindah ruas mengubah tanda plus jadi minus? (Analogi Timbangan)" }
+                    ]
+                },
+
+                // --- 2. 12 MEDIA BARU (INTERAKTIF SOSIAL) ---
+
+                // 5. MAGIC MATH (Tebak Pikiran)
+                {
+                    title: "Magic Reader", icon: "fa-hat-wizard", type: "app", appType: "magic",
+                    desc: "Aku bisa menebak angkamu menggunakan Aljabar! (Buktikan: ((x+5)*2 - 10)/2 = x)",
+                },
+
+                // 6. MEDIATOR KONFLIK (Analisis Error)
+                {
+                    title: "Mediator Konflik", icon: "fa-handshake", type: "quiz",
+                    desc: "Dua temanmu berdebat jawaban. Siapa yang benar?",
+                    contentList: [
+                        { question: "Budi: '3(x+2) = 3x + 2'.\nAni: 'Salah! Harusnya 3x + 6'.\nSiapa yang benar?", options: ["Ani Benar", "Budi Benar", "Keduanya Salah", "Keduanya Benar"], answer: 0, explanation: "Sifat Distributif: a(b+c) = ab + ac." },
+                        { question: "Tom: 'x - 5 = 10, jadi x = 5'.\nJerry: 'x = 15'.", options: ["Jerry Benar", "Tom Benar", "Bingung", "Salah Semua"], answer: 0 }
+                    ]
+                },
+
+                // 7. WAWANCARA TOKOH (Chat Bot)
+                {
+                    title: "Chat Al-Khwarizmi", icon: "fa-user-astronaut", type: "app", appType: "chat",
+                    desc: "Ngobrol imajiner dengan Bapak Aljabar.",
+                    chatData: [
+                        {sender:"Al-Khwarizmi", msg:"Assalamualaikum. Saya menemukan metode Al-Jabr. Tahukah kamu artinya?"},
+                        {sender:"You", msg:"Memperbaiki bagian yang rusak?"},
+                        {sender:"Al-Khwarizmi", msg:"Tepat! Memindahkan suku negatif agar menjadi positif. Seperti mengobati tulang patah."}
+                    ]
+                },
+
+                // 8. DEBAT MATEMATIKA (Chat Skenario)
+                {
+                    title: "Debat Aljabar", icon: "fa-gavel", type: "app", appType: "chat",
+                    desc: "Lawan argumen yang salah!",
+                    chatData: [
+                        {sender:"Skeptis", msg:"Aljabar itu gak penting. Ngapain cari x?"},
+                        {sender:"You", msg:"Tanpa x, kita gak bisa bikin program komputer atau prediksi cuaca!"},
+                        {sender:"Skeptis", msg:"Tapi aku mau jadi seniman, bukan ilmuwan."},
+                        {sender:"You", msg:"Proporsi wajah, perspektif gambar, semua butuh rasio matematika lho."}
+                    ]
+                },
+
+                // 9. KONSULTAN AMAL (Budgeting)
+                {
+                    title: "Konsultan Amal", icon: "fa-hand-holding-heart", type: "app", appType: "budget",
+                    desc: "Atur anggaran acara amal. Pastikan Total = Rp 10 Juta.",
+                },
+
+                // 10. GURU CILIK (Teaching)
+                {
+                    title: "Guru Cilik", icon: "fa-chalkboard-teacher", type: "input", inputType: "textarea",
+                    desc: "Tantangan: Jelaskan konsep Variabel kepada adik umur 5 tahun.",
+                    prompt: "Gunakan analogi 'Kotak Misteri' atau 'Amplop' untuk menjelaskan huruf x."
+                },
+
+                // 11. DETEKTIF GOSIP (Logic Puzzle)
+                {
+                    title: "Detektif Gosip", icon: "fa-user-secret", type: "quiz",
+                    desc: "Pecahkan masalah berdasarkan keterangan saksi.",
+                    contentList: [
+                        { question: "Andi: 'Umurku x'. Budi: 'Umurku 2x'. Cici: 'Umurku x+5'.\nJika total umur mereka 45, berapa umur Andi?", options: ["10 Tahun", "5 Tahun", "15 Tahun", "20 Tahun"], answer: 0, explanation: "x + 2x + x + 5 = 45 -> 4x = 40 -> x = 10." },
+                        { question: "Ali punya kelereng y. Baba punya y - 3. Total 17. Berapa kelereng Ali?", options: ["10", "7", "13", "20"], answer: 0 }
+                    ]
+                },
+
+                // 12. KOLABORASI TIM (Task)
+                {
+                    title: "Misi Rahasia", icon: "fa-user-friends", type: "task",
+                    desc: "Permainan berpasangan.",
+                    contentList: [
+                        { content: "Cari 1 partner. Kamu pegang angka '5', partnermu pegang 'x'. Lakukan operasi: Kalikan angka kalian, lalu kurangi 2. Berapa hasilnya?" },
+                        { content: "Partner A tulis persamaan. Partner B yang menyelesaikannya. Tukar peran!" }
+                    ]
+                },
+
+                // 13. KASIR DADAKAN (Speed Calc)
+                {
+                    title: "Kasir Dadakan", icon: "fa-cash-register", type: "app", appType: "cashier",
+                    desc: "Hitung total belanja pelanggan secepat mungkin! (x = harga barang)",
+                },
+
+                // 14. SURAT SAHABAT (Input)
+                {
+                    title: "Surat Sahabat", icon: "fa-envelope", type: "input", inputType: "textarea",
+                    desc: "Tulis surat untuk teman yang benci Matematika.",
+                    prompt: "Yakinkan dia bahwa Aljabar itu seperti puzzle game yang seru, bukan musuh."
+                },
+
+                // 15. KOMENTATOR GAME (Narasi)
+                {
+                    title: "Komentator", icon: "fa-microphone", type: "input", inputType: "textarea",
+                    desc: "Jadilah komentator balapan grafik.",
+                    prompt: "Grafik A (2x) menyalip Grafik B (x+5)! Tulis narasi seru saat mereka berpotongan (titik temu)."
+                },
+
+                // 16. TEBAK KATA (Team Game)
+                {
+                    title: "Taboo Math", icon: "fa-ban", type: "task",
+                    desc: "Jelaskan kata ini ke temanmu TANPA menyebut kata terlarang.",
+                    contentList: [
+                        { content: "Kata Kunci: 'VARIABEL'. Dilarang sebut: Huruf, Angka, X, Y." },
+                        { content: "Kata Kunci: 'GRADIEN'. Dilarang sebut: Miring, Garis, Tanjakan." }
+                    ]
                 }
             ]
         },
@@ -1736,6 +1858,56 @@
                     <span class="font-bold text-xl">TAP UNTUK MAIN</span>
                 </button>
             </div>`;
+        if(item.appType === 'magic') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-purple-900 rounded-3xl p-6 text-center text-white relative overflow-hidden">
+                <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+                <i class="fas fa-hat-wizard text-6xl mb-6 text-yellow-300 animate-bounce-slow"></i>
+                <div id="magic-step" class="z-10 w-full max-w-md">
+                    <h3 class="text-2xl font-bold mb-4">Pikirkan satu angka (x)...</h3>
+                    <p class="mb-8 opacity-80">Jangan beritahu aku!</p>
+                    <button onclick="nextMagic(1)" class="px-8 py-3 bg-yellow-400 text-purple-900 rounded-full font-bold hover:scale-105 transition shadow-lg">Lanjut <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>`;
+        if(item.appType === 'budget') return `
+            <div class="h-full flex flex-col animate-fade-in bg-white rounded-3xl p-6 border-2 border-earth-200">
+                <h3 class="text-xl font-bold text-earth-800 mb-2 text-center">Anggaran Acara Amal</h3>
+                <div class="bg-earth-100 p-3 rounded-xl mb-6 flex justify-between items-center">
+                    <span class="text-sm font-bold text-earth-600">Target: 10 Juta</span>
+                    <span id="bud-total" class="text-xl font-bold text-earth-800">0</span>
+                </div>
+                
+                <div class="space-y-6 flex-1 overflow-y-auto pr-2">
+                    <div>
+                        <div class="flex justify-between mb-1"><label class="font-bold text-earth-700">Makanan (x)</label><span id="val-b1" class="text-sm">0</span></div>
+                        <input type="range" max="10000000" step="500000" value="0" class="w-full accent-orange-500" oninput="updateBudget()">
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1"><label class="font-bold text-earth-700">Dekorasi (y)</label><span id="val-b2" class="text-sm">0</span></div>
+                        <input type="range" max="10000000" step="500000" value="0" class="w-full accent-blue-500" oninput="updateBudget()">
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1"><label class="font-bold text-earth-700">Hiburan (z)</label><span id="val-b3" class="text-sm">0</span></div>
+                        <input type="range" max="10000000" step="500000" value="0" class="w-full accent-green-500" oninput="updateBudget()">
+                    </div>
+                </div>
+                <div id="bud-msg" class="mt-4 text-center text-sm font-bold h-6 text-red-500"></div>
+            </div>`;
+        if(item.appType === 'cashier') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-50 rounded-3xl p-6 border border-earth-200">
+                <div class="w-full max-w-sm bg-white p-6 rounded-2xl shadow-lg border border-earth-100 text-center relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-earth-700 text-white px-3 py-1 rounded-full text-xs font-bold">Pelanggan #1</div>
+                    <div class="text-4xl mb-4">🛒</div>
+                    <p class="text-earth-600 mb-2 font-mono text-sm">3 Buku (x) + 2 Pena (y)</p>
+                    <p class="text-xs text-earth-400 mb-6">x = 5.000, y = 2.000</p>
+                    
+                    <div class="flex gap-2">
+                        <input type="number" id="cash-inp" placeholder="Total?" class="flex-1 p-2 border-2 border-earth-200 rounded-lg text-center font-bold text-lg outline-none focus:border-earth-500">
+                        <button onclick="checkCashier()" class="bg-green-500 text-white px-4 rounded-lg font-bold hover:bg-green-600"><i class="fas fa-check"></i></button>
+                    </div>
+                    <div id="cash-msg" class="mt-4 font-bold h-6"></div>
+                </div>
+            </div>`;
+        
 
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
     }
@@ -2149,6 +2321,79 @@
             el.style.top = ev.pageY - shiftY - 100 + 'px';
         };
         document.onmouseup = function() { document.onmousemove = null; };
+    };
+
+    // --- 12. LOGIKA INTERPERSONAL APPS ---
+
+    // A. MAGIC MATH
+    const magicSteps = [
+        { t: "Kalikan angkamu dengan 2 (2x)", i: "fa-times" },
+        { t: "Tambah dengan 10 (2x + 10)", i: "fa-plus" },
+        { t: "Bagi dengan 2 (x + 5)", i: "fa-divide" },
+        { t: "Kurangi dengan angka awalmu (x + 5 - x)", i: "fa-minus" },
+        { t: "Hasilnya pasti 5! 😎", i: "fa-magic", end: true }
+    ];
+    window.nextMagic = function(step) {
+        const box = document.getElementById('magic-step');
+        if(!box) return;
+        
+        if(step >= magicSteps.length) {
+            // Reset
+            box.innerHTML = `<h3 class="text-2xl font-bold mb-4">Pikirkan satu angka (x)...</h3><p class="mb-8 opacity-80">Jangan beritahu aku!</p><button onclick="nextMagic(0)" class="px-8 py-3 bg-yellow-400 text-purple-900 rounded-full font-bold hover:scale-105 transition shadow-lg">Lanjut <i class="fas fa-arrow-right ml-2"></i></button>`;
+            return;
+        }
+
+        const s = magicSteps[step];
+        box.innerHTML = `
+            <i class="fas ${s.i} text-4xl mb-4 text-yellow-300 block animate-bounce-slow"></i>
+            <h3 class="text-2xl font-bold mb-8">${s.t}</h3>
+            <button onclick="nextMagic(${step+1})" class="px-8 py-3 ${s.end?'bg-green-500 text-white':'bg-yellow-400 text-purple-900'} rounded-full font-bold hover:scale-105 transition shadow-lg">${s.end?'Main Lagi':'Lanjut'} <i class="fas ${s.end?'fa-redo':'fa-arrow-right'} ml-2"></i></button>
+        `;
+        if(s.end) confetti();
+    };
+
+    // B. BUDGETING
+    window.updateBudget = function() {
+        const inps = document.querySelectorAll('input[type="range"]');
+        const vals = [document.getElementById('val-b1'), document.getElementById('val-b2'), document.getElementById('val-b3')];
+        let sum = 0;
+        
+        inps.forEach((inp, i) => {
+            const v = parseInt(inp.value);
+            sum += v;
+            vals[i].innerText = "Rp " + v.toLocaleString('id-ID');
+        });
+
+        const totalEl = document.getElementById('bud-total');
+        totalEl.innerText = "Rp " + sum.toLocaleString('id-ID');
+        
+        const msg = document.getElementById('bud-msg');
+        if(sum === 10000000) {
+            totalEl.className = "text-xl font-bold text-green-600";
+            msg.innerText = "Pas! Anggaran Disetujui ✅"; msg.className = "mt-4 text-center text-sm font-bold h-6 text-green-600";
+        } else if(sum > 10000000) {
+            totalEl.className = "text-xl font-bold text-red-600";
+            msg.innerText = "Over Budget! Kurangi Rp " + (sum-10000000).toLocaleString('id-ID'); msg.className = "mt-4 text-center text-sm font-bold h-6 text-red-500";
+        } else {
+            totalEl.className = "text-xl font-bold text-earth-800";
+            msg.innerText = "Masih sisa Rp " + (10000000-sum).toLocaleString('id-ID'); msg.className = "mt-4 text-center text-sm font-bold h-6 text-earth-500";
+        }
+    };
+
+    // C. KASIR
+    window.checkCashier = function() {
+        const val = parseInt(document.getElementById('cash-inp').value);
+        const ans = (3 * 5000) + (2 * 2000); // 19000
+        const msg = document.getElementById('cash-msg');
+        
+        if(val === ans) {
+            msg.innerText = "Benar! (19.000) +10 XP";
+            msg.className = "mt-4 font-bold h-6 text-green-600";
+            addXP(10);
+        } else {
+            msg.innerText = "Salah. Coba hitung lagi (3x + 2y)";
+            msg.className = "mt-4 font-bold h-6 text-red-500";
+        }
     };
 
     // --- 10. LOGIKA 5 MEDIA MUSIKAL BARU ---
@@ -3053,6 +3298,7 @@
 </script>
 </body>
 </html>
+
 
 
 
