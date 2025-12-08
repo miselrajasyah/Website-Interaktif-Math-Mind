@@ -1213,6 +1213,7 @@
         setTimeout(() => {
             if(item.appType === 'graph') drawGraph(cat.hex);
             if(item.appType === 'balance') initBalance(cat.hex); // <--- INI BARU
+            if(item.appType === 'tiles') initTiles();
             if(item.appType === 'draw') initDraw(cat.hex);
             if(item.appType === 'wave') initWave(cat.hex);
             if(item.appType === 'graph_sound') initGs();
@@ -1519,27 +1520,22 @@
             </div>`;
         if(item.appType === 'tiles') return `
             <div class="h-full flex flex-col animate-fade-in relative">
-                <div class="flex-1 bg-white border-2 border-dashed border-earth-300 rounded-2xl mb-4 relative overflow-hidden" id="tile-canvas">
+                <div class="flex-1 bg-white border-2 border-dashed border-earth-300 rounded-2xl mb-4 relative overflow-hidden shadow-inner" id="tile-canvas">
                     <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-earth-200 font-bold text-4xl select-none pointer-events-none">AREA KERJA</p>
+                    <p class="absolute bottom-2 left-1/2 -translate-x-1/2 text-earth-300 text-xs select-none">Klik 2x pada balok untuk menghapus</p>
                 </div>
-                <div class="flex gap-2 justify-center bg-earth-100 p-4 rounded-xl overflow-x-auto">
-                    <div draggable="true" ondragstart="ddStartTile(event, 'x2')" class="w-16 h-16 bg-blue-500 border-2 border-blue-700 cursor-grab flex items-center justify-center text-white font-bold shadow hover:scale-105 transition shrink-0">x²</div>
-                    <div draggable="true" ondragstart="ddStartTile(event, 'x')" class="w-8 h-16 bg-green-500 border-2 border-green-700 cursor-grab flex items-center justify-center text-white font-bold shadow hover:scale-105 transition shrink-0">x</div>
-                    <div draggable="true" ondragstart="ddStartTile(event, '1')" class="w-8 h-8 bg-yellow-400 border-2 border-yellow-600 cursor-grab flex items-center justify-center text-yellow-900 font-bold shadow hover:scale-105 transition shrink-0">1</div>
-                    <button onclick="document.getElementById('tile-canvas').innerHTML=''" class="ml-4 px-4 py-2 bg-red-100 text-red-500 rounded-lg hover:bg-red-200"><i class="fas fa-trash"></i></button>
+                
+                <div class="flex gap-4 justify-center bg-earth-100 p-4 rounded-xl overflow-x-auto border border-earth-200 shadow-sm">
+                    <div draggable="true" ondragstart="ddStartTile(event, 'x2')" class="w-16 h-16 bg-blue-500 border-2 border-blue-600 cursor-grab flex items-center justify-center text-white font-bold shadow hover:scale-105 transition shrink-0 rounded" title="x² (Persegi Besar)">x²</div>
+                    <div draggable="true" ondragstart="ddStartTile(event, 'x')" class="w-8 h-16 bg-green-500 border-2 border-green-600 cursor-grab flex items-center justify-center text-white font-bold shadow hover:scale-105 transition shrink-0 rounded" title="x (Persegi Panjang)">x</div>
+                    <div draggable="true" ondragstart="ddStartTile(event, '1')" class="w-8 h-8 bg-yellow-400 border-2 border-yellow-500 cursor-grab flex items-center justify-center text-yellow-900 font-bold shadow hover:scale-105 transition shrink-0 rounded" title="1 (Satuan)">1</div>
+                    
+                    <div class="w-px h-auto bg-earth-300 mx-2"></div>
+                    
+                    <button onclick="document.getElementById('tile-canvas').innerHTML='<p class=\'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-earth-200 font-bold text-4xl select-none pointer-events-none\'>AREA KERJA</p>'" class="px-4 py-2 bg-red-100 text-red-500 rounded-lg hover:bg-red-200 font-bold transition flex flex-col items-center justify-center text-xs gap-1">
+                        <i class="fas fa-trash text-lg"></i> Reset
+                    </button>
                 </div>
-                    document.getElementById('tile-canvas').addEventListener('dragover', e=>e.preventDefault());
-                    document.getElementById('tile-canvas').addEventListener('drop', e=>{
-                        e.preventDefault(); const t = e.dataTransfer.getData('type');
-                        const el = document.createElement('div');
-                        const cls = {'x2':'w-16 h-16 bg-blue-500 text-white','x':'w-8 h-16 bg-green-500 text-white','1':'w-8 h-8 bg-yellow-400 text-yellow-900'};
-                        el.className = cls[t] + ' absolute border border-white/20 shadow-sm flex items-center justify-center font-bold select-none cursor-move';
-                        el.innerText = t;
-                        el.style.left = (e.offsetX-20)+'px'; el.style.top = (e.offsetY-20)+'px';
-                        el.onmousedown = function(ev){ this.style.zIndex=10; const sX=ev.clientX-this.offsetLeft, sY=ev.clientY-this.offsetTop; document.onmousemove=m=>{this.style.left=(m.clientX-sX)+'px';this.style.top=(m.clientY-sY)+'px'}; document.onmouseup=()=>{document.onmousemove=null;this.style.zIndex=1;} };
-                        e.target.appendChild(el);
-                    });
-                    window.ddStartTile = (e,t) => e.dataTransfer.setData('type', t);
             </div>`;
         if(item.appType === 'rhythm_game') return `
             <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-900 rounded-3xl relative overflow-hidden text-center text-white p-4">
@@ -2685,6 +2681,97 @@
             tick = !tick;
         }, ms);
     };
+
+    // --- LOGIKA KONSTRUKTOR TILES (DRAG & DROP) ---
+    
+    // 1. Fungsi Utama (Dipanggil saat modal buka)
+    window.initTiles = function() {
+        const canvas = document.getElementById('tile-canvas');
+        if(!canvas) return;
+
+        // Izinkan Drop
+        canvas.addEventListener('dragover', e => e.preventDefault());
+
+        // Handle Drop (Saat balok dilepas)
+        canvas.addEventListener('drop', e => {
+            e.preventDefault();
+            const type = e.dataTransfer.getData('type');
+            if(!type) return;
+
+            // Buat Element Baru
+            const el = document.createElement('div');
+            
+            // Styling sesuai tipe
+            const styles = {
+                'x2': 'w-16 h-16 bg-blue-500 border-2 border-blue-600 text-white',
+                'x':  'w-8 h-16 bg-green-500 border-2 border-green-600 text-white',
+                '1':  'w-8 h-8 bg-yellow-400 border-2 border-yellow-500 text-yellow-900'
+            };
+            const labels = {'x2': 'x²', 'x': 'x', '1': '1'};
+
+            el.className = `${styles[type]} absolute shadow-md flex items-center justify-center font-bold select-none cursor-move rounded transition-transform active:scale-105 z-10`;
+            el.innerText = labels[type];
+            
+            // Posisi Jatuh (Relatif terhadap Canvas)
+            const rect = canvas.getBoundingClientRect();
+            // Pusatkan kursor
+            const offsetX = (type === 'x2' ? 32 : 16);
+            const offsetY = (type === 'x' || type === 'x2' ? 32 : 16);
+            
+            let x = e.clientX - rect.left - offsetX;
+            let y = e.clientY - rect.top - offsetY;
+
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+
+            // FITUR: Geser Balok yang sudah ada
+            el.onmousedown = function(ev) {
+                ev.stopPropagation(); // Jangan trigger event lain
+                this.style.zIndex = 50; // Bawa ke depan
+                
+                const shiftX = ev.clientX - this.getBoundingClientRect().left;
+                const shiftY = ev.clientY - this.getBoundingClientRect().top;
+
+                function moveAt(pageX, pageY) {
+                    let newX = pageX - shiftX - rect.left;
+                    let newY = pageY - shiftY - rect.top;
+                    
+                    // Batas Canvas (Optional)
+                    // newX = Math.max(0, Math.min(newX, rect.width - el.offsetWidth));
+                    // newY = Math.max(0, Math.min(newY, rect.height - el.offsetHeight));
+
+                    el.style.left = newX + 'px';
+                    el.style.top = newY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.clientX, event.clientY);
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+
+                document.onmouseup = function() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    el.style.zIndex = 10;
+                    document.onmouseup = null;
+                };
+            };
+
+            // FITUR: Hapus Balok (Double Click)
+            el.ondblclick = function() {
+                this.classList.add('scale-0', 'opacity-0');
+                setTimeout(() => this.remove(), 200);
+            };
+
+            canvas.appendChild(el);
+            addXP(1); // Reward kecil
+        });
+    };
+
+    // 2. Helper untuk memulai Drag dari Palette
+    window.ddStartTile = function(e, type) {
+        e.dataTransfer.setData('type', type);
+    };
     
     // --- 6. LOGIKA LAB TIMBANGAN (PHYSICS) ---
     let balState = { Lx:0, L1:0, Rx:0, R1:0, xVal:0, hex:'' };
@@ -2875,6 +2962,7 @@
 </script>
 </body>
 </html>
+
 
 
 
