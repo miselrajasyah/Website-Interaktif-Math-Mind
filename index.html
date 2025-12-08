@@ -487,9 +487,28 @@
             desc: "Analisis Pola, Angka & Logika", 
             media: [
                 // --- 1. EXISTING (DIPERLUAS) ---
+                // GANTI BAGIAN DETEKTIF POLA DENGAN INI:
                 { 
-                    title: "Detektif Pola (Intro)", icon: "fa-search-plus", type: "app", appType: "pattern", 
-                    desc: "Pemanasan: Prediksi suku berikutnya dari barisan geometri dasar."
+                    title: "Detektif Pola (Level 1-8)", icon: "fa-search-plus", type: "app", appType: "pattern", 
+                    desc: "Tebak suku berikutnya! (Gunakan panah navigasi di atas untuk ganti soal)",
+                    contentList: [
+                        // Level 1: Geometri Dasar
+                        { seq: ["2", "4", "8"], ans: "16", hint: "Kali 2", opts: ["12", "16", "10", "20"] },
+                        // Level 2: Aritmatika
+                        { seq: ["3", "6", "9"], ans: "12", hint: "Tambah 3", opts: ["11", "12", "15", "10"] },
+                        // Level 3: Fibonacci
+                        { seq: ["1", "1", "2", "3"], ans: "5", hint: "Jumlah 2 angka sebelumnya", opts: ["4", "5", "6", "8"] },
+                        // Level 4: Aritmatika Turun
+                        { seq: ["50", "45", "40"], ans: "35", hint: "Kurang 5", opts: ["30", "35", "25", "38"] },
+                        // Level 5: Kuadrat
+                        { seq: ["1", "4", "9", "16"], ans: "25", hint: "Pangkat 2 (n²)", opts: ["20", "24", "25", "36"] },
+                        // Level 6: Segitiga (Penjumlahan Bertingkat)
+                        { seq: ["1", "3", "6", "10"], ans: "15", hint: "+2, +3, +4...", opts: ["14", "15", "12", "16"] },
+                        // Level 7: Lompat Huruf
+                        { seq: ["A", "C", "E"], ans: "G", hint: "Lewati 1 huruf", opts: ["F", "G", "H", "I"] },
+                        // Level 8: Pola Campuran (x2 + 1)
+                        { seq: ["2", "5", "11", "23"], ans: "47", hint: "Dikali 2, lalu tambah 1", opts: ["45", "46", "47", "50"] }
+                    ]
                 },
                 { 
                     title: "Logika PLSV (Level 1-10)", icon: "fa-balance-scale-right", type: "quiz", 
@@ -944,23 +963,37 @@
                 </div>
             </div>`;
 
-        if(type === 'pattern') return `
+        // GANTI BAGIAN 'if(type === "pattern")' DENGAN INI:
+        if(type === 'pattern') {
+            // Ambil data dari item saat ini, atau gunakan default jika kosong
+            const seq = item.seq || ["2", "4", "8"];
+            const ans = item.ans || "16";
+            const hint = item.hint || "Pola: Geometri (Dikali 2)";
+            const opts = item.opts || ["10", "16", "12"];
+            
+            return `
             <div class="text-center py-8 animate-fade-in">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-earth-200 inline-block mb-8">
-                    <div class="flex justify-center items-center gap-2 text-2xl font-mono font-bold text-earth-800 flex-wrap">
-                        <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg">2</span><i class="fas fa-arrow-right text-earth-400 text-sm"></i>
-                        <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg">4</span><i class="fas fa-arrow-right text-earth-400 text-sm"></i>
-                        <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg">8</span><i class="fas fa-arrow-right text-earth-400 text-sm"></i>
-                        <span id="p-slot" class="w-12 h-12 flex items-center justify-center bg-earth-200 text-earth-500 rounded-lg animate-pulse">?</span>
+                    <div class="flex justify-center items-center gap-2 text-xl md:text-2xl font-mono font-bold text-earth-800 flex-wrap">
+                        ${seq.map(n => `
+                            <span class="w-12 h-12 flex items-center justify-center bg-earth-100 rounded-lg shadow-inner">${n}</span>
+                            <i class="fas fa-arrow-right text-earth-400 text-sm"></i>
+                        `).join('')}
+                        <span id="p-slot" class="w-12 h-12 flex items-center justify-center bg-earth-200 text-earth-500 rounded-lg animate-pulse border-2 border-dashed border-earth-400">?</span>
                     </div>
-                    <p class="text-xs text-earth-500 mt-4">Pola: Geometri (Dikali 2)</p>
+                    <p class="text-xs text-earth-500 mt-4 font-medium bg-earth-50 inline-block px-3 py-1 rounded-full border border-earth-100"><i class="fas fa-lightbulb text-accent-yellow"></i> ${hint}</p>
                 </div>
-                <div class="flex justify-center gap-4">
-                    ${[10, 16, 12].map(n => `<button onclick="checkPat(this, ${n===16})" class="w-16 h-16 rounded-xl bg-white border-b-4 border-earth-200 font-bold text-lg hover:-translate-y-1 shadow-sm transition active:border-b-0 active:translate-y-1">${n}</button>`).join('')}
+                <div class="flex justify-center gap-3 flex-wrap">
+                    ${opts.map(opt => `
+                        <button onclick="checkPat(this, '${opt}', '${ans}')" 
+                            class="min-w-[4rem] px-4 py-3 rounded-xl bg-white border-b-4 border-earth-200 font-bold text-lg text-earth-700 hover:-translate-y-1 shadow-sm transition active:border-b-0 active:translate-y-1">
+                            ${opt}
+                        </button>
+                    `).join('')}
                 </div>
-                <p id="p-msg" class="mt-6 font-bold text-lg h-6"></p>
+                <p id="p-msg" class="mt-6 font-bold text-lg h-8 transition-all"></p>
             </div>`;
-
+        }
         if(type === 'chat') return `
             <div class="max-w-md mx-auto h-full flex flex-col bg-white rounded-2xl shadow-lg border border-earth-200 overflow-hidden animate-fade-in">
                 <div class="p-4 bg-earth-100 border-b border-earth-200 flex items-center gap-3">
@@ -1092,9 +1125,27 @@
     };
 
     // Pattern
-    window.checkPat = function(btn, cor) {
-        if(cor) { document.getElementById('p-msg').innerText="Benar! (x2)"; document.getElementById('p-msg').className="mt-6 font-bold text-lg h-6 text-green-600"; document.getElementById('p-slot').innerText="16"; addXP(10); } 
-        else { document.getElementById('p-msg').innerText="Coba lagi..."; document.getElementById('p-msg').className="mt-6 font-bold text-lg h-6 text-red-500"; }
+    // GANTI FUNGSI checkPat DENGAN INI:
+    window.checkPat = function(btn, val, ans) {
+        const msg = document.getElementById('p-msg');
+        const slot = document.getElementById('p-slot');
+        
+        if(String(val) === String(ans)) { 
+            msg.innerHTML = '<i class="fas fa-check-circle"></i> Benar! (+10 XP)'; 
+            msg.className = "mt-6 font-bold text-lg h-8 text-green-600 animate-bounce"; 
+            
+            slot.innerText = ans; 
+            slot.className = "w-12 h-12 flex items-center justify-center bg-green-100 text-green-700 rounded-lg font-bold border-2 border-green-500 shadow-lg transform scale-110 transition";
+            
+            btn.className = "min-w-[4rem] px-4 py-3 rounded-xl bg-green-500 border-b-4 border-green-700 text-white font-bold text-lg shadow-md";
+            
+            addXP(10); 
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        } else { 
+            msg.innerText = "Coba lagi..."; 
+            msg.className = "mt-6 font-bold text-lg h-8 text-red-500"; 
+            btn.classList.add('bg-red-50', 'text-red-500', 'border-red-200');
+        }
     };
 
     // Input Save
@@ -1230,6 +1281,7 @@
 </script>
 </body>
 </html>
+
 
 
 
