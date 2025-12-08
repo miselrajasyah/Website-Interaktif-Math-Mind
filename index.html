@@ -256,9 +256,7 @@
                         <button onclick="navContent(1)" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/30 hover:scale-105 transition active:scale-95 text-sm"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
-                <button onclick="closeModal()" class="w-12 h-12 rounded-full bg-white/20 hover:bg-accent-red hover:text-white flex items-center justify-center transition text-white min-h-[48px] min-w-[48px] active:scale-90 shadow-sm border border-white/10">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-accent-red hover:text-white flex items-center justify-center transition text-white min-h-[44px] min-w-[44px]"><i class="fas fa-times"></i></button>
             </div>
             <div id="modal-content" class="flex-1 overflow-y-auto p-8 bg-[#F4F1EA] relative"></div>
             <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-earth-400 text-xs animate-pulse md:hidden pointer-events-none"><i class="fas fa-arrows-alt-h"></i> Geser untuk navigasi</div>
@@ -346,8 +344,8 @@
                     <button onclick="location.reload()" class="w-full py-4 bg-earth-800 hover:bg-earth-900 text-white rounded-2xl font-bold shadow-lg transform hover:scale-105 transition flex items-center justify-center gap-3">
                         <span>Sampai Jumpa Besok!</span> <i class="fas fa-sign-out-alt"></i>
                     </button>
-                    <button onclick="document.getElementById('closing-overlay').classList.add('hidden')" class="w-full py-4 rounded-xl border-2 border-earth-100 text-earth-500 font-bold text-sm hover:bg-earth-50 hover:text-earth-700 transition-colors active:scale-95">
-                        Batal, Saya mau lanjut belajar
+                    <button onclick="document.getElementById('closing-overlay').classList.add('hidden')" class="text-xs text-earth-400 hover:text-earth-600 font-bold">
+                        Masih mau belajar lagi
                     </button>
                 </div>
             </div>
@@ -406,8 +404,8 @@
 
             </div>
 
-            <button onclick="closeTeam()" class="absolute top-4 right-4 z-50 w-14 h-14 rounded-full bg-earth-100 hover:bg-red-100 text-earth-600 hover:text-red-500 flex items-center justify-center transition shadow-md active:scale-90 border-2 border-white">
-                <i class="fas fa-times text-2xl"></i>
+            <button onclick="closeTeam()" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-earth-100 hover:bg-red-100 hover:text-red-500 text-earth-600 flex items-center justify-center transition shadow-sm">
+                <i class="fas fa-times text-xl"></i>
             </button>
         </div>
     </div>
@@ -467,12 +465,13 @@
         document.body.appendChild(anchor); anchor.click(); anchor.remove();
     }
 
-    // --- 1. DATA STRUCTURE
+    // --- 1. DATA STRUCTURE (REVISED FOR ALGEBRA PHASE D) ---
     const intelligenceData = [
         { 
             id: "linguistic", name: "Verbal Linguistic", icon: "fa-comments", color: "accent-yellow", hex: "#DDA15E", 
             desc: "Memahami Aljabar lewat Kata & Cerita", 
             media: [
+                // --- KONTEN LAMA (DIPERTAHANKAN) ---
                 { 
                     title: "Penerjemah Aljabar", icon: "fa-language", type: "app", appType: "story", 
                     desc: "Ubah kalimat sehari-hari menjadi bentuk aljabar.",
@@ -622,6 +621,8 @@
             id: "logical", name: "Logical Mathematical", icon: "fa-calculator", color: "earth-600", hex: "#606C38", 
             desc: "Analisis Pola, Angka & Logika", 
             media: [
+                // --- 1. EXISTING (DIPERLUAS) ---
+                // GANTI BAGIAN DETEKTIF POLA DENGAN INI:
                 { 
                     title: "Detektif Pola (Level 1-8)", icon: "fa-search-plus", type: "app", appType: "pattern", 
                     desc: "Tebak suku berikutnya! (Gunakan panah navigasi di atas untuk ganti soal)",
@@ -688,7 +689,10 @@
                         }
                     ]
                 },
--
+
+                // --- 2. 12 MEDIA BARU (NEW) ---
+
+                // 5. Debugging / Error Analysis
                 {
                     title: "Debug Aljabar", icon: "fa-bug", type: "quiz",
                     desc: "Cari baris mana yang SALAH langkah hitungnya.",
@@ -879,6 +883,7 @@
                 {
                     title: "Sortir Bentuk", icon: "fa-object-group", type: "app", appType: "dragdrop",
                     desc: "Kelompokkan gambar ke kategori yang benar!",
+                    // Menggunakan FontAwesome Icon di dalam item yang didrag
                     items: [
                         "<i class='fas fa-slash text-2xl'></i>", 
                         "<i class='fas fa-bezier-curve text-2xl'></i>", 
@@ -996,7 +1001,7 @@
             id: "kinesthetic", name: "Bodily Kinesthetic", icon: "fa-running", color: "earth-800", hex: "#5E4934", 
             desc: "Belajar dengan Gerak, Sentuhan & Aktivitas Fisik", 
             media: [
-                
+                // 1-8 SAMA SEPERTI SEBELUMNYA...
                 { title: "Lab Timbangan", icon: "fa-balance-scale", type: "app", appType: "balance", desc: "Simulasi Fisik: Seimbangkan beban kiri dan kanan." },
                 { title: "Gradient Racer", icon: "fa-biking", type: "app", appType: "racer", desc: "Miringkan sepeda (Slider) sesuai curamnya bukit gradien!" },
                 { title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", desc: "Kelompokkan suku sejenis dengan jarimu.", items: ["3x", "5", "-2x", "10", "x", "-7"], explanation: "Gabungkan x dengan x, angka dengan angka." },
@@ -1006,15 +1011,18 @@
                 { title: "Labirin (x,y)", icon: "fa-map-signs", type: "app", appType: "maze", desc: "Pandu titik merah menuju koordinat tujuan menggunakan tombol panah." },
                 { title: "Memory Isyarat", icon: "fa-hands-helping", type: "app", appType: "memory", desc: "Cari pasangan kartu: Simbol Matematika vs Isyarat Tangan." },
 
-                // 9. SPEED RUNNER
+                // 9. SPEED RUNNER (DIPERBAIKI)
                 { title: "Speed Runner", icon: "fa-running", type: "app", appType: "runner", desc: "Atur kecepatan lari (Slider) untuk mengejar 'Hantu Math'!" },
 
+                // 10-15 SAMA SEPERTI SEBELUMNYA...
                 { title: "Rhythm Master", icon: "fa-drum", type: "app", appType: "rhythm_game", desc: "Tekan SPASI tepat pada ketukan pola barisan bilangan!" },
                 { title: "Ukur Benda", icon: "fa-ruler", type: "app", appType: "ruler", desc: "Geser penggaris digital untuk mengukur keliling bangun datar." },
                 { title: "Teka-teki Koin", icon: "fa-coins", type: "app", appType: "dragdrop", desc: "Pisahkan koin emas (positif) dan koin perak (negatif).", items: ["🪙", "🪙", "⚪", "⚪", "🪙"], explanation: "Koin sejenis dikumpulkan." },
                 { title: "Tebak Emoji", icon: "fa-theater-masks", type: "quiz", desc: "Pilih emoji yang menggambarkan 'Gradien Negatif'!", contentList: [{question:"Mana ekspresi untuk Gradien Negatif (Turun)?", options:["📉","📈","➡️","⬆️"], answer:0}, {question:"Mana ekspresi untuk x² (Positif)?", options:["😊 (Senyum)","☹️ (Cemberut)","😐 (Datar)","🤔"], answer:0}] },
                 { title: "Hitung Jari", icon: "fa-hand-paper", type: "app", appType: "fingers", desc: "Klik jari untuk melipat/membuka. Representasikan nilai x = 3." },
                 { title: "Reflex Math", icon: "fa-basketball-ball", type: "app", appType: "reflex", desc: "Tangkap bola jawaban yang benar sebelum jatuh!" },
+
+                // 16. MEDIA BARU: MERIAM LINEAR
                 { title: "Meriam Linear", icon: "fa-bullseye", type: "app", appType: "cannon", desc: "Atur Sudut (m) dan Tinggi (c) meriam untuk menembak target!" }
             ]
         },
@@ -1022,6 +1030,7 @@
             id: "musical", name: "Musical", icon: "fa-music", color: "accent-green", hex: "#606C38", 
             desc: "Belajar Lewat Nada, Irama & Harmoni", 
             media: [
+                // --- 1. MEDIA EKSISTING (DIPERBAIKI) ---
                 { 
                     title: "Drum Pola Bilangan", icon: "fa-drum", type: "app", appType: "sequencer", 
                     desc: "Buat beat drum berdasarkan barisan aritmatika & geometri.",
@@ -1049,6 +1058,8 @@
                         { question: "🎵 (Nada melompat cepat: Do-Mi-Sol-Do tinggi...). Ini pola?", options: ["Geometri (Rasio)", "Aritmatika (Beda)", "Konstan", "Turun"], answer: 0 }
                     ]
                 },
+
+                // --- 2. 12 MEDIA BARU (INSTRUMEN DIGITAL) ---
 
                 // 5. PIANO ALJABAR (Synthesizer)
                 {
@@ -1133,7 +1144,7 @@
             id: "interpersonal", name: "Interpersonal", icon: "fa-users", color: "accent-orange", hex: "#BC6C25", 
             desc: "Belajar Lewat Interaksi, Diskusi & Empati", 
             media: [
- -
+                // --- 1. MEDIA LAMA (DIPERLUAS VARIASINYA) ---
                 { 
                     title: "Simulasi Tawar Menawar", icon: "fa-comments-dollar", type: "app", appType: "chat", 
                     desc: "Latihan negosiasi menggunakan model matematika.",
@@ -1164,6 +1175,7 @@
                     ]
                 },
 
+                // --- 2. 12 MEDIA BARU (INTERAKTIF SOSIAL) ---
 
                 // 5. MAGIC MATH (Tebak Pikiran)
                 {
@@ -1272,7 +1284,7 @@
             id: "intrapersonal", name: "Intrapersonal", icon: "fa-user", color: "earth-600", hex: "#606C38", 
             desc: "Belajar Lewat Refleksi, Emosi & Tujuan Diri", 
             media: [
-   
+                // --- 1. MEDIA LAMA (DIPERLUAS MENJADI APLIKASI) ---
                 { 
                     title: "Jurnal Kesalahan", icon: "fa-book-open", type: "app", appType: "journal", 
                     desc: "Catat error matematikamu. Apakah karena ceroboh atau belum paham konsep?",
@@ -1291,6 +1303,7 @@
                     items: ["Membedakan Variabel & Konstanta", "Operasi Penjumlahan Aljabar", "Substitusi Nilai x", "Pindah Ruas Persamaan", "Membuat Model Matematika"] 
                 },
 
+                // --- 2. 12 MEDIA BARU (SELF-REFLECTION TOOLS) ---
 
                 // 5. MEDITASI MATEMATIKA (Breathing)
                 {
@@ -1378,7 +1391,7 @@
             id: "naturalist", name: "Naturalist", icon: "fa-leaf", color: "earth-900", hex: "#283618", 
             desc: "Belajar dari Alam: Pola, Lingkungan & Makhluk Hidup", 
             media: [
-                // 1. FIBONACCI
+                // 1. FIBONACCI (Existing)
                 { title: "Fibonacci Alam", icon: "fa-seedling", type: "app", appType: "pattern", seq: ["1", "1", "2", "3", "5"], ans: "8", hint: "Jumlahkan 2 angka sebelumnya", opts: ["7", "8", "9", "10"] },
 
                 // 2. SIMULASI TUMBUH (Visual Tanaman)
@@ -1449,11 +1462,14 @@
         </a>
         <div class="px-4 text-[10px] font-bold text-earth-500 uppercase mb-2 tracking-widest">Gaya Belajar</div>`;
         
+        // Loop menu gaya belajar yang sudah ada
         intelligenceData.forEach(item => {
             html += `<a href="#${item.id}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-earth-700 hover:bg-earth-100 transition-all group border border-transparent hover:border-earth-200">
                 <div class="w-6 h-6 rounded flex items-center justify-center text-xs" style="background-color:${item.hex}20; color:${item.hex}"><i class="fas ${item.icon}"></i></div>
                 <span class="group-hover:translate-x-1 transition-transform font-medium">${item.name}</span></a>`;
         });
+
+        // 2. BAGIAN BARU: PUSTAKA E-BOOK (Tambahkan Kode Ini)
         html += `
         <div class="my-4 border-t border-earth-200"></div>
         <div class="px-4 text-[10px] font-bold text-earth-500 uppercase mb-2 tracking-widest">Pustaka Materi</div>
@@ -1556,10 +1572,13 @@
     }
 
     function closeModal() {
+        // --- TAMBAHAN FIX ---
         if(window.stopGame) window.stopGame();
         if(window.stopReflex) window.stopReflex(); 
+        // --------------------
 
         document.getElementById('media-modal').classList.add('hidden');
+        // ... (lanjutan kode asli) ...
         const duration = (Date.now() - sessionStartTime) / 1000;
         if(!userProfile.progress.timePerType[currentCatId]) userProfile.progress.timePerType[currentCatId] = 0;
         userProfile.progress.timePerType[currentCatId] += duration; saveUser();
@@ -1582,13 +1601,16 @@
     document.getElementById('media-modal').addEventListener('touchend', e => { te = e.changedTouches[0].screenX; if(te < ts - 50) navContent(1); if(te > ts + 50) navContent(-1); }, {passive:true});
 
     function renderModalContent() {
+        // --- TAMBAHAN FIX: Reset semua game saat pindah konten ---
         if(window.stopGame) window.stopGame();     // Matikan Jumper/Racer/Maze
         if(window.stopReflex) window.stopReflex(); // Matikan Reflex Math
         if(window.stopSimon) window.stopSimon();   // Matikan Simon Says
         if(window.stopLooper) window.stopLooper(); // Matikan Musik Looper
         if(window.stopCond) window.stopCond();     // Matikan Dirigen
+        // ---------------------------------------------------------
 
         const cat = intelligenceData.find(x => x.id === currentCatId);
+        // ... (lanjutan kode asli di bawahnya jangan dihapus) ...
         let item = {...cat.media[currentMediaIndex]};
         const controls = document.getElementById('nav-controls');
         
@@ -1611,6 +1633,7 @@
         else if(item.type === 'task') html = `<div class="flex flex-col items-center justify-center h-full text-center p-4 animate-fade-in"><div class="w-20 h-20 rounded-full bg-earth-100 flex items-center justify-center mb-6 text-3xl text-earth-600 animate-bounce-slow"><i class="fas fa-tasks"></i></div><h3 class="text-xl font-bold text-earth-800 mb-4">Aktivitas Fisik</h3><div class="text-xl font-serif text-earth-800 max-w-lg leading-relaxed bg-white p-8 rounded-2xl border-2 border-dashed border-earth-300 shadow-sm rotate-1 hover:rotate-0 transition duration-300">"${item.content}"</div><button onclick="this.innerHTML='<i class=\'fas fa-check\'></i> Bagus!'; this.className='mt-8 px-8 py-3 bg-accent-green text-white rounded-full font-bold shadow-lg'; addXP(20);" class="mt-8 px-8 py-3 border-2 border-earth-300 rounded-full font-bold text-earth-600 hover:bg-earth-800 hover:text-white transition-all">Selesai</button></div>`;
 
         container.innerHTML = html;
+        // --- UPDATE BAGIAN INIT DI renderModalContent ---
         setTimeout(() => {
             if(item.appType === 'graph') drawGraph(cat.hex);
             if(item.appType === 'balance') initBalance(cat.hex); // <--- INI BARU
@@ -1646,7 +1669,9 @@
                 </div>
             </div>`;
 
+        // GANTI BAGIAN 'if(type === "pattern")' DENGAN INI:
         if(type === 'pattern') {
+            // Ambil data dari item saat ini, atau gunakan default jika kosong
             const seq = item.seq || ["2", "4", "8"];
             const ans = item.ans || "16";
             const hint = item.hint || "Pola: Geometri (Dikali 2)";
@@ -1759,6 +1784,7 @@
                 <button class="w-full mt-6 py-3 text-white font-bold rounded-lg shadow-md hover:opacity-90 transition active:scale-95" style="background-color:${hex}" onclick="this.innerText='Benar! (+10 XP)'; this.style.backgroundColor='#606C38'; addXP(10); confetti({particleCount:30, spread:50});">Cek Jawaban</button>
             </div>`;
 
+        // --- GANTI BAGIAN GRAPH/BALANCE LAMA DENGAN INI ---
         
         if(type === 'graph') return `
             <div class="grid md:grid-cols-3 gap-6 h-full animate-fade-in">
@@ -2314,7 +2340,7 @@
             return renderIntraForms(item.appType, item);
         }
 
-        // --- DEFINISI FUNGSI HELPER
+        // --- DEFINISI FUNGSI HELPER (Bersarang di dalam renderApp) ---
         function renderIntraForms(t, item) {
             if(t === 'swot') return `
                 <div class="h-full flex flex-col animate-fade-in bg-white rounded-3xl p-6 overflow-y-auto">
@@ -2576,12 +2602,14 @@
                 <script>setTimeout(genQuake, 500);
             </div>`;
 
+            // Fallback untuk helper forms
             return `<div class="p-10 text-center">App Under Construction</div>`;
         }
             
+        // --- FALLBACK UTAMA RENDERAPP (Jika tidak ada tipe yang cocok) ---
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${cat.hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
 
-    } 
+    } // <--- PASTIKAN KURUNG KURAWAL INI ADA! (Penutup renderApp)
 
     // --- 4. APP HELPER FUNCTIONS ---
     
@@ -2624,6 +2652,7 @@
     };
 
     // Pattern
+    // GANTI FUNGSI checkPat DENGAN INI:
     window.checkPat = function(btn, val, ans) {
         const msg = document.getElementById('p-msg');
         const slot = document.getElementById('p-slot');
@@ -2751,17 +2780,21 @@
 
     // --- FIX LOGIKA GAME KINESTETIK (Agar bisa ganti game) ---
     
+    // Tambahkan fungsi ini untuk mematikan game
     window.stopGame = function() {
-        if(gameLoop) cancelAnimationFrame(gameLoop); 
+        if(gameLoop) cancelAnimationFrame(gameLoop); // Hentikan animasi
         gameLoop = null;
-        gameState.active = false;
+        gameState.active = false; // Reset status aktif
     };
 
+    // Update fungsi startGame
     window.startGame = function(type) {
+        // FIX: Selalu matikan game sebelumnya sebelum memulai yang baru
         stopGame(); 
 
         gameState = { active: true, type: type, pos: 50, score: 0, enemy: 100, vel: 0 };
         
+        // Hilangkan Overlay (Judul Klik Main)
         const overlay = document.getElementById(`overlay-${type}`);
         if(overlay) {
             overlay.style.opacity = '0';
@@ -2776,7 +2809,7 @@
         // Mulai Loop
         gameLoop = requestAnimationFrame(() => gameTick(type));
     };
-    // --- FUNGSI INPUT ---
+    // --- UPDATE FUNGSI INPUT ---
     window.gameInput = function(val) {
         if(!gameState.active) return;
         
@@ -2806,7 +2839,7 @@
         }
     };
 
-    // --- FUNGSI TICK (LOGIKA UTAMA) ---
+    // --- UPDATE FUNGSI TICK (LOGIKA UTAMA) ---
     function gameTick(type) {
         if(!gameState.active) return;
         const cv = document.getElementById(`cv-game-${type}`);
@@ -2819,7 +2852,7 @@
 
         ctx.clearRect(0,0,w,h);
 
-        // --- 1. SPEED RUNNER ---
+        // --- 1. SPEED RUNNER (NEW) ---
         if(type === 'runner') {
             // Background Track
             ctx.fillStyle = '#1F2937'; ctx.fillRect(0,0,w,h);
@@ -2832,10 +2865,10 @@
             ctx.fillStyle = '#EF4444'; ctx.fillRect(w-40, h/2-30, 10, 60);
             ctx.fillStyle = '#fff'; ctx.font='10px sans-serif'; ctx.fillText('FINISH', w-45, h/2-40);
 
-            // Posisi Player (v * t)
+            // Update Posisi Player (v * t)
             gameState.pos += (gameState.vel * 0.05); // Kecepatan simulasi
             
-            // Hantu (Kecepatan Tetap: 10)
+            // Update Hantu (Kecepatan Tetap: 10)
             gameState.enemy += (10 * 0.05);
 
             // Gambar Hantu (Target)
@@ -2861,13 +2894,13 @@
                 else { ctx.fillStyle='#F87171'; ctx.font='20px bold'; ctx.fillText(gameState.pos>gameState.enemy?"Terlalu Cepat!":"Terlalu Lambat!", w/2-80, h/2); }
                 // Reset setelah 2 detik
                 if(gameState.active) setTimeout(()=>{ gameState.pos=0; gameState.enemy=0; }, 2000);
-                unlockBadge('athlete'); 
+                unlockBadge('athlete'); // <--- TAMBAHKAN INI
             }
         }
 
-        // --- 2. MERIAM LINEAR ---
+        // --- 2. MERIAM LINEAR (NEW) ---
         if(type === 'cannon') {
-            // Inisialisasi posisi awal
+            // Inisialisasi posisi awal (jika belum)
             if(!gameState.target) gameState.target = {x: w-50, y: Math.random()*(h-40)+20};
             if(!gameState.pos) gameState.pos = {y: 50}; // Tinggi meriam default
 
@@ -2909,7 +2942,7 @@
                 ctx.fillStyle = '#FACC15'; ctx.font = '30px bold'; 
                 ctx.fillText("KENA! 💥", w/2 - 60, h/2);
                 if(Math.random() < 0.05) addXP(5); // Random reward agar tidak spam XP
-                unlockBadge('sniper');
+                unlockBadge('sniper'); // <--- TAMBAHKAN INI
             }
         }
 
@@ -2923,7 +2956,7 @@
             ctx.fillStyle='black'; ctx.beginPath(); ctx.arc(x-5, h/2-25, 2, 0, Math.PI*2); ctx.arc(x+5, h/2-25, 2, 0, Math.PI*2); ctx.fill();
             ctx.fillStyle = 'rgba(255,255,0,0.3)'; ctx.beginPath(); ctx.arc((3*unit + w/2), h/2, 20, 0, Math.PI*2); ctx.fill();
             if(gameState.pos === 3) { ctx.fillStyle='gold'; ctx.fillText('MENANG!', w/2-30, h/2-50); addXP(1); }
-                unlockBadge('athlete');
+                unlockBadge('athlete'); // <--- TAMBAHKAN INI
         }
 
         // --- 4. MAZE (EXISTING) ---
@@ -2966,6 +2999,8 @@
     };
     window.checkFinger = function() {
         const folded = document.querySelectorAll('.finger[data-up="true"]').length;
+        // Logic terbalik: Jari terlipat biasanya menghitung 0, tapi di sini kita anggap 'menunjukkan angka' dengan sisa jari berdiri?
+        // Sederhananya: Hitung jari yang BERDIRI (scaleY 1).
         const standing = document.querySelectorAll('.finger[data-up="false"]').length;
         if(standing === 3) { alert("Benar! 3 Jari."); addXP(10); } else alert(`Itu ${standing} jari. Coba buat 3.`);
     };
@@ -3298,7 +3333,8 @@
                 refState.score += 10;
                 document.getElementById('ref-score').innerText = refState.score;
                 ball.remove();
-                updateRefQ();
+                updateRefQ(); // Ganti soal
+                // Efek visual
                 const fx = document.createElement('div'); fx.className = 'absolute text-green-400 font-bold text-2xl animate-bounce'; 
                 fx.innerText = '+10'; fx.style.left = ball.style.left; fx.style.top = ball.style.top; area.appendChild(fx); setTimeout(()=>fx.remove(), 500);
             } else {
@@ -3801,6 +3837,8 @@
         document.getElementById('bac-count').innerText = count;
 
         const dish = document.getElementById('petri-dish');
+        // Tambah visual bakteri
+        // Kita tambah sejumlah (count - count_prev) bakteri baru
         const newBac = count - Math.pow(2, bacGen-1);
         
         for(let i=0; i<newBac; i++) {
@@ -4013,15 +4051,18 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        initBirdMap(); 
+        // Draw Line from Home
+        initBirdMap(); // Clear old lines
         ctx.beginPath();
         ctx.moveTo(40, cv.height-40);
         ctx.lineTo(x, y);
         ctx.strokeStyle = '#2563EB'; ctx.lineWidth=2; ctx.setLineDash([5,5]);
         ctx.stroke();
 
+        // Draw Bird
         ctx.font = '20px serif'; ctx.fillText('🕊️', x-10, y);
         
+        // Update Coor text (Map canvas pixels to Cartesian approx)
         const mapX = Math.round((x - 40) / 40);
         const mapY = Math.round((cv.height - 40 - y) / 40);
         document.getElementById('bird-coor').innerText = `(${mapX}, ${mapY})`;
@@ -4031,6 +4072,7 @@
     window.genQuake = function() {
         const map = document.getElementById('quake-map');
         if(!map) return;
+        // Clear old dots (keep grid bg)
         map.innerHTML = '<div class="absolute inset-0" style="background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 20px 20px;"></div>';
         
         // Generate 20 points
@@ -4039,7 +4081,9 @@
             // Random Pos
             const x = Math.random() * 100;
             const y = Math.random() * 100;
-
+            // Logic: Dekat pusat (0,0) = Besar (Kuat). Jauh = Kecil.
+            // Distance from bottom-left (0, 100% top)
+            // Let's say epicenter is bottom left (0,0 in math terms)
             const dist = Math.sqrt(x*x + y*y);
             const size = Math.max(5, 30 - (dist * 0.2)); // Max 30px
             const color = size > 20 ? 'bg-red-500' : (size > 10 ? 'bg-orange-400' : 'bg-yellow-300');
@@ -4057,6 +4101,7 @@
     
     // --- 16. LOGIKA CLOSING / CELEBRATION ---
     window.showClosing = function() {
+        // 1. Update Data di Layar
         document.getElementById('close-name').innerText = userProfile.name || 'Sobat';
         document.getElementById('close-xp').innerText = userProfile.xp;
         document.getElementById('close-badge').innerText = userProfile.badges.length;
@@ -4071,8 +4116,10 @@
         ];
         document.getElementById('close-quote').innerText = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
 
+        // 3. Tampilkan Overlay dengan Animasi
         const overlay = document.getElementById('closing-overlay');
         overlay.classList.remove('hidden');
+        // Delay sedikit agar transisi opacity jalan halus
         setTimeout(() => overlay.classList.remove('opacity-0'), 10);
 
         // 4. Mainkan Efek Confetti (Hujan Kertas Warna-Warni)
@@ -4110,33 +4157,16 @@
     window.openTeam = function() {
         const el = document.getElementById('team-modal');
         el.classList.remove('hidden');
+        // Delay sedikit agar animasi opacity berjalan halus
         setTimeout(() => el.classList.remove('opacity-0'), 10);
     };
 
     window.closeTeam = function() {
         const el = document.getElementById('team-modal');
         el.classList.add('opacity-0');
+        // Tunggu animasi selesai baru hidden
         setTimeout(() => el.classList.add('hidden'), 500);
     };
-
-    // --- LOGIKA MENU MOBILE ---
-    function toggleSidebar() {
-        const sb = document.getElementById('main-sidebar');
-        if (sb.classList.contains('-translate-x-full')) {
-            sb.classList.remove('-translate-x-full');
-        } else {
-            sb.classList.add('-translate-x-full');
-        }
-    }
-
-    document.addEventListener('click', (e) => {
-        const sb = document.getElementById('main-sidebar');
-        const btn = document.querySelector('button[onclick="toggleSidebar()"]');
-        
-        if (window.innerWidth < 768 && !sb.contains(e.target) && !btn.contains(e.target)) {
-            sb.classList.add('-translate-x-full');
-        }
-    });
 
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -4176,6 +4206,7 @@
         // RENDER BADGES
         document.getElementById('badge-container').innerHTML = badges.map(b => {
             const un = userProfile.badges.includes(b.id);
+            // Style: Jika unlocked (berwarna), jika locked (abu-abu/transparan)
             const style = un ? 
                 'bg-gradient-to-br from-yellow-100 to-yellow-300 text-yellow-800 border-yellow-400 shadow-md transform hover:scale-105' : 
                 'bg-gray-100 text-gray-400 border-gray-200 grayscale opacity-60';
@@ -4197,18 +4228,22 @@
         }).join('');
     }
     // --- 18. LOGIKA AI CHART (CHART.JS) ---
-    let aiChartInstance = null;
+    let aiChartInstance = null; // Variabel global untuk menyimpan grafik
 
     function genAI() {
         const visited = userProfile.progress.modulesVisited || {};
-        const time = userProfile.progress.timePerType || {};
-
+        const time = userProfile.progress.timePerType || {}; // (Jika Anda melacak waktu)
+        
+        // 1. HITUNG SKOR UNTUK SETIAP KECERDASAN
+        // Skor = (Jumlah Klik Modul * 10) + (Bonus Aktivitas Lain)
+        // Kita mapping data agar urutannya sesuai dengan intelligenceData
         const scores = intelligenceData.map(item => {
             const v = visited[item.id] || 0;
+            // Kita beri nilai minimal 2 agar grafik tidak kosong melompong
             return Math.max(2, v * 10); 
         });
 
-        const labels = intelligenceData.map(item => item.name.split(' ')[0]); 
+        const labels = intelligenceData.map(item => item.name.split(' ')[0]); // Ambil nama depan saja (misal: "Verbal" dari "Verbal Linguistic")
 
         // 2. ANALISIS TEKS (DOMINAN)
         let maxScore = 0;
@@ -4240,6 +4275,7 @@
         // 3. RENDER GRAFIK RADAR
         const ctx = document.getElementById('ai-radar-chart').getContext('2d');
 
+        // Hancurkan grafik lama jika ada (agar tidak menumpuk/glitch)
         if (aiChartInstance) {
             aiChartInstance.destroy();
         }
@@ -4273,11 +4309,11 @@
                             font: { family: '"Plus Jakarta Sans", sans-serif', size: 11, weight: 'bold' },
                             color: '#5E4934' // Warna Earth-800
                         },
-                        ticks: { display: false, stepSize: 20 }
+                        ticks: { display: false, stepSize: 20 } // Sembunyikan angka skala agar bersih
                     }
                 },
                 plugins: {
-                    legend: { display: false },
+                    legend: { display: false }, // Sembunyikan legenda
                     tooltip: {
                         backgroundColor: '#283618',
                         titleFont: { family: 'serif' },
@@ -4324,6 +4360,7 @@
             let n = idx + 2; 
             freq = 261.63 * Math.pow(2, n/12);
         } else if(type === 'piano_fib') {
+            // Hanya bunyi jika idx adalah angka Fibonacci? (Visual saja mungkin lebih mudah)
             const fib = [0, 1, 1, 2, 3, 5, 8, 13];
             if(fib.includes(idx)) freq = 261.63 * Math.pow(2, idx/12);
             else { freq = 100; g.gain.value = 0.05; } // Nada 'salah' (buzz)
@@ -4371,6 +4408,7 @@
     window.playGs = function() {
         if(gsPoints.length === 0) return alert("Gambar dulu grafiknya!");
         initAudio();
+        // Urutkan point berdasarkan X (Waktu)
         gsPoints.sort((a,b) => a.x - b.x);
         
         const o = audioCtx.createOscillator();
@@ -4385,7 +4423,9 @@
         g.gain.setValueAtTime(0.2, now);
         
         gsPoints.forEach(p => {
+            // Map X ke Waktu, Y ke Frekuensi (Y makin kecil = Posisi makin atas = Frekuensi Tinggi)
             const time = now + (p.x / document.getElementById('cv-gs').width) * duration;
+            // Y terbalik di canvas (0 di atas)
             const normY = 1 - (p.y / maxH); 
             const freq = 200 + (normY * 800); // Range 200Hz - 1000Hz
             
@@ -4482,19 +4522,24 @@
 
     // --- LOGIKA KONSTRUKTOR TILES (DRAG & DROP) ---
     
+    // 1. Fungsi Utama (Dipanggil saat modal buka)
     window.initTiles = function() {
         const canvas = document.getElementById('tile-canvas');
         if(!canvas) return;
 
+        // Izinkan Drop
         canvas.addEventListener('dragover', e => e.preventDefault());
 
+        // Handle Drop (Saat balok dilepas)
         canvas.addEventListener('drop', e => {
             e.preventDefault();
             const type = e.dataTransfer.getData('type');
             if(!type) return;
 
+            // Buat Element Baru
             const el = document.createElement('div');
             
+            // Styling sesuai tipe
             const styles = {
                 'x2': 'w-16 h-16 bg-blue-500 border-2 border-blue-600 text-white',
                 'x':  'w-8 h-16 bg-green-500 border-2 border-green-600 text-white',
@@ -4505,7 +4550,9 @@
             el.className = `${styles[type]} absolute shadow-md flex items-center justify-center font-bold select-none cursor-move rounded transition-transform active:scale-105 z-10`;
             el.innerText = labels[type];
             
+            // Posisi Jatuh (Relatif terhadap Canvas)
             const rect = canvas.getBoundingClientRect();
+            // Pusatkan kursor
             const offsetX = (type === 'x2' ? 32 : 16);
             const offsetY = (type === 'x' || type === 'x2' ? 32 : 16);
             
@@ -4515,9 +4562,10 @@
             el.style.left = x + 'px';
             el.style.top = y + 'px';
 
+            // FITUR: Geser Balok yang sudah ada
             el.onmousedown = function(ev) {
-                ev.stopPropagation(); 
-                this.style.zIndex = 50;
+                ev.stopPropagation(); // Jangan trigger event lain
+                this.style.zIndex = 50; // Bawa ke depan
                 
                 const shiftX = ev.clientX - this.getBoundingClientRect().left;
                 const shiftY = ev.clientY - this.getBoundingClientRect().top;
@@ -4525,7 +4573,10 @@
                 function moveAt(pageX, pageY) {
                     let newX = pageX - shiftX - rect.left;
                     let newY = pageY - shiftY - rect.top;
-
+                    
+                    // Batas Canvas (Optional)
+                    // newX = Math.max(0, Math.min(newX, rect.width - el.offsetWidth));
+                    // newY = Math.max(0, Math.min(newY, rect.height - el.offsetHeight));
 
                     el.style.left = newX + 'px';
                     el.style.top = newY + 'px';
@@ -4552,10 +4603,11 @@
 
             canvas.appendChild(el);
             unlockBadge('builder');
-            addXP(1);
+            addXP(1); // Reward kecil
         });
     };
 
+    // 2. Helper untuk memulai Drag dari Palette
     window.ddStartTile = function(e, type) {
         e.dataTransfer.setData('type', type);
     };
@@ -4564,6 +4616,7 @@
     let balState = { Lx:0, L1:0, Rx:0, R1:0, xVal:0, hex:'' };
 
     window.initBalance = function(hex) {
+        // Tentukan nilai x misterius (antara 2 sampai 6)
         const randX = Math.floor(Math.random() * 5) + 2;
         balState = { Lx:0, L1:0, Rx:0, R1:0, xVal: randX, hex: hex || balState.hex };
         
@@ -4576,14 +4629,17 @@
 
     window.updateBal = function(side, type, diff) {
         const key = side + type;
+        // Mencegah nilai negatif
         if(balState[key] + diff >= 0) {
             balState[key] += diff;
+            // Animasi kecil saat tombol ditekan
             drawBalance();
             updateBalUI();
         }
     };
 
     window.updateBalUI = function() {
+        // Update teks persamaan matematika
         const format = (x, c) => {
             if(x===0 && c===0) return "0";
             let s = "";
@@ -4601,20 +4657,24 @@
         if(!cv) return;
         const ctx = cv.getContext('2d');
         
+        // Resize canvas agar tajam
         const rect = cv.parentElement.getBoundingClientRect();
         cv.width = rect.width;
         cv.height = rect.height;
         
         const w = cv.width, h = cv.height;
-        const cx = w/2, cy = h/2; 
+        const cx = w/2, cy = h/2; // Titik pusat pivot
 
         // --- 1. HITUNG FISIKA (TILT/KEMIRINGAN) ---
         const totalL = (balState.Lx * balState.xVal) + balState.L1;
         const totalR = (balState.Rx * balState.xVal) + balState.R1;
-
+        
+        // Hitung sudut kemiringan (max 20 derajat atau 0.35 radian)
+        // Jika Kanan lebih berat, sudut Positif (searah jarum jam)
+        // Jika Kiri lebih berat, sudut Negatif (lawan jarum jam)
         let diff = totalR - totalL; 
         let angle = diff * 0.05; 
-        angle = Math.max(-0.35, Math.min(0.35, angle));
+        angle = Math.max(-0.35, Math.min(0.35, angle)); // Clamp limit
 
         // Cek Kemenangan
         const msg = document.getElementById('bal-msg');
@@ -4625,6 +4685,7 @@
             msg.innerHTML = `<i class="fas fa-check-circle text-green-500"></i> <span>Seimbang! (x = ${balState.xVal})</span>`;
             reveal.innerText = `Karena seimbang, maka nilai x terbukti adalah ${balState.xVal}`;
             reveal.style.opacity = 1;
+            // Rayakan hanya jika baru pertama kali seimbang di sesi ini
             if(!balState.won) { addXP(10); confetti({particleCount: 50, spread: 60, origin: {y: 0.5}}); balState.won = true; }
         } else {
             msg.classList.add('hidden');
@@ -4657,7 +4718,7 @@
         ctx.fillStyle = '#8C7B5D';
         ctx.strokeStyle = '#5E4934';
         ctx.lineWidth = 2;
-        const beamLen = w * 0.35;
+        const beamLen = w * 0.35; // Panjang setengah lengan
         ctx.beginPath();
         ctx.roundRect(-beamLen, -5, beamLen * 2, 10, 5);
         ctx.fill(); ctx.stroke();
@@ -4670,8 +4731,8 @@
         // Fungsi helper gambar piringan
         const drawPan = (xPos, countX, count1) => {
             ctx.save();
-            ctx.translate(xPos, 0); 
-            ctx.rotate(-angle);
+            ctx.translate(xPos, 0); // Pindah ke ujung lengan
+            ctx.rotate(-angle); // ROTASI BALIK agar piringan tetap tegak lurus gravitasi!
             
             // Tali
             ctx.strokeStyle = '#B09E80';
@@ -4710,12 +4771,14 @@
             // Gambar Satuan 1 (Lingkaran Kuning)
             ctx.fillStyle = '#FACC15'; // Yellow-400
             ctx.strokeStyle = '#CA8A04';
-
+            
+            // Tumpuk lingkaran 1 di atas balok x (atau di dasar jika tidak ada x)
+            // Agar rapi, lingkaran disusun piramida atau baris jika banyak
             let circleX = -15;
-            let circleY = yStack - 5;
+            let circleY = yStack - 5; // Mulai dari atas tumpukan terakhir
             
             for(let i=0; i<count1; i++) {
-                if(i % 3 === 0) { 
+                if(i % 3 === 0) { // Baris baru setiap 3 item
                     circleY -= 12; 
                     circleX = -10; 
                 } else {
@@ -4733,9 +4796,31 @@
         drawPan(-beamLen + 10, balState.Lx, balState.L1); // Kiri
         drawPan(beamLen - 10, balState.Rx, balState.R1);  // Kanan
 
-        ctx.restore(); 
+        ctx.restore(); // Restore Rotasi Lengan
+    // --- LOGIKA MENU MOBILE ---
+    function toggleSidebar() {
+        const sb = document.getElementById('main-sidebar');
+        // Cek apakah sidebar sedang sembunyi (memiliki class -translate-x-full)
+        if (sb.classList.contains('-translate-x-full')) {
+            // Buka Sidebar
+            sb.classList.remove('-translate-x-full');
+        } else {
+            // Tutup Sidebar
+            sb.classList.add('-translate-x-full');
+        }
+    }
+
+    // Tutup sidebar otomatis saat menu diklik (khusus mobile)
+    document.addEventListener('click', (e) => {
+        const sb = document.getElementById('main-sidebar');
+        const btn = document.querySelector('button[onclick="toggleSidebar()"]');
+        
+        // Jika layar kecil (Mobile) DAN klik terjadi di luar sidebar/tombol
+        if (window.innerWidth < 768 && !sb.contains(e.target) && !btn.contains(e.target)) {
+            sb.classList.add('-translate-x-full');
+        }
+    });
     };
 </script>
 </body>
 </html>
-
