@@ -486,32 +486,190 @@
             id: "logical", name: "Logical Mathematical", icon: "fa-calculator", color: "earth-600", hex: "#606C38", 
             desc: "Analisis Pola, Angka & Logika", 
             media: [
+                // --- 1. EXISTING (DIPERLUAS) ---
                 { 
-                    title: "Detektif Pola", icon: "fa-search-plus", type: "app", appType: "pattern", 
-                    desc: "Prediksi suku berikutnya dari barisan bilangan."
+                    title: "Detektif Pola (Intro)", icon: "fa-search-plus", type: "app", appType: "pattern", 
+                    desc: "Pemanasan: Prediksi suku berikutnya dari barisan geometri dasar."
                 },
                 { 
-                    title: "Logika PLSV", icon: "fa-balance-scale-right", type: "quiz", 
-                    desc: "Selesaikan Persamaan Linear Satu Variabel.",
+                    title: "Logika PLSV (Level 1-10)", icon: "fa-balance-scale-right", type: "quiz", 
+                    desc: "Kuis intensif Persamaan Linear Satu Variabel.",
                     contentList: [
-                        { question: "Jika 3x + 5 = 14, maka x adalah...", options: ["3", "4", "2", "9"], answer: 0, explanation: "3x = 14-5 -> 3x = 9 -> x = 3" },
-                        { question: "Penyelesaian 2(x - 3) = 10", options: ["8", "5", "6", "7"], answer: 0, explanation: "2x - 6 = 10 -> 2x = 16 -> x = 8" },
-                        { question: "Pertidaksamaan: 2x < 10. Nilai x bilangan asli adalah?", options: ["{1,2,3,4}", "{1,2,3,4,5}", "{0,1,2,3,4}", "{5,6,7}"], answer: 0 }
+                        // Basic
+                        { question: "Jika 3x = 15, maka x adalah...", options: ["5", "3", "12", "45"], answer: 0 },
+                        { question: "Penyelesaian x + 7 = 3", options: ["-4", "4", "10", "-10"], answer: 0 },
+                        { question: "2x - 5 = 5. Nilai x?", options: ["5", "0", "10", "2.5"], answer: 0 },
+                        // Intermediate
+                        { question: "3(x + 1) = 12. Nilai x?", options: ["3", "4", "2", "5"], answer: 0 },
+                        { question: "5x = 2x + 9", options: ["3", "-3", "9", "1.8"], answer: 0 },
+                        { question: "10 - x = 2. Berapakah x?", options: ["8", "-8", "12", "5"], answer: 0 },
+                        // Advanced (Logic)
+                        { question: "Jika 2x = 10, berapakah nilai 3x - 1?", options: ["14", "15", "5", "9"], answer: 0, explanation: "Cari x dulu. x=5. Maka 3(5)-1 = 14." },
+                        { question: "Manakah yang BUKAN persamaan linear satu variabel?", options: ["x + y = 5", "2x = 8", "3y - 2 = 7", "p = 10"], answer: 0 },
+                        { question: "Agar 4x > 12 bernilai benar, x harus...", options: ["Lebih dari 3", "Kurang dari 3", "Sama dengan 3", "Lebih dari 4"], answer: 0 },
+                        { question: "Setengah dari x adalah 10. Maka x?", options: ["20", "5", "15", "100"], answer: 0 }
                     ]
                 },
                 { 
                     title: "Linear vs Nonlinear", icon: "fa-chart-line", type: "quiz", 
-                    desc: "Bedakan fungsi berdasarkan logika perubahannya.",
+                    desc: "Analisis bentuk fungsi dan grafiknya.",
                     contentList: [
-                        { question: "Manakah yang merupakan fungsi linear (garis lurus)?", options: ["y = 2x + 1", "y = x²", "y = 2/x", "y = x³"], answer: 0, explanation: "Pangkat variabel x adalah 1." },
-                        { question: "Grafik y = x² berbentuk?", options: ["Parabola (Lengkung)", "Garis Lurus", "Lingkaran", "Zigzag"], answer: 0 },
-                        { question: "Pola bilangan: 2, 4, 6, 8... (Beda tetap 2). Ini adalah?", options: ["Linear", "Kuadratik", "Eksponensial", "Acak"], answer: 0 }
+                        { question: "Manakah yang merupakan fungsi linear?", options: ["y = 5x - 2", "y = x²", "y = 1/x", "y = √x"], answer: 0 },
+                        { question: "Grafik dari y = x² + 1 berbentuk?", options: ["Melengkung (Parabola)", "Garis Lurus", "Lingkaran", "Zigzag"], answer: 0 },
+                        { question: "Pola: 3, 6, 12, 24... (Kali 2). Ini adalah pertumbuhan?", options: ["Eksponensial (Nonlinear)", "Linear (Aritmatika)", "Konstan", "Logaritma"], answer: 0 },
+                        { question: "Persamaan garis lurus selalu memiliki variabel pangkat tertingginya...", options: ["Satu (1)", "Dua (2)", "Tiga (3)", "Nol (0)"], answer: 0 },
+                        { question: "Manakah tabel fungsi linear?", options: ["x:1,2,3 -> y:2,4,6", "x:1,2,3 -> y:1,4,9", "x:1,2,3 -> y:1,8,27", "x:1,2,3 -> y:2,4,8"], answer: 0, explanation: "Cek selisihnya. Linear memiliki beda yang tetap." }
                     ]
                 },
                 { 
                     title: "Algoritma SPLDV", icon: "fa-cogs", type: "app", appType: "sort", 
-                    items: ["Eliminasi variabel x", "Temukan nilai y", "Substitusi nilai y ke persamaan", "Temukan nilai x"], 
-                    desc: "Urutkan langkah penyelesaian SPLDV." 
+                    desc: "Urutkan langkah penyelesaian SPLDV (2 Level).",
+                    contentList: [
+                        { 
+                            title: "Lvl 1: Metode Eliminasi",
+                            items: ["Samakan koefisien x atau y", "Kurangkan/Jumlahkan persamaan", "Temukan nilai variabel pertama", "Substitusi ke persamaan lain"]
+                        },
+                        { 
+                            title: "Lvl 2: Metode Grafik",
+                            items: ["Tentukan titik potong sumbu-x (y=0)", "Tentukan titik potong sumbu-y (x=0)", "Tarik garis lurus melalui 2 titik", "Lihat perpotongan kedua garis"]
+                        }
+                    ]
+                },
+
+                // --- 2. 12 MEDIA BARU (NEW) ---
+
+                // 5. Debugging / Error Analysis
+                {
+                    title: "Debug Aljabar", icon: "fa-bug", type: "quiz",
+                    desc: "Cari baris mana yang SALAH langkah hitungnya.",
+                    contentList: [
+                        { question: "Soal: -2x > 10. Langkah salah di mana?\nA. -2x > 10\nB. x > 10/-2 (Salah)\nC. x > -5", options: ["Langkah B", "Langkah A", "Langkah C", "Semua Benar"], answer: 0, explanation: "Saat dibagi bilangan negatif, tanda pertidaksamaan harus DIBALIK (<)." },
+                        { question: "Soal: 2(x+3) = 10.\nA. 2x + 3 = 10 (Salah)\nB. 2x = 7\nC. x = 3.5", options: ["Langkah A", "Langkah B", "Langkah C", "Soal Salah"], answer: 0, explanation: "Harusnya didistribusikan: 2x + 6 = 10." }
+                    ]
+                },
+
+                // 6. Mesin Fungsi (Input-Output Logic)
+                {
+                    title: "Mesin Fungsi", icon: "fa-robot", type: "quiz",
+                    desc: "Tebak rumus fungsi dari pola Input -> Output.",
+                    contentList: [
+                        { question: "Input(2) -> 5, Input(3) -> 7, Input(4) -> 9. Rumusnya?", options: ["f(x) = 2x + 1", "f(x) = x + 3", "f(x) = 3x - 1", "f(x) = x² + 1"], answer: 0 },
+                        { question: "Input(5) -> 25, Input(-2) -> 4, Input(10) -> 100. Rumusnya?", options: ["f(x) = x²", "f(x) = 5x", "f(x) = 2x + 15", "f(x) = x + 20"], answer: 0 },
+                        { question: "Input(0) -> -3, Input(1) -> -1, Input(2) -> 1. Rumusnya?", options: ["f(x) = 2x - 3", "f(x) = x - 3", "f(x) = 3x - 3", "f(x) = -3x"], answer: 0 }
+                    ]
+                },
+
+                // 7. Coding Logic (Flowchart)
+                {
+                    title: "Coding Aljabar", icon: "fa-code-branch", type: "app", appType: "sort",
+                    desc: "Susun alur logika pemrograman (Pseudocode).",
+                    contentList: [
+                        {
+                            title: "Program Cek Ganjil/Genap",
+                            items: ["Input Bilangan X", "Hitung Sisa Bagi X dengan 2", "Jika Sisa = 0, Print 'Genap'", "Jika Tidak, Print 'Ganjil'"]
+                        },
+                        {
+                            title: "Program Tebak Umur",
+                            items: ["Input Tahun Lahir (T)", "Set Tahun Sekarang (S) = 2025", "Hitung Umur = S - T", "Tampilkan Umur"]
+                        }
+                    ]
+                },
+
+                // 8. Logika Pertidaksamaan
+                {
+                    title: "Logika Tanda", icon: "fa-less-than-equal", type: "quiz",
+                    desc: "Logika membalik tanda < dan >.",
+                    contentList: [
+                        { question: "Jika a < b, dan kedua ruas dikali -1, maka...", options: ["-a > -b", "-a < -b", "-a = -b", "Tidak berubah"], answer: 0 },
+                        { question: "x tidak lebih dari 10. Simbolnya?", options: ["x ≤ 10", "x < 10", "x ≥ 10", "x > 10"], answer: 0 },
+                        { question: "Umur minimal 17 tahun. Simbolnya?", options: ["x ≥ 17", "x > 17", "x ≤ 17", "x = 17"], answer: 0 }
+                    ]
+                },
+
+                // 9. Pola Bilangan Lanjut
+                {
+                    title: "Seri Angka", icon: "fa-layer-group", type: "quiz",
+                    desc: "Tes IQ Pola Bilangan.",
+                    contentList: [
+                        { question: "1, 1, 2, 3, 5, 8, ... (Fibonacci)", options: ["13", "11", "10", "15"], answer: 0 },
+                        { question: "1, 4, 9, 16, 25, ... (Kuadrat)", options: ["36", "30", "49", "35"], answer: 0 },
+                        { question: "100, 95, 90, 85, ...", options: ["80", "75", "84", "70"], answer: 0 }
+                    ]
+                },
+
+                // 10. Counter Examples (Pembuktian Terbalik)
+                {
+                    title: "Patahkan Mitos", icon: "fa-shield-alt", type: "input", inputType: "textarea",
+                    desc: "Cari contoh angka yang membuktikan pernyataan ini SALAH.",
+                    contentList: [
+                        { prompt: "Mitos: 'Semua bilangan prima adalah ganjil'. Cari satu angka prima yang genap!" },
+                        { prompt: "Mitos: 'x pangkat 2 selalu lebih besar dari x'. Cari angka x (pecahan) yang membuat ini salah!" },
+                        { prompt: "Mitos: 'Jika a > b, maka a² > b²'. Cari contoh menggunakan bilangan negatif (misal a=2, b=-5) yang membantahnya!" }
+                    ]
+                },
+
+                // 11. Simbol Logika (Flashcard)
+                {
+                    title: "Simbol Logika", icon: "fa-fingerprint", type: "flashcard",
+                    desc: "Bahasa simbol matematika.",
+                    contentList: [
+                        { cards: [{f:"≠", b:"Tidak sama dengan"}] },
+                        { cards: [{f:"≡", b:"Ekuivalen / Setara"}] },
+                        { cards: [{f:"∴", b:"Oleh karena itu (Kesimpulan)"}] },
+                        { cards: [{f:"∈", b:"Elemen dari / Anggota himpunan"}] },
+                        { cards: [{f:"⇒", b:"Maka / Implikasi (Jika... Maka...)"}] }
+                    ]
+                },
+
+                // 12. Ekuivalensi Persamaan
+                {
+                    title: "Persamaan Kembar", icon: "fa-clone", type: "quiz",
+                    desc: "Pilih persamaan yang senilai/ekuivalen.",
+                    contentList: [
+                        { question: "Persamaan 2x = 10 ekuivalen dengan...", options: ["x = 5", "2x = 5", "x = 10", "4x = 10"], answer: 0 },
+                        { question: "x + 3 = 7 ekuivalen dengan...", options: ["x = 4", "x = 10", "x = 3", "x = 7"], answer: 0 },
+                        { question: "Persamaan manakah yang TIDAK ekuivalen dengan 2x - 4 = 0?", options: ["x = 4", "2x = 4", "x = 2", "x - 2 = 0"], answer: 0 }
+                    ]
+                },
+
+                // 13. Silogisme Aljabar
+                {
+                    title: "Deduksi Logis", icon: "fa-brain", type: "quiz",
+                    desc: "Menarik kesimpulan.",
+                    contentList: [
+                        { question: "Premis 1: Jika x = 2, maka y = 4.\nPremis 2: x = 2.\nKesimpulan?", options: ["y = 4", "y = 2", "x = 4", "Tidak ada kesimpulan"], answer: 0 },
+                        { question: "Jika A > B dan B > C, maka...", options: ["A > C", "A < C", "A = C", "C > A"], answer: 0 }
+                    ]
+                },
+
+                // 14. Puzzle Operasi Biner
+                {
+                    title: "Operasi Misteri", icon: "fa-puzzle-piece", type: "quiz",
+                    desc: "Logika simbol buatan.",
+                    contentList: [
+                        { question: "Jika didefinisikan a # b = (a + b) x a.\nBerapakah 2 # 3?", options: ["10 (Karena (2+3)x2)", "5", "6", "12"], answer: 0 },
+                        { question: "Jika a @ b = a² - b.\nBerapakah 3 @ 4?", options: ["5 (Karena 9-4)", "2", "-1", "7"], answer: 0 }
+                    ]
+                },
+
+                // 15. Kode Rahasia (Substitution Cipher)
+                {
+                    title: "Kriptografi", icon: "fa-user-secret", type: "app", appType: "story",
+                    desc: "Enkripsi pesan menggunakan fungsi aljabar.",
+                    contentList: [
+                        { prompt: "Rumus Enkripsi: y = x + 2", ex: "A(1) jadi C(3)", obj1: "Huruf Asli (x)", obj2: "Huruf Sandi (y)" },
+                        { prompt: "Rumus Enkripsi: y = 2x", ex: "A(1) jadi B(2), B(2) jadi D(4)", obj1: "Posisi Asli", obj2: "Posisi Sandi" }
+                    ]
+                },
+
+                // 16. Studi Kasus
+                {
+                    title: "Logika Nyata", icon: "fa-city", type: "input", inputType: "textarea",
+                    desc: "Penerapan logika linear di dunia nyata.",
+                    contentList: [
+                        { prompt: "Operator seluler A menawarkan tarif tetap Rp50.000/bulan. Operator B tarif Rp2.000/menit. Kapan Operator A lebih menguntungkan? (Gunakan logika pertidaksamaan)" },
+                        { prompt: "Lift memiliki beban maksimal 500kg. Jika rata-rata orang 60kg, berapa orang maksimal (x) yang boleh masuk? Buat model matematikanya!" }
+                    ]
                 }
             ]
         },
@@ -1072,6 +1230,7 @@
 </script>
 </body>
 </html>
+
 
 
 
