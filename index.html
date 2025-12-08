@@ -1147,12 +1147,109 @@
         },
         { 
             id: "intrapersonal", name: "Intrapersonal", icon: "fa-user", color: "earth-600", hex: "#606C38", 
-            desc: "Refleksi & Evaluasi Diri", 
+            desc: "Belajar Lewat Refleksi, Emosi & Tujuan Diri", 
             media: [
-                { title: "Jurnal Kesalahan", icon: "fa-book-open", type: "input", inputType: "textarea", prompt: "Kesalahan apa yang sering aku buat saat memindahkan ruas persamaan? (Tanda +/-?)", desc: "Analisis error mandiri." },
-                { title: "Target Nilai", icon: "fa-bullseye", type: "input", inputType: "textarea", prompt: "Untuk menguasai SPLDV, aku perlu latihan berapa soal per hari?", desc: "Goal setting." },
-                { title: "Mood Tracker", icon: "fa-smile", type: "app", appType: "mood", desc: "Apakah aku cemas saat melihat variabel x dan y?" },
-                { title: "Review Mandiri", icon: "fa-check-square", type: "quiz", question: "Apakah aku sudah paham beda variabel dan koefisien?", options: ["Ya, Paham", "Masih Bingung"], answer: 0, desc: "Self-assessment checklist." }
+                // --- 1. MEDIA LAMA (DIPERLUAS MENJADI APLIKASI) ---
+                { 
+                    title: "Jurnal Kesalahan", icon: "fa-book-open", type: "app", appType: "journal", 
+                    desc: "Catat error matematikamu. Apakah karena ceroboh atau belum paham konsep?",
+                },
+                { 
+                    title: "Kalkulator Target", icon: "fa-bullseye", type: "app", appType: "goals", 
+                    desc: "Hitung nilai yang harus kamu dapatkan di ujian nanti agar Lulus/Dapat A.", 
+                },
+                { 
+                    title: "Mood Tracker", icon: "fa-smile-beam", type: "app", appType: "mood_tracker", 
+                    desc: "Rekam perasaanmu sebelum dan sesudah belajar. Cek pola emosimu.", 
+                },
+                { 
+                    title: "Cek Pemahaman", icon: "fa-clipboard-check", type: "app", appType: "checklist", 
+                    desc: "Jujur pada diri sendiri: Konsep mana yang sudah 100% aku kuasai?",
+                    items: ["Membedakan Variabel & Konstanta", "Operasi Penjumlahan Aljabar", "Substitusi Nilai x", "Pindah Ruas Persamaan", "Membuat Model Matematika"] 
+                },
+
+                // --- 2. 12 MEDIA BARU (SELF-REFLECTION TOOLS) ---
+
+                // 5. MEDITASI MATEMATIKA (Breathing)
+                {
+                    title: "Meditasi Fokus", icon: "fa-spa", type: "app", appType: "meditation",
+                    desc: "Tenangkan kecemasan matematikamu dengan teknik pernapasan 4-7-8.",
+                },
+
+                // 6. DETOKS PIKIRAN (Stress Relief)
+                {
+                    title: "Hancurkan Takut", icon: "fa-bomb", type: "app", appType: "detox",
+                    desc: "Tulis ketakutanmu (misal: 'Aku bodoh'), lalu ledakkan tulisan itu secara digital!",
+                },
+
+                // 7. RUANG ZEN (Timer Fokus)
+                {
+                    title: "Ruang Zen", icon: "fa-hourglass-half", type: "app", appType: "zen",
+                    desc: "Timer Pomodoro minimalis. 25 menit fokus penuh tanpa gangguan.",
+                },
+
+                // 8. AFIRMASI POSITIF (Card Generator)
+                {
+                    title: "Kartu Kekuatan", icon: "fa-heart", type: "app", appType: "affirmation",
+                    desc: "Dapatkan pesan penyemangat acak untuk membangun kepercayaan diri.",
+                },
+
+                // 9. ANALISIS SWOT DIRI
+                {
+                    title: "SWOT Belajar", icon: "fa-table", type: "app", appType: "swot",
+                    desc: "Petakan Kekuatan (Strengths) dan Kelemahan (Weaknesses) cara belajarmu.",
+                },
+
+                // 10. SURAT MASA DEPAN
+                {
+                    title: "Surat u/ Aku", icon: "fa-paper-plane", type: "app", appType: "letter",
+                    desc: "Tulis pesan untuk dirimu di akhir semester. Apa harapanmu?",
+                },
+
+                // 11. ANALOGI KEPRIBADIAN
+                {
+                    title: "Siapa Aku?", icon: "fa-id-card-alt", type: "app", appType: "analogy",
+                    desc: "Jika kamu adalah Grafik Fungsi, kamu tipe yang mana?",
+                    contentList: [
+                        { title: "Linear", desc: "Lurus, tegas, konsisten. (y = x)" },
+                        { title: "Kuadrat", desc: "Emosional, ada naik ada turun. (y = x²)" },
+                        { title: "Konstan", desc: "Tenang, tidak mudah berubah. (y = c)" }
+                    ]
+                },
+
+                // 12. GRAFIK SEMANGAT (Draw)
+                {
+                    title: "Grafik Semangat", icon: "fa-chart-area", type: "app", appType: "draw",
+                    desc: "Gambarlah grafik naik-turun semangat belajarmu minggu ini.",
+                },
+
+                // 13. TIME MANAGER (Efficiency)
+                {
+                    title: "Audit Waktu", icon: "fa-clock", type: "app", appType: "time_calc",
+                    desc: "Berapa jam kamu belajar vs main HP? Hitung rasionya.",
+                },
+
+                // 14. MY WHY (Deep Reflection)
+                {
+                    title: "Kenapa Matematika?", icon: "fa-question-circle", type: "input", inputType: "textarea",
+                    desc: "Temukan alasan pribadimu belajar ini (Bukan karena disuruh guru).",
+                    prompt: "Aku belajar Aljabar agar aku bisa melatih logikaku untuk..."
+                },
+
+                // 15. BIOGRAFI CERMIN (Quiz)
+                {
+                    title: "Kembaran Tokoh", icon: "fa-user-tie", type: "quiz",
+                    desc: "Siapa matematikawan yang kepribadiannya mirip kamu?",
+                    contentList: [
+                        { question: "Saat ada masalah sulit, aku...", options: ["Merenung sendirian (Newton)", "Diskusi ramai-ramai (Erdos)", "Cari pola visual (Fibonacci)", "Menyerah"], answer: 0 }
+                    ]
+                },
+
+                // 16. KOTAK SYUKUR (Gratitude)
+                {
+                    title: "Kotak Syukur", icon: "fa-praying-hands", type: "app", appType: "gratitude",
+                    desc: "Hal kecil apa yang berhasil kamu pahami hari ini? Rayakanlah.",
+                }
             ]
         },
         { 
@@ -1907,9 +2004,178 @@
                     <div id="cash-msg" class="mt-4 font-bold h-6"></div>
                 </div>
             </div>`;
-        
+        if(item.appType === 'journal') return `
+            <div class="h-full flex flex-col animate-fade-in bg-earth-50 rounded-3xl p-6 border border-earth-200">
+                <h3 class="font-bold text-earth-800 mb-4"><i class="fas fa-book-open mr-2"></i>Log Error Matematika</h3>
+                <div class="flex-1 overflow-y-auto space-y-3 mb-4 pr-2" id="journal-list">
+                    <div class="text-center text-earth-400 italic text-sm mt-10">Belum ada catatan. Tulis kesalahanmu di bawah.</div>
+                </div>
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-earth-200">
+                    <input type="text" id="j-topic" placeholder="Topik (mis: PLSV)" class="w-full mb-2 p-2 border-b border-earth-100 outline-none text-sm font-bold">
+                    <textarea id="j-desc" placeholder="Apa salahnya? (mis: Lupa ganti tanda min saat pindah ruas)" class="w-full p-2 outline-none text-sm h-16 resize-none"></textarea>
+                    <button onclick="addJournal()" class="w-full py-2 bg-earth-700 text-white rounded-lg font-bold hover:bg-earth-800 transition">Simpan Catatan</button>
+                </div>
+            </div>`;
+        if(item.appType === 'goals') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-white rounded-3xl p-6 border-2 border-earth-100">
+                <div class="w-full max-w-sm">
+                    <h3 class="font-bold text-center text-earth-800 mb-6 text-xl">🎯 Target Nilai</h3>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="text-xs font-bold text-earth-500 uppercase">Nilai Saat Ini (Rata-rata)</label>
+                            <input type="number" id="g-curr" value="70" class="w-full p-3 bg-earth-50 rounded-xl font-bold text-earth-800 border border-earth-200">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-earth-500 uppercase">Target Nilai Akhir</label>
+                            <input type="number" id="g-target" value="85" class="w-full p-3 bg-earth-50 rounded-xl font-bold text-earth-800 border border-earth-200">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-earth-500 uppercase">Bobot Ujian Nanti (%)</label>
+                            <input type="number" id="g-weight" value="40" class="w-full p-3 bg-earth-50 rounded-xl font-bold text-earth-800 border border-earth-200">
+                        </div>
+                    </div>
+                    
+                    <div class="bg-earth-800 text-white p-6 rounded-2xl text-center shadow-lg relative overflow-hidden">
+                        <p class="text-xs opacity-70 mb-1">Kamu harus dapat nilai:</p>
+                        <h2 id="g-res" class="text-4xl font-bold">107.5?!</h2>
+                        <p id="g-msg" class="text-xs text-red-300 mt-2">Mustahil! Target terlalu tinggi.</p>
+                        <button onclick="calcGoal()" class="absolute bottom-2 right-2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/40"><i class="fas fa-sync"></i></button>
+                    </div>
+                </div>
+                <script>setTimeout(calcGoal, 500);
+            </div>`;
+        if(item.appType === 'mood_tracker') return `
+            <div class="h-full flex flex-col animate-fade-in bg-earth-50 rounded-3xl p-6">
+                <h3 class="font-bold text-center text-earth-800 mb-6">Bagaimana perasaanmu hari ini?</h3>
+                <div class="flex justify-center gap-2 mb-8">
+                    ${['😫','😕','😐','🙂','🤩'].map((e,i) => `<button onclick="logMood(${i})" class="text-4xl hover:scale-125 transition transform p-2 hover:bg-white rounded-full">${e}</button>`).join('')}
+                </div>
+                <h4 class="text-xs font-bold text-earth-400 uppercase tracking-widest mb-3">Riwayat Emosi</h4>
+                <div class="flex-1 bg-white rounded-xl border border-earth-200 p-4 grid grid-cols-7 content-start gap-2" id="mood-grid">
+                    ${Array.from({length:14}).map(()=>`<div class="aspect-square rounded-lg bg-earth-100"></div>`).join('')}
+                </div>
+            </div>`;
+        if(item.appType === 'checklist') return `
+            <div class="h-full flex flex-col animate-fade-in bg-white rounded-3xl p-6 border border-earth-200">
+                <h3 class="font-bold text-earth-800 mb-4">Self-Check: Aljabar</h3>
+                <div class="space-y-3 flex-1 overflow-y-auto">
+                    ${item.items.map((txt, i) => `
+                        <label class="flex items-center gap-4 p-4 bg-earth-50 rounded-xl cursor-pointer hover:bg-earth-100 transition group">
+                            <div class="relative">
+                                <input type="checkbox" class="peer sr-only" onchange="if(this.checked) addXP(5)">
+                                <div class="w-6 h-6 border-2 border-earth-300 rounded-md peer-checked:bg-green-500 peer-checked:border-green-500 transition"></div>
+                                <i class="fas fa-check text-white absolute top-1 left-1 opacity-0 peer-checked:opacity-100 text-sm"></i>
+                            </div>
+                            <span class="font-medium text-earth-700 group-hover:text-earth-900 select-none">${txt}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            </div>`;
+        if(item.appType === 'meditation') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-900 rounded-3xl relative overflow-hidden text-white">
+                <div id="breath-circle" class="w-48 h-48 rounded-full border-4 border-white/30 flex items-center justify-center relative transition-all duration-[4000ms] ease-in-out">
+                    <div class="text-center relative z-10">
+                        <div id="breath-txt" class="text-2xl font-bold tracking-widest">SIAP?</div>
+                        <div id="breath-sub" class="text-sm opacity-70 mt-1">Ketuk untuk mulai</div>
+                    </div>
+                    <div class="absolute inset-0 bg-accent-green/20 rounded-full blur-xl animate-pulse"></div>
+                </div>
+                <button onclick="startBreath()" class="absolute inset-0 z-20 w-full h-full cursor-pointer"></button>
+            </div>`;
+        if(item.appType === 'detox') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gray-100 rounded-3xl p-6 relative overflow-hidden">
+                <div id="detox-form" class="w-full max-w-md text-center transition-all duration-500">
+                    <i class="fas fa-trash-alt text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="font-bold text-gray-700 mb-2">Buang Pikiran Negatif</h3>
+                    <p class="text-sm text-gray-500 mb-6">Tuliskan apa yang membuatmu takut/malas, lalu hancurkan.</p>
+                    <textarea id="detox-inp" class="w-full p-4 rounded-xl border-2 border-gray-300 focus:border-red-400 outline-none mb-4 bg-white" placeholder="Contoh: Aku takut salah hitung..."></textarea>
+                    <button onclick="destroyDetox()" class="px-8 py-3 bg-red-500 text-white rounded-full font-bold shadow-lg hover:bg-red-600 hover:scale-105 transition">HANCURKAN! 💥</button>
+                </div>
+                <div id="detox-boom" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 bg-white z-10">
+                    <h1 class="text-6xl font-black text-red-600 rotate-12">POW!!</h1>
+                </div>
+                <div id="detox-msg" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-0 z-0 text-center">
+                    <i class="fas fa-wind text-6xl text-green-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-green-700">Pikiranmu Lebih Lega.</h3>
+                    <button onclick="resetDetox()" class="mt-8 px-6 py-2 border-2 border-green-500 text-green-600 rounded-full font-bold pointer-events-auto hover:bg-green-50">Tulis Lagi</button>
+                </div>
+            </div>`;
+        if(item.appType === 'zen') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-[#F5F5DC] rounded-3xl p-6 relative">
+                <div class="absolute inset-4 border border-[#8B4513]/20 rounded-2xl pointer-events-none"></div>
+                <h3 class="font-serif text-[#8B4513] text-xl mb-8">Ruang Fokus</h3>
+                <div class="text-7xl font-mono font-bold text-[#5E4934] mb-8" id="zen-time">25:00</div>
+                <div class="flex gap-4">
+                    <button onclick="toggleZen()" id="zen-btn" class="w-16 h-16 rounded-full bg-[#8B4513] text-white text-xl flex items-center justify-center shadow-lg hover:scale-105 transition"><i class="fas fa-play"></i></button>
+                    <button onclick="resetZen()" class="w-16 h-16 rounded-full border-2 border-[#8B4513] text-[#8B4513] text-xl flex items-center justify-center hover:bg-[#8B4513]/10 transition"><i class="fas fa-redo"></i></button>
+                </div>
+                <p class="mt-8 text-xs text-[#8B4513]/60 italic">"Satu soal pada satu waktu."</p>
+            </div>`;
+        if(item.appType === 'affirmation') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in p-4 bg-gradient-to-br from-pink-50 to-orange-50 rounded-3xl" onclick="newAffirmation()">
+                <div class="card-stack relative w-full max-w-sm aspect-[3/4] cursor-pointer group perspective-1000">
+                    <div class="absolute inset-0 bg-white rounded-2xl shadow-xl transform rotate-3 opacity-50 scale-95"></div>
+                    <div class="absolute inset-0 bg-white rounded-2xl shadow-xl transform -rotate-2 opacity-70 scale-95"></div>
+                    <div id="aff-card" class="absolute inset-0 bg-white rounded-2xl shadow-2xl border border-orange-100 p-8 flex flex-col items-center justify-center text-center transition-all duration-500 group-hover:-translate-y-2">
+                        <i class="fas fa-quote-left text-4xl text-orange-200 mb-6"></i>
+                        <h2 id="aff-txt" class="text-2xl font-serif text-earth-800 leading-relaxed font-bold">"Kesalahan adalah bukti bahwa kamu sedang berusaha."</h2>
+                        <div class="mt-8 w-12 h-1 bg-orange-300 rounded-full"></div>
+                        <p class="mt-4 text-xs text-earth-400 uppercase tracking-widest">Ketuk untuk ganti</p>
+                    </div>
+                </div>
+            </div>`;
+        if(['swot', 'analogy', 'time_calc', 'gratitude', 'letter'].includes(item.appType)) return renderIntraForms(item.appType, item);
 
-        return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
+        // Helper function for forms
+        function renderIntraForms(t, item) {
+            if(t === 'swot') return `
+                <div class="h-full flex flex-col animate-fade-in bg-white rounded-3xl p-6 overflow-y-auto">
+                    <h3 class="font-bold text-center mb-4">Analisis SWOT Belajarmu</h3>
+                    <div class="grid grid-cols-2 gap-4 flex-1 min-h-[300px]">
+                        <div class="bg-green-50 p-3 rounded-xl"><div class="font-bold text-green-700 text-xs mb-2">KEKUATAN (Strengths)</div><textarea class="w-full h-24 bg-transparent resize-none text-sm outline-none" placeholder="Mis: Jago hitung cepat..."></textarea></div>
+                        <div class="bg-red-50 p-3 rounded-xl"><div class="font-bold text-red-700 text-xs mb-2">KELEMAHAN (Weaknesses)</div><textarea class="w-full h-24 bg-transparent resize-none text-sm outline-none" placeholder="Mis: Malas baca soal..."></textarea></div>
+                        <div class="bg-blue-50 p-3 rounded-xl"><div class="font-bold text-blue-700 text-xs mb-2">PELUANG (Opportunities)</div><textarea class="w-full h-24 bg-transparent resize-none text-sm outline-none" placeholder="Mis: Ada teman pintar..."></textarea></div>
+                        <div class="bg-orange-50 p-3 rounded-xl"><div class="font-bold text-orange-700 text-xs mb-2">ANCAMAN (Threats)</div><textarea class="w-full h-24 bg-transparent resize-none text-sm outline-none" placeholder="Mis: Banyak main game..."></textarea></div>
+                    </div>
+                    <button class="w-full py-3 bg-earth-800 text-white rounded-xl mt-4 font-bold shadow" onclick="alert('Analisis Tersimpan! Kenali dirimu.'); addXP(10)">Simpan Analisis</button>
+                </div>`;
+
+            if(t === 'analogy') return `
+                <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-100 rounded-3xl p-6 text-center">
+                    <h3 class="text-xl font-bold mb-6">Tipe Matematika Apakah Kamu?</h3>
+                    <div class="grid gap-3 w-full">
+                        ${item.contentList.map(c => `
+                            <button onclick="alert('Menarik! Kamu tipe: ${c.title}.'); addXP(5);" class="bg-white p-4 rounded-xl shadow-sm hover:bg-accent-yellow hover:text-white transition text-left group">
+                                <span class="font-bold block text-lg">${c.title}</span>
+                                <span class="text-sm opacity-70 group-hover:opacity-100">${c.desc}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>`;
+
+            if(t === 'gratitude') return `
+                <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gradient-to-t from-yellow-100 to-white rounded-3xl p-6 text-center">
+                    <i class="fas fa-sun text-6xl text-yellow-400 mb-6 animate-pulse"></i>
+                    <h3 class="font-serif text-2xl font-bold text-earth-800 mb-2">Kotak Syukur</h3>
+                    <p class="text-earth-500 mb-6">Apa satu hal kecil yang berhasil kamu pelajari hari ini?</p>
+                    <textarea class="w-full max-w-xs p-4 rounded-xl border border-yellow-200 bg-white/50 shadow-inner mb-4 outline-none focus:bg-white transition" placeholder="Hari ini aku paham bedanya x dan y..."></textarea>
+                    <button onclick="confetti(); addXP(10); alert('Hebat! Rayakan prosesmu.');" class="px-8 py-2 bg-yellow-400 text-yellow-900 rounded-full font-bold shadow-lg hover:-translate-y-1 transition">Syukuri 🙏</button>
+                </div>`;
+            
+            if(t === 'letter') return `
+                <div class="h-full flex flex-col animate-fade-in bg-[#f4f1ea] rounded-3xl p-6 relative">
+                    <div class="border-2 border-dashed border-earth-300 h-full rounded-2xl p-6 flex flex-col">
+                        <div class="flex justify-between items-center mb-4 pb-2 border-b border-earth-200">
+                            <span class="font-serif italic text-earth-600">To: Future Me</span>
+                            <i class="fas fa-stamp text-red-400 text-3xl opacity-50 transform rotate-12"></i>
+                        </div>
+                        <textarea class="flex-1 w-full bg-transparent resize-none outline-none font-serif text-earth-800 leading-relaxed" placeholder="Hai aku di masa depan. Aku harap kamu sudah paham Aljabar, terutama bagian..."></textarea>
+                        <button onclick="this.innerHTML='<i class=\'fas fa-check\'></i> Terkirim ke Masa Depan'; this.className='mt-4 w-full py-3 bg-green-600 text-white rounded-xl font-bold shadow'; addXP(10);" class="mt-4 w-full py-3 bg-earth-800 text-white rounded-xl font-bold shadow hover:bg-earth-900 transition">Kirim Surat 📮</button>
+                    </div>
+                </div>`;
+
+        return `<div class="p-10 text-center">App Under Construction</div>`;
     }
 
     // --- 4. APP HELPER FUNCTIONS ---
@@ -2794,6 +3060,192 @@
             simState.active = false;
         }
     };
+
+    // --- 13. LOGIKA INTRAPERSONAL APPS ---
+
+    // A. JOURNAL
+    let journalData = [];
+    window.addJournal = function() {
+        const t = document.getElementById('j-topic').value;
+        const d = document.getElementById('j-desc').value;
+        if(!t || !d) return alert("Isi dulu topiknya!");
+        
+        journalData.unshift({t, d, date: new Date().toLocaleDateString()});
+        document.getElementById('j-topic').value = '';
+        document.getElementById('j-desc').value = '';
+        renderJournal();
+        addXP(5);
+    };
+    function renderJournal() {
+        const el = document.getElementById('journal-list');
+        if(!el) return;
+        el.innerHTML = journalData.map(j => `
+            <div class="bg-white p-3 rounded-xl border border-earth-100 shadow-sm animate-fade-in">
+                <div class="flex justify-between items-start mb-1">
+                    <span class="font-bold text-earth-700 text-sm">${j.t}</span>
+                    <span class="text-[10px] text-earth-400">${j.date}</span>
+                </div>
+                <p class="text-xs text-earth-600">${j.d}</p>
+            </div>
+        `).join('');
+    }
+
+    // B. GOALS CALCULATOR
+    window.calcGoal = function() {
+        const curr = parseFloat(document.getElementById('g-curr').value) || 0;
+        const target = parseFloat(document.getElementById('g-target').value) || 0;
+        const weight = parseFloat(document.getElementById('g-weight').value) || 40; // Bobot UAS misal 40%
+        
+        // Rumus: Target = (Curr * (100-w) + Needed * w) / 100
+        // Needed = (Target * 100 - Curr * (100-w)) / w
+        
+        const w_curr = 100 - weight;
+        const needed = (target * 100 - (curr * w_curr)) / weight;
+        
+        const resEl = document.getElementById('g-res');
+        const msgEl = document.getElementById('g-msg');
+        
+        resEl.innerText = needed.toFixed(1);
+        
+        if(needed > 100) {
+            resEl.className = "text-4xl font-bold text-red-400";
+            msgEl.innerText = "Mustahil! Kamu butuh lebih dari 100.";
+        } else if(needed < 0) {
+            resEl.className = "text-4xl font-bold text-green-400";
+            msgEl.innerText = "Selamat! Kamu pasti lulus meski nilai 0.";
+        } else {
+            resEl.className = "text-4xl font-bold text-white";
+            msgEl.innerText = needed > 80 ? "Harus belajar keras!" : "Bisa dicapai!";
+        }
+    };
+
+    // C. MOOD TRACKER
+    window.logMood = function(idx) {
+        const grid = document.getElementById('mood-grid');
+        const colors = ['bg-red-400', 'bg-orange-300', 'bg-gray-300', 'bg-green-300', 'bg-green-500'];
+        if(grid) {
+            const dot = document.createElement('div');
+            dot.className = `aspect-square rounded-lg ${colors[idx]} animate-fade-in`;
+            grid.appendChild(dot);
+            addXP(2);
+        }
+    };
+
+    // D. MEDITASI (BREATH)
+    let breathState = 0; // 0:In, 1:Hold, 2:Out
+    let breathInt;
+    window.startBreath = function() {
+        if(breathInt) { clearInterval(breathInt); breathInt=null; document.getElementById('breath-txt').innerText="STOP"; return; }
+        
+        const txt = document.getElementById('breath-txt');
+        const sub = document.getElementById('breath-sub');
+        const circ = document.getElementById('breath-circle');
+        
+        function cycle() {
+            // IN (4s)
+            txt.innerText = "TARIK..."; sub.innerText = "Napas dalam (4d)";
+            circ.style.transform = "scale(1.2)";
+            circ.className = "w-48 h-48 rounded-full border-4 border-green-300 flex items-center justify-center relative transition-all duration-[4000ms] ease-out";
+            
+            setTimeout(() => {
+                // HOLD (4s - simplified from 7)
+                txt.innerText = "TAHAN"; sub.innerText = "Rasakan tenang (4d)";
+                circ.style.borderColor = "white";
+                
+                setTimeout(() => {
+                    // OUT (4s - simplified from 8)
+                    txt.innerText = "HEMBUS..."; sub.innerText = "Lepaskan beban (4d)";
+                    circ.style.transform = "scale(1)";
+                    circ.className = "w-48 h-48 rounded-full border-4 border-white/30 flex items-center justify-center relative transition-all duration-[4000ms] ease-in";
+                }, 4000);
+            }, 4000);
+        }
+        
+        cycle();
+        breathInt = setInterval(cycle, 12000);
+    };
+
+    // E. DETOX
+    window.destroyDetox = function() {
+        const inp = document.getElementById('detox-inp');
+        if(!inp.value) return;
+        
+        const form = document.getElementById('detox-form');
+        const boom = document.getElementById('detox-boom');
+        const msg = document.getElementById('detox-msg');
+        
+        // Shake
+        form.classList.add('shake');
+        
+        setTimeout(() => {
+            // Boom
+            form.style.opacity = '0';
+            form.style.pointerEvents = 'none';
+            boom.style.opacity = '1';
+            boom.style.transform = 'scale(1.5)';
+            boom.style.transition = 'all 0.3s';
+            
+            setTimeout(() => {
+                boom.style.opacity = '0';
+                msg.style.opacity = '1';
+                msg.style.pointerEvents = 'auto';
+                addXP(15);
+            }, 500);
+        }, 1000);
+    };
+    window.resetDetox = function() {
+        document.getElementById('detox-inp').value = '';
+        document.getElementById('detox-form').style.opacity = '1';
+        document.getElementById('detox-form').style.pointerEvents = 'auto';
+        document.getElementById('detox-form').classList.remove('shake');
+        document.getElementById('detox-msg').style.opacity = '0';
+        document.getElementById('detox-msg').style.pointerEvents = 'none';
+    };
+
+    // F. ZEN TIMER
+    let zenTime = 25 * 60;
+    let zenInt;
+    window.toggleZen = function() {
+        const btn = document.getElementById('zen-btn');
+        if(zenInt) {
+            clearInterval(zenInt); zenInt = null;
+            btn.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+            btn.innerHTML = '<i class="fas fa-pause"></i>';
+            zenInt = setInterval(() => {
+                zenTime--;
+                const m = Math.floor(zenTime / 60).toString().padStart(2,'0');
+                const s = (zenTime % 60).toString().padStart(2,'0');
+                document.getElementById('zen-time').innerText = `${m}:${s}`;
+                if(zenTime <= 0) { clearInterval(zenInt); alert("Selesai!"); addXP(20); }
+            }, 1000);
+        }
+    };
+    window.resetZen = function() {
+        if(zenInt) clearInterval(zenInt); zenInt=null;
+        zenTime = 25 * 60;
+        document.getElementById('zen-time').innerText = "25:00";
+        document.getElementById('zen-btn').innerHTML = '<i class="fas fa-play"></i>';
+    };
+
+    // G. AFFIRMATION
+    const affs = [
+        "Matematika itu kemampuan yang bisa dilatih, bukan bakat lahir.",
+        "Kesalahan adalah bukti aku sedang mencoba hal baru.",
+        "Aku tidak harus cepat, aku hanya harus terus maju.",
+        "X dan Y hanyalah teka-teki yang menunggu dipecahkan.",
+        "Satu soal sehari membuatku makin ahli."
+    ];
+    window.newAffirmation = function() {
+        const txt = document.getElementById('aff-txt');
+        if(txt) {
+            txt.style.opacity = 0;
+            setTimeout(() => {
+                txt.innerText = `"${affs[Math.floor(Math.random()*affs.length)]}"`;
+                txt.style.opacity = 1;
+            }, 300);
+        }
+    };
     
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -3298,6 +3750,7 @@
 </script>
 </body>
 </html>
+
 
 
 
