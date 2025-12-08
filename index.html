@@ -6,6 +6,8 @@
     <title>Math Minds: Aljabar Fase D</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
     
@@ -275,9 +277,21 @@
                     </div>
                 </div>
                 <div class="bg-earth-100 border border-earth-200 rounded-2xl p-6 relative">
-                    <div class="absolute -top-3 -right-3 bg-earth-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">AI Insight</div>
-                    <h4 class="font-bold text-earth-800 mb-4 flex items-center gap-2"><i class="fas fa-brain text-earth-600"></i> Analisis Gaya Belajar</h4>
-                    <p id="ai-feedback-text" class="text-earth-700 leading-relaxed italic text-sm">Belum cukup data. Cobalah berinteraksi dengan beberapa modul Aljabar.</p>
+                    <div class="absolute -top-3 -right-3 bg-earth-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                        <i class="fas fa-robot"></i> AI Analysis
+                    </div>
+                    
+                    <h4 class="font-bold text-earth-800 mb-2 flex items-center gap-2">
+                        <i class="fas fa-brain text-earth-600"></i> Peta Kecerdasanmu
+                    </h4>
+                    
+                    <p id="ai-feedback-text" class="text-earth-700 text-sm italic mb-4 bg-white/50 p-3 rounded-lg border border-earth-200">
+                        Belum cukup data. Cobalah berinteraksi dengan beberapa modul Aljabar.
+                    </p>
+                    
+                    <div class="relative w-full h-64 bg-white rounded-xl shadow-inner border border-earth-200 p-2">
+                        <canvas id="ai-radar-chart"></canvas>
+                    </div>
                 </div>
                 <div>
                     <h4 class="font-bold text-earth-800 mb-4">Pencapaian</h4>
@@ -1461,7 +1475,7 @@
 
         <a href="path/to/modul-aljabar.pdf" download class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-earth-700 hover:bg-red-50 transition-all group border border-transparent hover:border-red-200">
             <div class="w-6 h-6 rounded flex items-center justify-center text-xs bg-red-100 text-red-600"><i class="fas fa-file-pdf"></i></div>
-            <span class="group-hover:translate-x-1 transition-transform font-medium">Download E-Book PDF</span>
+            <span class="group-hover:translate-x-1 transition-transform font-medium">Download PDF</span>
         </a>
         <button onclick="openTeam()" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-earth-700 hover:bg-purple-50 transition-all group text-left">
             <div class="w-6 h-6 rounded flex items-center justify-center text-xs bg-purple-100 text-purple-600"><i class="fas fa-users-cog"></i></div>
@@ -4207,22 +4221,105 @@
             </div>`;
         }).join('');
     }
+    // --- 18. LOGIKA AI CHART (CHART.JS) ---
+    let aiChartInstance = null; // Variabel global untuk menyimpan grafik
+
     function genAI() {
-        const t = userProfile.progress.timePerType;
-        let max=0, type=''; for(const [k,v] of Object.entries(t)) if(v>max){max=v;type=k;}
+        const visited = userProfile.progress.modulesVisited || {};
+        const time = userProfile.progress.timePerType || {}; // (Jika Anda melacak waktu)
+        
+        // 1. HITUNG SKOR UNTUK SETIAP KECERDASAN
+        // Skor = (Jumlah Klik Modul * 10) + (Bonus Aktivitas Lain)
+        // Kita mapping data agar urutannya sesuai dengan intelligenceData
+        const scores = intelligenceData.map(item => {
+            const v = visited[item.id] || 0;
+            // Kita beri nilai minimal 2 agar grafik tidak kosong melompong
+            return Math.max(2, v * 10); 
+        });
+
+        const labels = intelligenceData.map(item => item.name.split(' ')[0]); // Ambil nama depan saja (misal: "Verbal" dari "Verbal Linguistic")
+
+        // 2. ANALISIS TEKS (DOMINAN)
+        let maxScore = 0;
+        let dominantId = '';
+        intelligenceData.forEach((item, idx) => {
+            if (scores[idx] > maxScore) {
+                maxScore = scores[idx];
+                dominantId = item.id;
+            }
+        });
+
         const el = document.getElementById('ai-feedback-text');
-        if(max<10) { el.innerText="Data belum cukup. Selesaikan beberapa aktivitas dulu."; return; }
-        const map = {
-            spatial: "Kamu visual learner! Kamu memahami Aljabar paling baik saat melihat grafik garis dan diagram.",
-            logical: "Logika kuat! Kamu jago dalam memecahkan PLSV dan menemukan pola bilangan.",
-            linguistic: "Verbal learner! Kamu paham konsep 'variabel' lewat cerita dan analogi.",
-            kinesthetic: "Kinestetik! Kamu perlu memanipulasi objek atau bergerak untuk memahami gradien.",
-            musical: "Musikal! Pola irama membantumu mengingat barisan bilangan.",
-            interpersonal: "Sosial! Kamu belajar paling cepat saat diskusi masalah SPLDV dengan teman.",
-            intrapersonal: "Reflektif! Kamu butuh waktu sendiri untuk menganalisis kesalahan hitung.",
-            naturalist: "Naturalis! Kamu melihat pola matematika (Fibonacci/Fraktal) di alam sekitar."
-        };
-        el.innerText = map[type] || "Teruslah bereksplorasi!";
+        if (maxScore <= 20) {
+            el.innerHTML = `<i class="fas fa-info-circle"></i> Data belum cukup. Jelajahi lebih banyak modul untuk melihat potensimu!`;
+        } else {
+            const insights = {
+                linguistic: "Kamu <b>Si Ahli Bahasa</b>! Kamu memahami Aljabar paling cepat lewat cerita dan analogi kata.",
+                logical: "Kamu <b>Detektif Logika</b>! Pola angka dan analisis rumus adalah kekuatan utamamu.",
+                spatial: "Kamu <b>Visioner</b>! Grafik dan visualisasi membantu otakmu memproses info dengan cepat.",
+                kinesthetic: "Kamu <b>Praktisi</b>! Belajar sambil bergerak/menyentuh alat peraga adalah kuncinya.",
+                musical: "Kamu <b>Harmonis</b>! Pola irama dan frekuensi membantumu mengingat rumus.",
+                interpersonal: "Kamu <b>Mediator</b>! Diskusi dan studi kasus sosial membuatmu lebih paham.",
+                intrapersonal: "Kamu <b>Reflektif</b>! Kamu butuh ketenangan untuk merenung dan mengevaluasi diri.",
+                naturalist: "Kamu <b>Penjelajah Alam</b>! Menghubungkan rumus dengan fenomena alam sangat efektif bagimu."
+            };
+            el.innerHTML = insights[dominantId] || "Teruslah bereksplorasi untuk menemukan gayamu!";
+        }
+
+        // 3. RENDER GRAFIK RADAR
+        const ctx = document.getElementById('ai-radar-chart').getContext('2d');
+
+        // Hancurkan grafik lama jika ada (agar tidak menumpuk/glitch)
+        if (aiChartInstance) {
+            aiChartInstance.destroy();
+        }
+
+        aiChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Potensi Diri',
+                    data: scores,
+                    backgroundColor: 'rgba(96, 108, 56, 0.5)', // Warna Earth-600 transparan
+                    borderColor: '#606C38',
+                    pointBackgroundColor: '#BC6C25', // Accent Orange
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#BC6C25',
+                    borderWidth: 2,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        angleLines: { color: 'rgba(0,0,0,0.1)' },
+                        grid: { color: 'rgba(94, 73, 52, 0.1)' }, // Garis jaring tipis
+                        pointLabels: {
+                            font: { family: '"Plus Jakarta Sans", sans-serif', size: 11, weight: 'bold' },
+                            color: '#5E4934' // Warna Earth-800
+                        },
+                        ticks: { display: false, stepSize: 20 } // Sembunyikan angka skala agar bersih
+                    }
+                },
+                plugins: {
+                    legend: { display: false }, // Sembunyikan legenda
+                    tooltip: {
+                        backgroundColor: '#283618',
+                        titleFont: { family: 'serif' },
+                        callbacks: {
+                            label: function(context) {
+                                return `Skor Aktivitas: ${context.raw}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
     window.nextSlide = function(n) { document.querySelectorAll('.story-slide').forEach(e=>e.classList.remove('active')); document.getElementById(`slide-${n}`).classList.add('active'); };
     window.startApp = function() { document.getElementById('linguistic').scrollIntoView({behavior:'smooth'}); };
@@ -4699,4 +4796,3 @@
 </script>
 </body>
 </html>
-
