@@ -866,50 +866,29 @@
             id: "kinesthetic", name: "Bodily Kinesthetic", icon: "fa-running", color: "earth-800", hex: "#5E4934", 
             desc: "Belajar dengan Gerak, Sentuhan & Aktivitas Fisik", 
             media: [
-                // 1. TIMBANGAN (Sudah Interaktif)
+                // 1-8 SAMA SEPERTI SEBELUMNYA...
                 { title: "Lab Timbangan", icon: "fa-balance-scale", type: "app", appType: "balance", desc: "Simulasi Fisik: Seimbangkan beban kiri dan kanan." },
-
-                // 2. GRADIENT RACER (Game Balap Miring)
                 { title: "Gradient Racer", icon: "fa-biking", type: "app", appType: "racer", desc: "Miringkan sepeda (Slider) sesuai curamnya bukit gradien!" },
-
-                // 3. SORTIR VARIABEL (Drag Drop)
                 { title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", desc: "Kelompokkan suku sejenis dengan jarimu.", items: ["3x", "5", "-2x", "10", "x", "-7"], explanation: "Gabungkan x dengan x, angka dengan angka." },
-
-                // 4. ALJABAR TILES (Builder)
                 { title: "Konstruktor Tiles", icon: "fa-th-large", type: "app", appType: "tiles", desc: "Susun balok-balok untuk membangun persamaan '2x + 3'." },
-
-                // 5. FROG JUMP (Garis Bilangan)
                 { title: "Lompat Katak", icon: "fa-frog", type: "app", appType: "jumper", desc: "Tekan KANAN/KIRI untuk melompat di garis bilangan sesuai operasi hitung." },
-
-                // 6. SIMON SAYS (Senam Simbol)
                 { title: "Senam Simbol", icon: "fa-child", type: "app", appType: "simon", desc: "Ikuti gerakan instruktur! Klik ikon tubuh yang sesuai dengan variabel." },
-
-                // 7. LABIRIN KOORDINAT (Navigasi)
                 { title: "Labirin (x,y)", icon: "fa-map-signs", type: "app", appType: "maze", desc: "Pandu titik merah menuju koordinat tujuan menggunakan tombol panah." },
-
-                // 8. COCOK ISYARAT (Memory Game)
                 { title: "Memory Isyarat", icon: "fa-hands-helping", type: "app", appType: "memory", desc: "Cari pasangan kartu: Simbol Matematika vs Isyarat Tangan." },
 
-                // 9. SPEED RUNNER (Fungsi Kecepatan)
-                { title: "Speed Runner", icon: "fa-tachometer-alt", type: "app", appType: "runner", desc: "Atur kecepatan lari karakter agar sesuai dengan grafik fungsi." },
+                // 9. SPEED RUNNER (DIPERBAIKI)
+                { title: "Speed Runner", icon: "fa-running", type: "app", appType: "runner", desc: "Atur kecepatan lari (Slider) untuk mengejar 'Hantu Math'!" },
 
-                // 10. RHYTHM MASTER (Tepuk Pola)
+                // 10-15 SAMA SEPERTI SEBELUMNYA...
                 { title: "Rhythm Master", icon: "fa-drum", type: "app", appType: "rhythm_game", desc: "Tekan SPASI tepat pada ketukan pola barisan bilangan!" },
-
-                // 11. PENGGARIS VIRTUAL (Ukur)
                 { title: "Ukur Benda", icon: "fa-ruler", type: "app", appType: "ruler", desc: "Geser penggaris digital untuk mengukur keliling bangun datar." },
-
-                // 12. KOIN BALANCE (Drag Drop)
                 { title: "Teka-teki Koin", icon: "fa-coins", type: "app", appType: "dragdrop", desc: "Pisahkan koin emas (positif) dan koin perak (negatif).", items: ["🪙", "🪙", "⚪", "⚪", "🪙"], explanation: "Koin sejenis dikumpulkan." },
-
-                // 13. EMOJI CHARADES (Tebak Gaya)
                 { title: "Tebak Emoji", icon: "fa-theater-masks", type: "quiz", desc: "Pilih emoji yang menggambarkan 'Gradien Negatif'!", contentList: [{question:"Mana ekspresi untuk Gradien Negatif (Turun)?", options:["📉","📈","➡️","⬆️"], answer:0}, {question:"Mana ekspresi untuk x² (Positif)?", options:["😊 (Senyum)","☹️ (Cemberut)","😐 (Datar)","🤔"], answer:0}] },
-
-                // 14. DIGITAL FINGERS (Hitung Jari)
                 { title: "Hitung Jari", icon: "fa-hand-paper", type: "app", appType: "fingers", desc: "Klik jari untuk melipat/membuka. Representasikan nilai x = 3." },
+                { title: "Reflex Math", icon: "fa-basketball-ball", type: "app", appType: "reflex", desc: "Tangkap bola jawaban yang benar sebelum jatuh!" },
 
-                // 15. REFLEX MATH (Game Tangkap Bola - Sudah Ada)
-                { title: "Reflex Math", icon: "fa-basketball-ball", type: "app", appType: "reflex", desc: "Tangkap bola jawaban yang benar sebelum jatuh!" }
+                // 16. MEDIA BARU: MERIAM LINEAR
+                { title: "Meriam Linear", icon: "fa-bullseye", type: "app", appType: "cannon", desc: "Atur Sudut (m) dan Tinggi (c) meriam untuk menembak target!" }
             ]
         },
         { 
@@ -1518,20 +1497,31 @@
                     <button onclick="playGs()" class="px-6 py-2 bg-earth-700 text-white rounded-lg font-bold shadow-lg hover:bg-earth-800"><i class="fas fa-play"></i> MAINKAN GRAFIK</button>
                 </div>
             </div>`;
-        if(['jumper', 'maze', 'runner', 'racer'].includes(item.appType)) return `
+        if(['jumper', 'maze', 'runner', 'racer', 'cannon'].includes(item.appType)) return `
             <div class="h-full flex flex-col animate-fade-in">
-                <div class="relative flex-1 bg-earth-800 rounded-3xl overflow-hidden border-4 border-earth-600 shadow-xl group cursor-pointer" onclick="startGame('${item.appType}')">
+                <div class="relative flex-1 bg-earth-800 rounded-3xl overflow-hidden border-4 border-earth-600 shadow-xl group cursor-pointer select-none" onclick="startGame('${item.appType}')">
                     <canvas id="cv-game-${item.appType}" class="w-full h-full block"></canvas>
+                    
                     <div id="overlay-${item.appType}" class="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white backdrop-blur-sm z-10 transition-opacity">
                         <i class="fas fa-play-circle text-6xl mb-4 text-accent-yellow animate-pulse"></i>
                         <h3 class="text-2xl font-bold">Klik untuk Main</h3>
                         <p class="text-sm opacity-80 mt-2 text-center max-w-xs">${item.desc}</p>
                     </div>
+                    
                     <div class="absolute bottom-4 right-4 bg-white/20 px-3 py-1 rounded text-xs text-white font-mono pointer-events-none">Status: <span id="status-${item.appType}">Ready</span></div>
                 </div>
-                ${item.appType === 'jumper' ? '<div class="mt-4 flex justify-center gap-4"><button onmousedown="gameInput(\'left\')" class="p-4 bg-earth-200 rounded-full shadow-lg active:scale-90"><i class="fas fa-arrow-left"></i></button><button onmousedown="gameInput(\'right\')" class="p-4 bg-earth-200 rounded-full shadow-lg active:scale-90"><i class="fas fa-arrow-right"></i></button></div>' : ''}
-                ${item.appType === 'maze' ? '<div class="mt-4 grid grid-cols-3 gap-2 w-32 mx-auto"><div class="col-start-2"><button onmousedown="gameInput(\'up\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-up"></i></button></div><div class="col-start-1 row-start-2"><button onmousedown="gameInput(\'left\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-left"></i></button></div><div class="col-start-3 row-start-2"><button onmousedown="gameInput(\'right\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-right"></i></button></div><div class="col-start-2 row-start-3"><button onmousedown="gameInput(\'down\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-down"></i></button></div></div>' : ''}
-                ${item.appType === 'racer' ? '<div class="mt-4 px-8"><input type="range" min="-45" max="45" value="0" class="w-full h-4 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-earth-700" oninput="gameInput(this.value)"></div>' : ''}
+
+                <div class="mt-4 px-4">
+                    ${item.appType === 'jumper' ? '<div class="flex justify-center gap-4"><button onmousedown="gameInput(\'left\')" class="p-4 bg-earth-200 rounded-full shadow-lg active:scale-90"><i class="fas fa-arrow-left"></i></button><button onmousedown="gameInput(\'right\')" class="p-4 bg-earth-200 rounded-full shadow-lg active:scale-90"><i class="fas fa-arrow-right"></i></button></div>' : ''}
+                    
+                    ${item.appType === 'maze' ? '<div class="grid grid-cols-3 gap-2 w-32 mx-auto"><div class="col-start-2"><button onmousedown="gameInput(\'up\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-up"></i></button></div><div class="col-start-1 row-start-2"><button onmousedown="gameInput(\'left\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-left"></i></button></div><div class="col-start-3 row-start-2"><button onmousedown="gameInput(\'right\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-right"></i></button></div><div class="col-start-2 row-start-3"><button onmousedown="gameInput(\'down\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-down"></i></button></div></div>' : ''}
+                    
+                    ${item.appType === 'racer' ? '<div class="px-4"><label class="text-xs font-bold text-earth-500 uppercase block mb-1">Miringkan Sepeda</label><input type="range" min="-45" max="45" value="0" class="w-full h-4 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-earth-700" oninput="gameInput(this.value)"></div>' : ''}
+
+                    ${item.appType === 'runner' ? '<div class="px-4"><label class="text-xs font-bold text-earth-500 uppercase block mb-1">Kecepatan Lari (v)</label><input type="range" min="0" max="20" value="0" class="w-full h-4 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="gameInput(this.value)"></div>' : ''}
+
+                    ${item.appType === 'cannon' ? '<div class="flex gap-4"><div class="flex-1"><label class="text-xs font-bold text-earth-500 uppercase block mb-1">Tinggi (c)</label><input type="range" min="10" max="90" value="50" class="w-full accent-green-600" oninput="gameInput({t:\'h\', v:this.value})"></div><div class="flex-1"><label class="text-xs font-bold text-earth-500 uppercase block mb-1">Sudut (m)</label><input type="range" min="-45" max="45" value="0" class="w-full accent-red-600" oninput="gameInput({t:\'a\', v:this.value})"></div></div>' : ''}
+                </div>
             </div>`;
         if(item.appType === 'tiles') return `
             <div class="h-full flex flex-col animate-fade-in relative">
@@ -1927,27 +1917,37 @@
         // Mulai Loop
         gameLoop = requestAnimationFrame(() => gameTick(type));
     };
+    // --- UPDATE FUNGSI INPUT ---
     window.gameInput = function(val) {
         if(!gameState.active) return;
+        
+        // Jumper
         if(gameState.type === 'jumper') {
             if(val === 'right') gameState.pos++;
             if(val === 'left') gameState.pos--;
             document.getElementById(`status-jumper`).innerText = `Posisi: ${gameState.pos}`;
         }
+        // Maze
         if(gameState.type === 'maze') {
             if(val==='up') gameState.pos.y--;
             if(val==='down') gameState.pos.y++;
             if(val==='left') gameState.pos.x--;
             if(val==='right') gameState.pos.x++;
-            // Batas dinding
             gameState.pos.x = Math.max(0, Math.min(10, gameState.pos.x));
             gameState.pos.y = Math.max(0, Math.min(10, gameState.pos.y));
         }
-        if(gameState.type === 'racer') {
-            gameState.angle = parseInt(val);
+        // Racer
+        if(gameState.type === 'racer') gameState.angle = parseInt(val);
+        // Runner (Speed)
+        if(gameState.type === 'runner') gameState.vel = parseInt(val);
+        // Cannon (Meriam)
+        if(gameState.type === 'cannon') {
+            if(val.t === 'h') gameState.pos.y = parseInt(val.v); // Height (c)
+            if(val.t === 'a') gameState.angle = parseInt(val.v); // Angle (m)
         }
     };
 
+    // --- UPDATE FUNGSI TICK (LOGIKA UTAMA) ---
     function gameTick(type) {
         if(!gameState.active) return;
         const cv = document.getElementById(`cv-game-${type}`);
@@ -1960,72 +1960,130 @@
 
         ctx.clearRect(0,0,w,h);
 
-        // --- RENDER LOGIC ---
+        // --- 1. SPEED RUNNER (NEW) ---
+        if(type === 'runner') {
+            // Background Track
+            ctx.fillStyle = '#1F2937'; ctx.fillRect(0,0,w,h);
+            ctx.fillStyle = '#374151'; // Jalur Lari
+            ctx.fillRect(0, h/2 - 20, w, 40);
+            ctx.strokeStyle = '#fff'; ctx.setLineDash([10, 10]);
+            ctx.beginPath(); ctx.moveTo(0, h/2); ctx.lineTo(w, h/2); ctx.stroke(); ctx.setLineDash([]);
+
+            // Garis Finish
+            ctx.fillStyle = '#EF4444'; ctx.fillRect(w-40, h/2-30, 10, 60);
+            ctx.fillStyle = '#fff'; ctx.font='10px sans-serif'; ctx.fillText('FINISH', w-45, h/2-40);
+
+            // Update Posisi Player (v * t)
+            gameState.pos += (gameState.vel * 0.05); // Kecepatan simulasi
+            
+            // Update Hantu (Kecepatan Tetap: 10)
+            gameState.enemy += (10 * 0.05);
+
+            // Gambar Hantu (Target)
+            const ghostX = Math.min(gameState.enemy, w-40);
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle = '#9CA3AF'; ctx.beginPath(); ctx.arc(ghostX, h/2 - 10, 10, 0, Math.PI*2); ctx.fill();
+            ctx.globalAlpha = 1.0;
+
+            // Gambar Player
+            const playerX = Math.min(gameState.pos, w-40);
+            ctx.fillStyle = '#3B82F6'; 
+            ctx.beginPath(); ctx.arc(playerX, h/2 + 10, 10, 0, Math.PI*2); ctx.fill();
+            
+            // Info HUD
+            ctx.fillStyle = 'white'; ctx.font = 'bold 14px monospace';
+            ctx.fillText(`Kecepatanmu: ${gameState.vel} m/s`, 10, 30);
+            ctx.fillText(`Target: 10 m/s`, 10, 50);
+
+            // Cek Menang/Kalah
+            if(gameState.enemy >= w-50) {
+                const diff = Math.abs(gameState.pos - gameState.enemy);
+                if(diff < 20) { ctx.fillStyle='#4ADE80'; ctx.font='30px bold'; ctx.fillText("HEBAT!", w/2-50, h/2); addXP(1); }
+                else { ctx.fillStyle='#F87171'; ctx.font='20px bold'; ctx.fillText(gameState.pos>gameState.enemy?"Terlalu Cepat!":"Terlalu Lambat!", w/2-80, h/2); }
+                // Reset setelah 2 detik
+                if(gameState.active) setTimeout(()=>{ gameState.pos=0; gameState.enemy=0; }, 2000);
+            }
+        }
+
+        // --- 2. MERIAM LINEAR (NEW) ---
+        if(type === 'cannon') {
+            // Inisialisasi posisi awal (jika belum)
+            if(!gameState.target) gameState.target = {x: w-50, y: Math.random()*(h-40)+20};
+            if(!gameState.pos) gameState.pos = {y: 50}; // Tinggi meriam default
+
+            // Background
+            ctx.fillStyle = '#0F172A'; ctx.fillRect(0,0,w,h);
+            
+            // Gambar Target (Lingkaran Merah)
+            ctx.fillStyle = '#EF4444';
+            ctx.beginPath(); ctx.arc(gameState.target.x, gameState.target.y, 15, 0, Math.PI*2); ctx.fill();
+            ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+
+            // Gambar Meriam (Kotak Hijau di Kiri)
+            const cY = h - (gameState.pos.y / 100 * h); // Map 0-100 ke Tinggi Canvas
+            ctx.fillStyle = '#22C55E';
+            ctx.fillRect(0, cY - 15, 40, 30);
+
+            // Hitung Jalur Laser (Persamaan Garis Lurus: y = mx + c)
+            // m = tan(angle)
+            const angleRad = -gameState.angle * (Math.PI / 180); // Negatif karena Y canvas terbalik
+            const startX = 40;
+            const startY = cY;
+            const endX = w;
+            const endY = startY + (Math.tan(angleRad) * (endX - startX));
+
+            // Gambar Laser
+            ctx.strokeStyle = '#FACC15'; ctx.lineWidth = 3; ctx.setLineDash([5, 5]);
+            ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(endX, endY); ctx.stroke(); ctx.setLineDash([]);
+
+            // Cek Kena Sasaran (Collision sederhana pada garis X target)
+            const targetHitY = startY + (Math.tan(angleRad) * (gameState.target.x - startX));
+            const dist = Math.abs(targetHitY - gameState.target.y);
+
+            // Teks Info
+            ctx.fillStyle = 'white'; ctx.font = '12px monospace';
+            ctx.fillText(`Tinggi (c): ${gameState.pos.y}`, 10, 20);
+            ctx.fillText(`Sudut (m): ${gameState.angle}°`, 10, 35);
+
+            if(dist < 20) {
+                ctx.fillStyle = '#FACC15'; ctx.font = '30px bold'; 
+                ctx.fillText("KENA! 💥", w/2 - 60, h/2);
+                if(Math.random() < 0.05) addXP(5); // Random reward agar tidak spam XP
+            }
+        }
+
+        // --- 3. JUMPER (EXISTING) ---
         if(type === 'jumper') {
-            // Background Garis Bilangan
             ctx.strokeStyle = '#fff'; ctx.lineWidth=2;
             ctx.beginPath(); ctx.moveTo(0, h/2); ctx.lineTo(w, h/2); ctx.stroke();
-            
-            // Player (Katak)
             const unit = w/10;
-            const x = gameState.pos * unit + (w/2); // 0 di tengah
-            ctx.fillStyle = '#4ADE80'; // Green
-            ctx.beginPath(); ctx.arc(x, h/2 - 20, 15, 0, Math.PI*2); ctx.fill();
-            // Mata
+            const x = gameState.pos * unit + (w/2);
+            ctx.fillStyle = '#4ADE80'; ctx.beginPath(); ctx.arc(x, h/2 - 20, 15, 0, Math.PI*2); ctx.fill();
             ctx.fillStyle='black'; ctx.beginPath(); ctx.arc(x-5, h/2-25, 2, 0, Math.PI*2); ctx.arc(x+5, h/2-25, 2, 0, Math.PI*2); ctx.fill();
-            
-            // Target
-            ctx.fillStyle = 'rgba(255,255,0,0.3)';
-            ctx.beginPath(); ctx.arc((3*unit + w/2), h/2, 20, 0, Math.PI*2); ctx.fill();
-            ctx.fillStyle = '#fff'; ctx.fillText('Target: 3', 10, 20);
-
+            ctx.fillStyle = 'rgba(255,255,0,0.3)'; ctx.beginPath(); ctx.arc((3*unit + w/2), h/2, 20, 0, Math.PI*2); ctx.fill();
             if(gameState.pos === 3) { ctx.fillStyle='gold'; ctx.fillText('MENANG!', w/2-30, h/2-50); addXP(1); }
         }
 
+        // --- 4. MAZE (EXISTING) ---
         if(type === 'maze') {
             const size = Math.min(w,h)/10;
-            // Grid
             ctx.strokeStyle = '#ffffff20';
             for(let i=0;i<10;i++) for(let j=0;j<10;j++) ctx.strokeRect(i*size, j*size, size, size);
-            
-            // Player
-            ctx.fillStyle = '#F87171'; // Red
-            ctx.fillRect(gameState.pos.x * size + 2, gameState.pos.y * size + 2, size-4, size-4);
-
-            // Target (5,5)
-            ctx.fillStyle = '#34D399'; // Green
-            ctx.fillRect(5 * size, 5 * size, size, size);
-            ctx.fillStyle = 'white'; ctx.font = '10px monospace'; ctx.fillText('FINISH', 5*size+2, 5*size+size/2);
-
+            ctx.fillStyle = '#F87171'; ctx.fillRect(gameState.pos.x * size + 2, gameState.pos.y * size + 2, size-4, size-4);
+            ctx.fillStyle = '#34D399'; ctx.fillRect(5 * size, 5 * size, size, size);
             if(gameState.pos.x===5 && gameState.pos.y===5) { gameState.active=false; alert('Sampai!'); addXP(10); }
         }
 
+        // --- 5. RACER (EXISTING) ---
         if(type === 'racer') {
-            // Langit & Tanah
             ctx.fillStyle = '#38BDF8'; ctx.fillRect(0,0,w,h/2);
             ctx.fillStyle = '#166534'; ctx.fillRect(0,h/2,w,h/2);
-            
-            // Bukit (Miring sesuai input slider)
-            ctx.save();
-            ctx.translate(w/2, h/2);
-            ctx.rotate(gameState.angle * Math.PI / 180);
-            
-            ctx.fillStyle = '#65A30D';
-            ctx.fillRect(-w, 0, w*2, h); // Tanah miring
-            
-            // Sepeda
-            ctx.fillStyle = 'white';
-            ctx.fillRect(-20, -30, 40, 30);
+            ctx.save(); ctx.translate(w/2, h/2); ctx.rotate(gameState.angle * Math.PI / 180);
+            ctx.fillStyle = '#65A30D'; ctx.fillRect(-w, 0, w*2, h);
+            ctx.fillStyle = 'white'; ctx.fillRect(-20, -30, 40, 30);
             ctx.beginPath(); ctx.arc(-15, 0, 10, 0, Math.PI*2); ctx.arc(15, 0, 10, 0, Math.PI*2); ctx.fillStyle='black'; ctx.fill();
-            
             ctx.restore();
-
-            // Instruksi
-            ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif';
-            ctx.fillText(`Sudut: ${gameState.angle}°`, 20, 30);
-            if(gameState.angle > 15) ctx.fillText("Nanjak Berat! (m > 0)", 20, 50);
-            else if(gameState.angle < -15) ctx.fillText("Turun Cepat! (m < 0)", 20, 50);
-            else ctx.fillText("Datar (m ≈ 0)", 20, 50);
+            ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif'; ctx.fillText(`Sudut: ${gameState.angle}°`, 20, 30);
         }
 
         gameLoop = requestAnimationFrame(() => gameTick(type));
@@ -2995,6 +3053,7 @@
 </script>
 </body>
 </html>
+
 
 
 
