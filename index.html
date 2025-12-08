@@ -2176,6 +2176,42 @@
                         <button onclick="this.innerHTML='<i class=\'fas fa-check\'></i> Terkirim ke Masa Depan'; this.className='mt-4 w-full py-3 bg-green-600 text-white rounded-xl font-bold shadow'; addXP(10);" class="mt-4 w-full py-3 bg-earth-800 text-white rounded-xl font-bold shadow hover:bg-earth-900 transition">Kirim Surat 📮</button>
                     </div>
                 </div>`;
+            if(t === 'time_calc') return `
+                <div class="h-full flex flex-col items-center animate-fade-in bg-white rounded-3xl p-6 overflow-y-auto">
+                    <h3 class="font-bold text-earth-800 mb-6 text-xl"><i class="fas fa-clock mr-2"></i>Audit Waktu Harian</h3>
+                    
+                    <div class="flex flex-col md:flex-row gap-8 w-full items-center justify-center flex-1">
+                        <div class="relative w-48 h-48 rounded-full border-4 border-earth-100 shadow-inner flex items-center justify-center transition-all duration-500" 
+                             style="background: conic-gradient(#606C38 0% 0%, #BC6C25 0% 100%)" id="time-chart">
+                            <div class="absolute inset-4 bg-white rounded-full flex flex-col items-center justify-center shadow-sm">
+                                <span class="text-xs text-earth-400 font-bold uppercase tracking-wider">Produktif</span>
+                                <span id="time-score" class="text-4xl font-bold text-earth-800">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="w-full max-w-xs space-y-6 bg-earth-50 p-6 rounded-2xl border border-earth-200">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <label class="font-bold text-earth-700 text-sm"><i class="fas fa-book-reader text-earth-600 mr-2"></i>Belajar (Jam)</label>
+                                    <span id="val-study" class="font-mono font-bold bg-white border border-earth-200 px-2 rounded text-earth-700 text-sm">0h</span>
+                                </div>
+                                <input type="range" id="inp-study" min="0" max="12" step="0.5" value="0" class="w-full h-2 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-earth-600" oninput="updateTimeAudit()">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <label class="font-bold text-accent-orange text-sm"><i class="fas fa-gamepad text-accent-orange mr-2"></i>Hiburan (Jam)</label>
+                                    <span id="val-play" class="font-mono font-bold bg-white border border-orange-200 px-2 rounded text-orange-700 text-sm">0h</span>
+                                </div>
+                                <input type="range" id="inp-play" min="0" max="12" step="0.5" value="0" class="w-full h-2 bg-orange-100 rounded-lg appearance-none cursor-pointer accent-accent-orange" oninput="updateTimeAudit()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="time-msg" class="mt-6 p-4 bg-blue-50 rounded-xl text-center text-blue-800 font-bold border border-blue-100 w-full animate-fade-in-up">
+                        <i class="fas fa-info-circle mr-2"></i> Geser slider untuk melihat analisismu.
+                    </div>
+                </div>`;
 
             // Fallback untuk helper forms
             return `<div class="p-10 text-center">App Under Construction</div>`;
@@ -3254,6 +3290,48 @@
             }, 300);
         }
     };
+    // H. TIME AUDIT LOGIC
+    window.updateTimeAudit = function() {
+        const s = parseFloat(document.getElementById('inp-study').value);
+        const p = parseFloat(document.getElementById('inp-play').value);
+        
+        // Update Label Angka
+        document.getElementById('val-study').innerText = s + 'h';
+        document.getElementById('val-play').innerText = p + 'h';
+        
+        const total = s + p;
+        
+        // Default jika 0
+        if(total === 0) {
+            document.getElementById('time-chart').style.background = `conic-gradient(#E6E2D3 0% 100%)`;
+            document.getElementById('time-score').innerText = "0%";
+            return;
+        }
+        
+        // Hitung Persentase
+        const sPct = (s / total) * 100;
+        
+        // Update Grafik Pie (CSS Conic Gradient)
+        // Hijau (#606C38) untuk Belajar, Oranye (#BC6C25) untuk Main
+        document.getElementById('time-chart').style.background = `conic-gradient(#606C38 0% ${sPct}%, #BC6C25 ${sPct}% 100%)`;
+        
+        // Animasi Angka
+        document.getElementById('time-score').innerText = Math.round(sPct) + '%';
+        
+        // Pesan Feedback
+        const msg = document.getElementById('time-msg');
+        if(s > p) {
+            msg.className = "mt-6 p-4 bg-green-100 rounded-xl text-center text-green-800 font-bold border border-green-200 w-full animate-fade-in-up";
+            msg.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Mantap! Investasi waktumu produktif. (+5 XP)`;
+            if(Math.random() < 0.1) addXP(5); // Bonus XP kecil
+        } else if (s === p) {
+            msg.className = "mt-6 p-4 bg-blue-100 rounded-xl text-center text-blue-800 font-bold border border-blue-200 w-full animate-fade-in-up";
+            msg.innerHTML = `<i class="fas fa-balance-scale mr-2"></i> Seimbang. Work hard, play hard.`;
+        } else {
+            msg.className = "mt-6 p-4 bg-orange-100 rounded-xl text-center text-orange-800 font-bold border border-orange-200 w-full animate-fade-in-up";
+            msg.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i> Awas! Hiburan terlalu mendominasi.`;
+        }
+    };
     
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -3758,6 +3836,7 @@
 </script>
 </body>
 </html>
+
 
 
 
