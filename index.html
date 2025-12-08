@@ -1217,6 +1217,7 @@
             if(item.appType === 'wave') initWave(cat.hex);
             if(item.appType === 'graph_sound') initGs();
             if(item.appType === 'piano' || item.appType === 'piano_fib') initAudio();
+            if(item.appType === 'looper') stopLooper();
         }, 100);
     }
 
@@ -1581,6 +1582,94 @@
                     <button onclick="if(document.getElementById('ruler-inp').value=='8'){alert('Benar!');addXP(10);}else{alert('Coba lagi. Geser penggaris ke sisi buku.');}" class="bg-earth-700 text-white px-3 py-1 rounded text-sm ml-2">Cek</button>
                 </div>
             </div>`;
+        if(item.appType === 'intervals') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-800 rounded-3xl p-6 text-center text-white">
+                <i class="fas fa-music text-6xl mb-6 text-accent-yellow animate-bounce-slow"></i>
+                <h3 class="text-2xl font-bold mb-2">Matematika Interval</h3>
+                <p class="mb-8 opacity-80 max-w-md">Dengar bagaimana rasio pecahan sederhana menciptakan harmoni yang indah.</p>
+                <div class="grid grid-cols-2 gap-4 w-full max-w-lg">
+                    <button onclick="playInterval(1, 1)" class="p-4 bg-earth-700 rounded-xl hover:bg-earth-600 transition border-2 border-transparent hover:border-accent-yellow">
+                        <span class="block text-2xl font-bold">1 : 1</span>
+                        <span class="text-xs uppercase tracking-widest">Unison (x)</span>
+                    </button>
+                    <button onclick="playInterval(2, 1)" class="p-4 bg-earth-700 rounded-xl hover:bg-earth-600 transition border-2 border-transparent hover:border-accent-yellow">
+                        <span class="block text-2xl font-bold">2 : 1</span>
+                        <span class="text-xs uppercase tracking-widest">Oktaf (2x)</span>
+                    </button>
+                    <button onclick="playInterval(3, 2)" class="p-4 bg-earth-700 rounded-xl hover:bg-earth-600 transition border-2 border-transparent hover:border-accent-yellow">
+                        <span class="block text-2xl font-bold">3 : 2</span>
+                        <span class="text-xs uppercase tracking-widest">Perfect 5th (1.5x)</span>
+                    </button>
+                    <button onclick="playInterval(4, 3)" class="p-4 bg-earth-700 rounded-xl hover:bg-earth-600 transition border-2 border-transparent hover:border-accent-yellow">
+                        <span class="block text-2xl font-bold">4 : 3</span>
+                        <span class="text-xs uppercase tracking-widest">Perfect 4th (1.33x)</span>
+                    </button>
+                </div>
+            </div>`;
+        if(item.appType === 'looper') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-900 rounded-3xl p-6 relative overflow-hidden">
+                <div class="flex gap-8 items-center mb-10">
+                    <div class="relative w-32 h-32 rounded-full border-4 border-earth-600 flex items-center justify-center">
+                        <div id="loop-1" class="absolute inset-0 border-t-4 border-accent-yellow rounded-full w-full h-full" style="transform: rotate(0deg)"></div>
+                        <span class="font-bold text-white text-xl">2 Detik</span>
+                    </div>
+                    <div class="relative w-32 h-32 rounded-full border-4 border-earth-600 flex items-center justify-center">
+                        <div id="loop-2" class="absolute inset-0 border-t-4 border-blue-400 rounded-full w-full h-full" style="transform: rotate(0deg)"></div>
+                        <span class="font-bold text-white text-xl">3 Detik</span>
+                    </div>
+                </div>
+                <div id="loop-msg" class="text-accent-green font-bold text-2xl h-8 mb-4"></div>
+                <p class="text-white/60 text-sm mb-6 text-center">Kapan mereka bertemu di titik awal bersamaan? (KPK)</p>
+                <button onclick="toggleLooper()" id="btn-looper" class="px-8 py-3 bg-white text-earth-900 rounded-full font-bold hover:scale-105 transition">MULAI LOOP</button>
+            </div>`;
+        if(item.appType === 'freq_calc') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-white rounded-3xl p-6 border-2 border-earth-200">
+                <div class="w-full max-w-md bg-earth-50 p-6 rounded-2xl border border-earth-200 shadow-sm">
+                    <h3 class="font-bold text-earth-800 mb-4 text-center border-b border-earth-200 pb-2">Rumus Fisika Musik</h3>
+                    <p class="font-mono text-center text-lg mb-6 bg-white p-3 rounded border border-earth-200">f = 440 × 2<sup>(x/12)</sup></p>
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <label class="font-bold text-earth-600 w-24">Variabel x:</label>
+                        <input type="number" id="hz-x" value="0" class="flex-1 p-2 border border-earth-300 rounded font-bold text-center" oninput="calcHz()">
+                        <span class="text-xs text-earth-400">(Semitone)</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mb-6">
+                        <label class="font-bold text-earth-600 w-24">Hasil (f):</label>
+                        <div class="flex-1 p-2 bg-earth-200 rounded font-bold text-center text-earth-800" id="hz-res">440.00 Hz</div>
+                    </div>
+
+                    <button onclick="playHz()" class="w-full py-3 bg-earth-700 text-white rounded-xl font-bold shadow-lg hover:bg-earth-800 transition"><i class="fas fa-volume-up mr-2"></i> DENGAR SUARA</button>
+                </div>
+            </div>`;
+        if(item.appType === 'chord') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gradient-to-br from-earth-100 to-white rounded-3xl p-6 text-center">
+                <h3 class="text-2xl font-bold text-earth-800 mb-8">Apakah nadanya punya solusi?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
+                    <button onclick="playChordType('consonant')" class="group relative p-8 bg-white border-2 border-green-100 rounded-2xl hover:border-green-400 hover:shadow-xl transition flex flex-col items-center">
+                        <div class="text-5xl mb-4 text-green-500 group-hover:scale-110 transition"><i class="fas fa-check-circle"></i></div>
+                        <h4 class="font-bold text-earth-800 text-lg">Solusi Tunggal</h4>
+                        <p class="text-sm text-earth-500 mt-2">Garis Berpotongan (Harmonis)</p>
+                    </button>
+                    <button onclick="playChordType('dissonant')" class="group relative p-8 bg-white border-2 border-red-100 rounded-2xl hover:border-red-400 hover:shadow-xl transition flex flex-col items-center">
+                        <div class="text-5xl mb-4 text-red-500 group-hover:scale-110 transition"><i class="fas fa-times-circle"></i></div>
+                        <h4 class="font-bold text-earth-800 text-lg">Tanpa Solusi</h4>
+                        <p class="text-sm text-earth-500 mt-2">Garis Sejajar (Disonan/Fals)</p>
+                    </button>
+                </div>
+            </div>`;
+        if(item.appType === 'mood_sound') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-50 rounded-3xl p-6 border border-earth-200">
+                <div class="w-full max-w-lg text-center">
+                    <div id="grad-icon" class="text-6xl mb-6 transition-all duration-500">😐</div>
+                    <h3 class="text-2xl font-bold text-earth-800 mb-2">Gradien: <span id="grad-val" class="font-mono">0</span></h3>
+                    <p id="grad-desc" class="text-earth-500 mb-8 font-serif italic">"Datar seperti jalanan rata..."</p>
+                    
+                    <input type="range" min="-5" max="5" value="0" step="1" class="w-full h-4 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-earth-700 mb-8" oninput="checkGradientSound(this.value)">
+                    
+                    <p class="text-xs text-earth-400 bg-white p-2 rounded-full border border-earth-100 inline-block">Geser slider untuk mengubah emosi musik!</p>
+                </div>
+            </div>`;
 
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
     }
@@ -1909,6 +1998,153 @@
         };
         document.onmouseup = function() { document.onmousemove = null; };
     };
+
+    // --- 10. LOGIKA 5 MEDIA MUSIKAL BARU ---
+
+    // 1. INTERVALS
+    window.playInterval = function(num, den) {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const base = 261.63; // C4
+        const target = base * (num / den);
+        
+        // Mainkan Base (Kiri)
+        const o1 = audioCtx.createOscillator(); const g1 = audioCtx.createGain();
+        o1.connect(g1); g1.connect(audioCtx.destination);
+        o1.frequency.value = base;
+        g1.gain.setValueAtTime(0.3, now); g1.gain.exponentialRampToValueAtTime(0.01, now+1.5);
+        o1.start(now); o1.stop(now+1.5);
+
+        // Mainkan Target (Kanan/Harmoni)
+        const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain();
+        o2.connect(g2); g2.connect(audioCtx.destination);
+        o2.frequency.value = target;
+        g2.gain.setValueAtTime(0.3, now); g2.gain.exponentialRampToValueAtTime(0.01, now+1.5);
+        o2.start(now); o2.stop(now+1.5);
+    };
+
+    // 2. LOOPER (SPLDV)
+    let loopId;
+    window.toggleLooper = function() {
+        const btn = document.getElementById('btn-looper');
+        if(loopId) { stopLooper(); btn.innerText = "MULAI LOOP"; return; }
+        
+        btn.innerText = "STOP";
+        initAudio();
+        const start = Date.now();
+        const l1 = document.getElementById('loop-1');
+        const l2 = document.getElementById('loop-2');
+        const msg = document.getElementById('loop-msg');
+        
+        loopId = requestAnimationFrame(function tick() {
+            if(!loopId) return;
+            const elapsed = (Date.now() - start) / 1000;
+            
+            // Rotasi visual (360 derajat per periode)
+            const deg1 = (elapsed % 2) / 2 * 360;
+            const deg2 = (elapsed % 3) / 3 * 360;
+            l1.style.transform = `rotate(${deg1}deg)`;
+            l2.style.transform = `rotate(${deg2}deg)`;
+            
+            // Cek Tabrakan (KPK 6 detik)
+            // Toleransi 0.05 detik
+            if(Math.abs((elapsed % 6)) < 0.05 && elapsed > 0.5) {
+                msg.innerText = "SYNC! (KPK = 6s)";
+                // Bunyi 'Ping'
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.connect(g); g.connect(audioCtx.destination);
+                o.frequency.value = 880; 
+                g.gain.setValueAtTime(0.5, audioCtx.currentTime); 
+                g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.2);
+                o.start(); o.stop(audioCtx.currentTime+0.2);
+            } else {
+                msg.innerText = "";
+            }
+            
+            // Bunyi Tik per putaran
+            if(Math.abs((elapsed % 2)) < 0.05 && elapsed > 0.1) playClick(400); // Loop 1
+            if(Math.abs((elapsed % 3)) < 0.05 && elapsed > 0.1) playClick(600); // Loop 2
+            
+            loopId = requestAnimationFrame(tick);
+        });
+    };
+    function playClick(f) {
+        const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+        o.type='square'; o.frequency.value=f; o.connect(g); g.connect(audioCtx.destination);
+        g.gain.setValueAtTime(0.1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.05);
+        o.start(); o.stop(audioCtx.currentTime+0.05);
+    }
+    window.stopLooper = function() {
+        if(loopId) cancelAnimationFrame(loopId);
+        loopId = null;
+    };
+
+    // 3. FREQ CALC
+    window.calcHz = function() {
+        const x = parseFloat(document.getElementById('hz-x').value) || 0;
+        const f = 440 * Math.pow(2, x/12);
+        document.getElementById('hz-res').innerText = f.toFixed(2) + " Hz";
+    };
+    window.playHz = function() {
+        initAudio();
+        const f = parseFloat(document.getElementById('hz-res').innerText);
+        const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+        o.connect(g); g.connect(audioCtx.destination);
+        o.frequency.value = f;
+        g.gain.setValueAtTime(0.5, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+1);
+        o.start(); o.stop(audioCtx.currentTime+1);
+    };
+
+    // 4. CHORD CHECK
+    window.playChordType = function(type) {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const notes = type === 'consonant' ? [261.63, 329.63, 392.00] : [261.63, 277.18, 293.66]; // C Maj vs Cluster C-C#-D
+        
+        notes.forEach(f => {
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.type = 'triangle'; o.frequency.value = f;
+            o.connect(g); g.connect(audioCtx.destination);
+            g.gain.setValueAtTime(0.2, now); g.gain.exponentialRampToValueAtTime(0.01, now+1);
+            o.start(now); o.stop(now+1);
+        });
+        
+        if(type==='dissonant') alert("Suara Disonan! Seperti garis sejajar yang menolak bertemu.");
+    };
+
+    // 5. MOOD SOUND (GRADIENT)
+    window.checkGradientSound = function(val) {
+        const v = parseInt(val);
+        const icon = document.getElementById('grad-icon');
+        const desc = document.getElementById('grad-desc');
+        document.getElementById('grad-val').innerText = v;
+
+        if(v > 0) {
+            icon.innerText = "😄";
+            desc.innerText = "Positif (Naik) - Major Chord - Semangat!";
+            playArp([261.63, 329.63, 392.00, 523.25]); // C Major Arp
+        } else if (v < 0) {
+            icon.innerText = "😢";
+            desc.innerText = "Negatif (Turun) - Minor Chord - Sedih/Meluruh";
+            playArp([440.00, 349.23, 261.63, 220.00]); // A Minor Arp Down
+        } else {
+            icon.innerText = "😐";
+            desc.innerText = "Nol (Datar) - Monotone - Konstan";
+            playArp([261.63, 261.63, 261.63]);
+        }
+    };
+    function playArp(notes) {
+        initAudio();
+        const now = audioCtx.currentTime;
+        notes.forEach((f, i) => {
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.connect(g); g.connect(audioCtx.destination);
+            o.frequency.value = f;
+            g.gain.setValueAtTime(0.1, now + i*0.1); 
+            g.gain.exponentialRampToValueAtTime(0.001, now + i*0.1 + 0.5);
+            o.start(now + i*0.1); o.stop(now + i*0.1 + 0.5);
+        });
+    }
     
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -2322,6 +2558,7 @@
 </script>
 </body>
 </html>
+
 
 
 
