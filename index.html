@@ -1218,6 +1218,9 @@
             if(item.appType === 'graph_sound') initGs();
             if(item.appType === 'piano' || item.appType === 'piano_fib') initAudio();
             if(item.appType === 'looper') stopLooper();
+            if(item.appType === 'memory') initMemory();
+            if(item.appType === 'reflex') stopReflex();
+            if(item.appType === 'simon') stopSimon();
         }, 100);
     }
 
@@ -1669,6 +1672,68 @@
                     
                     <p class="text-xs text-earth-400 bg-white p-2 rounded-full border border-earth-100 inline-block">Geser slider untuk mengubah emosi musik!</p>
                 </div>
+            </div>`;
+        if(item.appType === 'reflex') return `
+            <div class="h-full flex flex-col animate-fade-in relative overflow-hidden bg-earth-900 rounded-3xl border-4 border-earth-600 shadow-2xl">
+                <div class="absolute top-0 left-0 w-full z-20 p-4 flex justify-between items-start pointer-events-none">
+                    <div class="bg-[#FDFCF5] px-6 py-2 rounded-xl shadow-lg border-b-4 border-earth-300">
+                        <span class="text-[10px] font-bold text-earth-400 uppercase tracking-widest block">Soal</span>
+                        <h2 id="ref-q" class="text-3xl font-mono font-bold text-earth-800">???</h2>
+                    </div>
+                    <div class="text-white font-mono text-right">
+                        <div class="text-2xl font-bold text-yellow-400">Skor: <span id="ref-score">0</span></div>
+                        <div class="text-sm opacity-80">Waktu: <span id="ref-time">30</span>s</div>
+                    </div>
+                </div>
+
+                <div id="ref-area" class="flex-1 relative w-full h-full cursor-crosshair overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/basketball.png')]">
+                    <div id="ref-overlay" class="absolute inset-0 z-50 bg-earth-900/90 flex flex-col items-center justify-center text-white text-center p-6 backdrop-blur-sm">
+                        <i class="fas fa-basketball-ball text-6xl mb-6 text-accent-orange animate-bounce"></i>
+                        <h3 class="text-3xl font-bold mb-2">Reflex Math</h3>
+                        <p class="mb-8 text-earth-200">Klik bola jawaban yang BENAR sebelum jatuh!</p>
+                        <button onclick="startReflex()" class="px-10 py-4 bg-accent-orange text-white rounded-full font-bold text-xl shadow-lg hover:scale-105 transition"><i class="fas fa-play mr-2"></i> MULAI</button>
+                    </div>
+                </div>
+                <div class="h-4 bg-earth-600 w-full z-10 border-t border-earth-400"></div>
+            </div>`;
+        if(item.appType === 'memory') return `
+            <div class="h-full flex flex-col items-center animate-fade-in bg-earth-100 rounded-3xl p-4">
+                <div class="flex justify-between w-full max-w-lg mb-4 items-center">
+                    <h3 class="font-bold text-earth-800"><i class="fas fa-layer-group mr-2"></i>Cari Pasangan</h3>
+                    <button onclick="initMemory()" class="px-4 py-2 bg-earth-700 text-white rounded-lg text-sm shadow hover:bg-earth-800"><i class="fas fa-sync-alt"></i> Reset</button>
+                </div>
+                <div id="mem-grid" class="grid grid-cols-4 gap-3 w-full max-w-lg aspect-square">
+                    </div>
+                <div id="mem-msg" class="mt-4 font-bold text-earth-600 h-6"></div>
+                <script>setTimeout(()=>initMemory(), 500);
+            </div>`;
+        if(item.appType === 'simon') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-800 rounded-3xl p-4 relative overflow-hidden">
+                <div class="mb-8 text-center text-white">
+                    <h3 class="text-2xl font-bold mb-1">Senam Simbol</h3>
+                    <p class="text-white/60 text-xs">Hafalkan urutan gerakan & ulangi!</p>
+                    <div class="mt-2 text-3xl font-mono font-bold text-accent-yellow" id="simon-level">Level 1</div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <button id="sim-0" onclick="simonInput(0)" class="simon-btn w-32 h-32 bg-red-500 rounded-2xl border-b-8 border-red-700 active:border-b-0 active:translate-y-2 shadow-xl flex flex-col items-center justify-center text-white transition hover:brightness-110">
+                        <i class="fas fa-child text-4xl mb-2"></i><span class="font-bold">x² (Kepala)</span>
+                    </button>
+                    <button id="sim-1" onclick="simonInput(1)" class="simon-btn w-32 h-32 bg-blue-500 rounded-2xl border-b-8 border-blue-700 active:border-b-0 active:translate-y-2 shadow-xl flex flex-col items-center justify-center text-white transition hover:brightness-110">
+                        <i class="fas fa-walking text-4xl mb-2"></i><span class="font-bold">Konstanta (Kaki)</span>
+                    </button>
+                    <button id="sim-2" onclick="simonInput(2)" class="simon-btn w-32 h-32 bg-green-500 rounded-2xl border-b-8 border-green-700 active:border-b-0 active:translate-y-2 shadow-xl flex flex-col items-center justify-center text-white transition hover:brightness-110">
+                        <i class="fas fa-hand-point-left text-4xl mb-2"></i><span class="font-bold">-x (Kiri)</span>
+                    </button>
+                    <button id="sim-3" onclick="simonInput(3)" class="simon-btn w-32 h-32 bg-yellow-400 rounded-2xl border-b-8 border-yellow-600 active:border-b-0 active:translate-y-2 shadow-xl flex flex-col items-center justify-center text-white transition hover:brightness-110">
+                        <i class="fas fa-hand-point-right text-4xl mb-2"></i><span class="font-bold">+x (Kanan)</span>
+                    </button>
+                </div>
+
+                <button onclick="startSimon()" id="simon-start" class="absolute inset-0 z-20 bg-black/70 flex flex-col items-center justify-center text-white backdrop-blur-sm">
+                    <i class="fas fa-play-circle text-6xl mb-4 text-accent-yellow animate-pulse"></i>
+                    <span class="font-bold text-xl">TAP UNTUK MAIN</span>
+                </button>
             </div>`;
 
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
@@ -2145,6 +2210,258 @@
             o.start(now + i*0.1); o.stop(now + i*0.1 + 0.5);
         });
     }
+
+    // --- 11. LOGIKA GAME TAMBAHAN (Reflex, Memory, Simon) ---
+
+    // A. REFLEX MATH
+    let refState = { active: false, score: 0, time: 30, q: {}, balls: [], timerId: null, spawnId: null };
+
+    window.startReflex = function() {
+        refState = { active: true, score: 0, time: 30, q: {}, balls: [], timerId: null, spawnId: null };
+        document.getElementById('ref-overlay').classList.add('hidden');
+        document.getElementById('ref-score').innerText = '0';
+        updateRefQ();
+        
+        refState.timerId = setInterval(() => {
+            refState.time--;
+            document.getElementById('ref-time').innerText = refState.time;
+            if(refState.time <= 0) stopReflex(true);
+        }, 1000);
+
+        refState.spawnId = setInterval(spawnRefBall, 1000);
+        requestAnimationFrame(animRef);
+    };
+
+    window.stopReflex = function(showRes) {
+        refState.active = false;
+        clearInterval(refState.timerId);
+        clearInterval(refState.spawnId);
+        const balls = document.querySelectorAll('.ref-ball');
+        balls.forEach(b => b.remove());
+        
+        if(showRes) {
+            document.getElementById('ref-overlay').classList.remove('hidden');
+            document.querySelector('#ref-overlay h3').innerText = "Waktu Habis!";
+            document.querySelector('#ref-overlay p').innerHTML = `Skor Akhir: <b class="text-accent-yellow">${refState.score}</b>`;
+            if(refState.score > 0) addXP(refState.score);
+        }
+    };
+
+    function updateRefQ() {
+        const a = Math.floor(Math.random()*4)+1;
+        const x = Math.floor(Math.random()*9)+1;
+        const b = Math.floor(Math.random()*10);
+        refState.q = { txt: `${a>1?a:''}x + ${b} = ${a*x+b}`, ans: x };
+        document.getElementById('ref-q').innerText = refState.q.txt;
+    }
+
+    function spawnRefBall() {
+        if(!refState.active) return;
+        const area = document.getElementById('ref-area');
+        if(!area) return; // Safety
+
+        const ball = document.createElement('div');
+        const isCor = Math.random() < 0.4; // 40% chance benar
+        const val = isCor ? refState.q.ans : Math.floor(Math.random()*20);
+        
+        ball.className = 'ref-ball absolute w-14 h-14 rounded-full bg-orange-500 border-2 border-orange-300 shadow-lg flex items-center justify-center text-white font-bold text-xl cursor-pointer select-none hover:brightness-110 active:scale-90';
+        ball.innerText = val;
+        ball.style.left = Math.random() * 80 + 10 + '%';
+        ball.style.top = '-60px';
+        ball.dataset.speed = Math.random() * 2 + 2;
+        ball.dataset.y = -60;
+
+        ball.onmousedown = () => {
+            if(!refState.active) return;
+            if(val === refState.q.ans) {
+                refState.score += 10;
+                document.getElementById('ref-score').innerText = refState.score;
+                ball.remove();
+                updateRefQ(); // Ganti soal
+                // Efek visual
+                const fx = document.createElement('div'); fx.className = 'absolute text-green-400 font-bold text-2xl animate-bounce'; 
+                fx.innerText = '+10'; fx.style.left = ball.style.left; fx.style.top = ball.style.top; area.appendChild(fx); setTimeout(()=>fx.remove(), 500);
+            } else {
+                refState.score = Math.max(0, refState.score - 5);
+                document.getElementById('ref-score').innerText = refState.score;
+                ball.style.backgroundColor = 'red';
+                setTimeout(()=>ball.remove(), 200);
+            }
+        };
+        area.appendChild(ball);
+    }
+
+    function animRef() {
+        if(!refState.active) return;
+        const balls = document.querySelectorAll('.ref-ball');
+        const h = document.getElementById('ref-area')?.clientHeight || 400;
+        
+        balls.forEach(b => {
+            let y = parseFloat(b.dataset.y) + parseFloat(b.dataset.speed);
+            b.style.top = y + 'px';
+            b.dataset.y = y;
+            if(y > h) b.remove();
+        });
+        requestAnimationFrame(animRef);
+    }
+
+    // B. MEMORY ISYARAT
+    let memState = { lock: false, first: null, matches: 0 };
+    window.initMemory = function() {
+        const grid = document.getElementById('mem-grid');
+        if(!grid) return;
+        grid.innerHTML = '';
+        memState = { lock: false, first: null, matches: 0 };
+        document.getElementById('mem-msg').innerText = '';
+
+        // Pasangan Kartu (Simbol vs Gambar Tangan/Deskripsi)
+        const pairs = [
+            { id: 1, a: '+', b: '🤞 (Tambah)' },
+            { id: 2, a: '-', b: '🙅‍♂️ (Kurang)' },
+            { id: 3, a: '=', b: '🤝 (Sama)' },
+            { id: 4, a: 'x', b: '🤷 (Variabel)' },
+            { id: 5, a: '>', b: '👉 (Lebih)' },
+            { id: 6, a: '<', b: '👈 (Kurang)' }
+        ];
+        
+        // Ambil 6 pasang (12 kartu)
+        let cards = [];
+        pairs.forEach(p => {
+            cards.push({ id: p.id, val: p.a, type: 'sym' });
+            cards.push({ id: p.id, val: p.b, type: 'img' });
+        });
+        
+        // Shuffle
+        cards.sort(() => Math.random() - 0.5);
+
+        // Render
+        cards.forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'mem-card bg-white rounded-xl shadow cursor-pointer flex items-center justify-center text-2xl font-bold text-earth-800 border-2 border-earth-200 hover:-translate-y-1 transition h-full';
+            card.innerHTML = `<span class="hidden">${c.val}</span><i class="fas fa-question text-earth-300"></i>`;
+            card.dataset.id = c.id;
+            
+            card.onclick = () => flipCard(card);
+            grid.appendChild(card);
+        });
+    };
+
+    function flipCard(card) {
+        if(memState.lock || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+        
+        card.classList.add('flipped', 'bg-yellow-50', 'border-yellow-400');
+        card.innerHTML = card.querySelector('span').innerHTML; // Show content
+
+        if(!memState.first) {
+            memState.first = card;
+        } else {
+            memState.lock = true;
+            // Cek Match
+            if(card.dataset.id === memState.first.dataset.id) {
+                // Match!
+                memState.first.classList.add('matched', 'bg-green-100', 'border-green-500', 'text-green-700');
+                card.classList.add('matched', 'bg-green-100', 'border-green-500', 'text-green-700');
+                memState.first = null;
+                memState.lock = false;
+                memState.matches++;
+                if(memState.matches === 6) {
+                    document.getElementById('mem-msg').innerText = "Semua Terbuka! +20 XP";
+                    addXP(20); confetti();
+                }
+            } else {
+                // Fail
+                card.classList.add('bg-red-50'); memState.first.classList.add('bg-red-50');
+                setTimeout(() => {
+                    card.classList.remove('flipped', 'bg-red-50', 'bg-yellow-50', 'border-yellow-400');
+                    card.innerHTML = `<span class="hidden">${card.innerText}</span><i class="fas fa-question text-earth-300"></i>`;
+                    
+                    memState.first.classList.remove('flipped', 'bg-red-50', 'bg-yellow-50', 'border-yellow-400');
+                    memState.first.innerHTML = `<span class="hidden">${memState.first.innerText}</span><i class="fas fa-question text-earth-300"></i>`;
+                    
+                    memState.first = null;
+                    memState.lock = false;
+                }, 1000);
+            }
+        }
+    }
+
+    // C. SIMON SAYS (SENAM SIMBOL)
+    let simState = { seq: [], userIdx: 0, level: 1, active: false };
+    
+    window.startSimon = function() {
+        simState = { seq: [], userIdx: 0, level: 1, active: true };
+        document.getElementById('simon-start').classList.add('hidden');
+        nextSimonLevel();
+    };
+    
+    window.stopSimon = function() {
+        simState.active = false;
+        // Reset UI if needed
+    };
+
+    function nextSimonLevel() {
+        if(!simState.active) return;
+        simState.userIdx = 0;
+        document.getElementById('simon-level').innerText = "Level " + simState.level;
+        
+        // Tambah 1 gerakan baru
+        simState.seq.push(Math.floor(Math.random() * 4));
+        
+        // Mainkan Sequence
+        playSimonSeq();
+    }
+
+    function playSimonSeq() {
+        let i = 0;
+        // Disable input while playing
+        document.querySelectorAll('.simon-btn').forEach(b => b.style.pointerEvents = 'none');
+        
+        const interval = setInterval(() => {
+            if(i >= simState.seq.length) {
+                clearInterval(interval);
+                // Enable input
+                document.querySelectorAll('.simon-btn').forEach(b => b.style.pointerEvents = 'auto');
+                return;
+            }
+            flashSimon(simState.seq[i]);
+            i++;
+        }, 800);
+    }
+
+    function flashSimon(idx) {
+        const btn = document.getElementById('sim-' + idx);
+        btn.style.opacity = '0.5';
+        btn.style.transform = 'scale(0.95)';
+        
+        // Bunyi (Opsional jika audioCtx ada)
+        if(window.playNote) window.playNote(idx * 2, 'piano');
+
+        setTimeout(() => {
+            btn.style.opacity = '1';
+            btn.style.transform = 'scale(1)';
+        }, 400);
+    }
+
+    window.simonInput = function(idx) {
+        if(!simState.active) return;
+        flashSimon(idx);
+        
+        if(idx === simState.seq[simState.userIdx]) {
+            // Benar
+            simState.userIdx++;
+            if(simState.userIdx >= simState.seq.length) {
+                // Level Complete
+                simState.level++;
+                setTimeout(nextSimonLevel, 1000);
+                addXP(5);
+            }
+        } else {
+            // Salah - Game Over
+            document.getElementById('simon-start').classList.remove('hidden');
+            document.querySelector('#simon-start span').innerText = "SALAH! ULANGI?";
+            simState.active = false;
+        }
+    };
     
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -2558,6 +2875,7 @@
 </script>
 </body>
 </html>
+
 
 
 
