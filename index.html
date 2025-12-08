@@ -1323,6 +1323,8 @@
             if(item.appType === 'balance') initBalance(cat.hex); // <--- INI BARU
             if(item.appType === 'draw') initDraw(cat.hex);
             if(item.appType === 'wave') initWave(cat.hex);
+            if(item.appType === 'graph_sound') initGs();
+            if(item.appType === 'piano' || item.appType === 'piano_fib') initAudio();
         }, 100);
     }
 
@@ -1592,6 +1594,17 @@
                  <p class="font-mono text-xl font-bold text-earth-600">BPM (x) = <span id="metro-val">60</span></p>` : 
                 `<p class="text-sm text-earth-500">Geser mouse ke ATAS untuk nada TINGGI.<br>Geser ke BAWAH untuk nada RENDAH.</p>
                  <button onmousedown="startCond()" onmouseup="stopCond()" class="mt-6 px-8 py-3 bg-accent-green text-white rounded-full font-bold shadow-lg hover:scale-105 transition">TAHAN UNTUK MAIN</button>`}
+            </div>`;
+        if(item.appType === 'graph_sound') return `
+            <div class="h-full flex flex-col animate-fade-in">
+                <div class="flex-1 bg-white rounded-2xl border-2 border-earth-200 relative cursor-crosshair shadow-inner" id="gs-canvas-box">
+                    <canvas id="cv-gs" class="w-full h-full block"></canvas>
+                    <div class="absolute top-4 left-4 bg-white/80 p-2 rounded text-xs font-bold text-earth-500 pointer-events-none">Sumbu Y = Pitch (Nada)</div>
+                </div>
+                <div class="flex gap-4 mt-4 justify-center">
+                    <button onclick="clearGs()" class="px-4 py-2 bg-red-100 text-red-500 rounded-lg font-bold"><i class="fas fa-trash"></i> Hapus</button>
+                    <button onclick="playGs()" class="px-6 py-2 bg-earth-700 text-white rounded-lg font-bold shadow-lg hover:bg-earth-800"><i class="fas fa-play"></i> MAINKAN GRAFIK</button>
+                </div>
             </div>`;
 
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
@@ -2150,6 +2163,7 @@
 </script>
 </body>
 </html>
+
 
 
 
