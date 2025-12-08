@@ -1022,22 +1022,115 @@
         },
         { 
             id: "musical", name: "Musical", icon: "fa-music", color: "accent-green", hex: "#606C38", 
-            desc: "Pola Irama & Rumus Nada", 
+            desc: "Belajar Lewat Nada, Irama & Harmoni", 
             media: [
-                { title: "Rhythm Pattern", icon: "fa-drum", type: "app", appType: "rhythm", desc: "Pola bilangan sebagai ketukan drum. 1, 2, 4, 8..." },
+                // --- 1. MEDIA EKSISTING (DIPERBAIKI) ---
                 { 
-                    title: "Rap SPLDV", icon: "fa-microphone", type: "input", inputType: "textarea", 
-                    prompt: "Buat lirik rap pendek untuk menghafal langkah Eliminasi dan Substitusi.", 
-                    desc: "Menghafal langkah lewat lagu." 
-                },
-                { title: "Frekuensi Nada", icon: "fa-wave-square", type: "app", appType: "wave", desc: "Lihat gelombang suara (Fungsi Trigonometri/Nonlinear dasar)." },
-                { 
-                    title: "Barisan Nada", icon: "fa-music", type: "quiz", 
-                    desc: "Logika barisan dalam musik.",
+                    title: "Drum Pola Bilangan", icon: "fa-drum", type: "app", appType: "sequencer", 
+                    desc: "Buat beat drum berdasarkan barisan aritmatika & geometri.",
                     contentList: [
-                        { question: "Tangga nada Do-Re-Mi... frekuensinya naik mengikuti pola?", options: ["Geometri (Rasio)", "Aritmatika (Beda)", "Acak", "Tetap"], answer: 0 },
-                        { question: "Tempo 4/4 berarti ada 4 ketuk. Ini contoh pola...", options: ["Berulang", "Membesar", "Mengecil", "Fibonacci"], answer: 0 }
+                        { title: "Pola 4/4 (Genap)", seq: [1,0,1,0, 1,0,1,0], hint: "Ketukan pada hitungan 1, 3, 5..." },
+                        { title: "Pola Geometri (x2)", seq: [1,0,1,0, 0,0,1,0], hint: "Ketuk pada 1, 2, 4, 8..." }
                     ]
+                },
+                { 
+                    title: "Studio Rap Aljabar", icon: "fa-microphone-alt", type: "app", appType: "lyrics", 
+                    desc: "Isi lirik rap yang hilang agar rimanya pas dengan rumus!",
+                    contentList: [
+                        { title: "Rap Eliminasi", lyrics: ["Ada dua persamaan, bikin kepala pusing", "Mari kita hilangkan, biar nggak jadi ______", "(asing/pusing)", "Cari nilai X dulu, jangan ragu-ragu", "Metode eliminasi, solusinya ______", "(menunggu/belagu)"] }
+                    ]
+                },
+                { 
+                    title: "Osilator Gelombang", icon: "fa-wave-square", type: "app", appType: "wave", 
+                    desc: "Lihat dan dengar frekuensi bunyi. (Fungsi Sinus)", 
+                },
+                { 
+                    title: "Kuis Telinga", icon: "fa-headphones", type: "quiz", 
+                    desc: "Dengarkan pola nadanya, tebak jenis barisannya.",
+                    contentList: [
+                        { question: "🎵 (Nada naik stabil: Do-Re-Mi-Fa...). Ini pola apa?", options: ["Aritmatika (Linear)", "Geometri (Eksponensial)", "Acak", "Tetap"], answer: 0 },
+                        { question: "🎵 (Nada melompat cepat: Do-Mi-Sol-Do tinggi...). Ini pola?", options: ["Geometri (Rasio)", "Aritmatika (Beda)", "Konstan", "Turun"], answer: 0 }
+                    ]
+                },
+
+                // --- 2. 12 MEDIA BARU (INSTRUMEN DIGITAL) ---
+
+                // 5. PIANO ALJABAR (Synthesizer)
+                {
+                    title: "Piano Aljabar", icon: "fa-keyboard", type: "app", appType: "piano",
+                    desc: "Mainkan fungsi f(x) = x + 2. Jika kamu tekan tuts 1, bunyinya tuts 3.",
+                    func: "x + 2"
+                },
+
+                // 6. GRAFIK BERSUARA (Sonification)
+                {
+                    title: "Melodi Grafik", icon: "fa-chart-line", type: "app", appType: "graph_sound",
+                    desc: "Gambar grafik, lalu tekan Play. Dengar nadanya naik/turun sesuai garis!",
+                },
+
+                // 7. INTERVAL RASIO (Fractions)
+                {
+                    title: "Rasio Interval", icon: "fa-music", type: "app", appType: "intervals",
+                    desc: "Pecahan dalam musik. 1/2 itu Oktaf, 2/3 itu Fifth.",
+                },
+
+                // 8. METRONOME VARIABEL (BPM)
+                {
+                    title: "Metronome X", icon: "fa-tachometer-alt", type: "app", appType: "metronome",
+                    desc: "Atur variabel x (BPM). Rasakan bedanya kecepatan 60 vs 120.",
+                },
+
+                // 9. LOOPING TRACKS (Sistem Persamaan)
+                {
+                    title: "Looping SPLDV", icon: "fa-compact-disc", type: "app", appType: "looper",
+                    desc: "Track 1: Pola 2 detik. Track 2: Pola 3 detik. Kapan mereka bunyi bareng? (KPK).",
+                },
+
+                // 10. KALKULATOR NADA (Frequency)
+                {
+                    title: "Kalkulator Hz", icon: "fa-calculator", type: "app", appType: "freq_calc",
+                    desc: "Rumus Fisika Musik: f = 440 * 2^(x/12). Masukkan x!",
+                },
+
+                // 11. HARMONI ATAU DISONANSI (Logic)
+                {
+                    title: "Cek Harmoni", icon: "fa-check-double", type: "app", appType: "chord",
+                    desc: "Dua nada dimainkan. Apakah 'Cocok' (Solusi Ada) atau 'Fals' (Tanpa Solusi)?",
+                },
+
+                // 12. TANGGA NADA FIBONACCI
+                {
+                    title: "Piano Fibonacci", icon: "fa-shoe-prints", type: "app", appType: "piano_fib",
+                    desc: "Piano khusus yang hanya membunyikan nada ke 1, 1, 2, 3, 5, 8...",
+                },
+
+                // 13. SOUNDSCAPE EMOSI (Mood)
+                {
+                    title: "Musik Gradien", icon: "fa-smile", type: "app", appType: "mood_sound",
+                    desc: "Gradien Positif = Nada Major (Bahagia). Gradien Negatif = Nada Minor (Sedih).",
+                },
+
+                // 14. FLASHCARD NOTASI
+                {
+                    title: "Notasi Matematika", icon: "fa-sticky-note", type: "flashcard",
+                    desc: "Simbol musik vs Simbol Aljabar.",
+                    contentList: [
+                        { cards: [{f:"Not Penuh (1)", b:"Satu Satuan Utuh (x)"}] },
+                        { cards: [{f:"Not 1/4", b:"Pecahan 0.25 atau x/4"}] },
+                        { cards: [{f:"Tanda Diam", b:"Nilai Nol (0)"}] }
+                    ]
+                },
+
+                // 15. BEAT MAKER (Coordinate)
+                {
+                    title: "Koordinat Beat", icon: "fa-th", type: "app", appType: "sequencer",
+                    desc: "Sumbu X = Waktu, Sumbu Y = Nada. Gambar lagumu di diagram Kartesius!",
+                },
+
+                // 16. DIRIGEN VIRTUAL (Mouse Interaction)
+                {
+                    title: "Dirigen Grafik", icon: "fa-hand-pointer", type: "app", appType: "conductor",
+                    desc: "Gerakkan mouse naik/turun untuk mengubah tinggi nada secara real-time.",
                 }
             ]
         },
@@ -1235,7 +1328,7 @@
 
     function renderApp(type, cat, item) {
         const hex = cat.hex;
-
+        
         if(type === 'story') return `
             <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl shadow-sm border border-earth-100 animate-fade-in">
                 <div class="space-y-4">
@@ -1435,6 +1528,71 @@
                 </div>
                 <p class="text-center text-xs text-earth-400 mt-2">Gunakan jari atau mouse untuk menggambar</p>
             </div>`;
+        if(item.appType === 'piano' || item.appType === 'piano_fib') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-900 rounded-3xl p-6 relative shadow-2xl">
+                <div class="mb-6 text-center text-white">
+                    <h3 class="text-2xl font-bold font-serif mb-1">${item.title}</h3>
+                    <p class="text-white/60 text-sm font-mono">${item.desc}</p>
+                </div>
+                <div class="flex gap-1 bg-black p-2 rounded-xl shadow-lg overflow-x-auto max-w-full">
+                    ${Array.from({length:12}).map((_,i) => `
+                        <button onmousedown="playNote(${i}, '${item.appType}')" class="piano-key w-10 h-32 bg-white rounded-b-lg active:bg-accent-yellow active:scale-95 transition relative group">
+                            <span class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-400 group-hover:text-black">${i}</span>
+                        </button>
+                    `).join('')}
+                </div>
+                <p class="mt-6 text-accent-yellow text-sm"><i class="fas fa-info-circle"></i> Klik tuts untuk mendengar bunyi fungsi!</p>
+            </div>`;
+        if(item.appType === 'sequencer') return `
+            <div class="h-full flex flex-col animate-fade-in bg-earth-800 rounded-3xl p-6 shadow-xl">
+                <div class="flex justify-between items-center mb-6 text-white">
+                    <h3 class="font-bold text-xl"><i class="fas fa-drum mr-2"></i>Beat Maker</h3>
+                    <button onclick="toggleSeq()" id="btn-seq" class="w-10 h-10 rounded-full bg-accent-green flex items-center justify-center shadow hover:scale-110 transition"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="grid grid-cols-8 gap-2 mb-4">
+                    ${Array.from({length:16}).map((_,i) => `
+                        <div onclick="toggleStep(this)" class="seq-step w-full aspect-square bg-earth-700 rounded-lg cursor-pointer border border-earth-600 hover:border-white transition relative" data-active="false">
+                            <div class="absolute inset-2 bg-accent-yellow rounded-full opacity-0 transition transform scale-0 indicator"></div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="mt-auto bg-earth-900/50 p-4 rounded-xl text-white/70 text-sm font-mono">
+                    <p>Baris 1: Hi-Hat (x)</p>
+                    <p>Baris 2: Kick (y)</p>
+                </div>
+            </div>`;
+        if(item.appType === 'lyrics') return `
+            <div class="h-full flex flex-col animate-fade-in max-w-xl mx-auto">
+                <div class="bg-white p-6 rounded-3xl shadow-lg border border-earth-100 flex-1">
+                    <h3 class="font-bold text-earth-800 mb-4 text-center">🎤 Sambung Lirik</h3>
+                    <div class="space-y-3 font-mono text-sm md:text-base">
+                        ${(item.contentList ? item.contentList[0].lyrics : ["Baris 1...", "Baris 2..."]).map((l,i) => 
+                            l.includes('______') ? 
+                            `<div class="p-3 bg-accent-yellow/10 rounded-lg border border-accent-yellow/30 flex items-center gap-2">
+                                <span class="text-earth-400 select-none">${i+1}.</span>
+                                <input type="text" placeholder="Isi rima..." class="bg-transparent w-full outline-none font-bold text-earth-800 placeholder-earth-400/50">
+                                <span class="text-[10px] text-earth-500 bg-white px-2 py-1 rounded shadow-sm">${l.match(/\((.*?)\)/)?.[1] || '?'}</span>
+                             </div>` : 
+                            `<div class="p-3 text-earth-600 border-l-2 border-earth-200 pl-4">${l}</div>`
+                        ).join('')}
+                    </div>
+                </div>
+                <button onclick="alert('Yo! Rima yang mantap! +10 XP'); addXP(10);" class="mt-4 w-full py-3 bg-earth-800 text-white rounded-xl font-bold shadow-lg">Cek Rima</button>
+            </div>`;
+        if(item.appType === 'conductor' || item.appType === 'metronome') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gradient-to-br from-earth-100 to-white rounded-3xl p-6 text-center" onmousemove="${item.appType==='conductor'?'updateConductor(event)':''}">
+                <div class="w-40 h-40 rounded-full border-8 border-earth-200 flex items-center justify-center text-4xl text-earth-600 shadow-inner bg-white mb-6 relative">
+                    <i class="fas ${item.icon}"></i>
+                    ${item.appType==='metronome' ? '<div id="metro-needle" class="absolute bottom-1/2 left-1/2 w-1 h-16 bg-red-500 origin-bottom transition-transform duration-75" style="transform:translateX(-50%)"></div>' : ''}
+                </div>
+                <h3 class="text-2xl font-bold text-earth-800 mb-2">${item.title}</h3>
+                
+                ${item.appType==='metronome' ? 
+                `<input type="range" min="40" max="200" value="60" class="w-64 accent-earth-700 my-4" oninput="updateMetro(this.value)">
+                 <p class="font-mono text-xl font-bold text-earth-600">BPM (x) = <span id="metro-val">60</span></p>` : 
+                `<p class="text-sm text-earth-500">Geser mouse ke ATAS untuk nada TINGGI.<br>Geser ke BAWAH untuk nada RENDAH.</p>
+                 <button onmousedown="startCond()" onmouseup="stopCond()" class="mt-6 px-8 py-3 bg-accent-green text-white rounded-full font-bold shadow-lg hover:scale-105 transition">TAHAN UNTUK MAIN</button>`}
+            </div>`;
 
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
     }
@@ -1613,6 +1771,196 @@
     }
     window.nextSlide = function(n) { document.querySelectorAll('.story-slide').forEach(e=>e.classList.remove('active')); document.getElementById(`slide-${n}`).classList.add('active'); };
     window.startApp = function() { document.getElementById('linguistic').scrollIntoView({behavior:'smooth'}); };
+
+    // --- 9. AUDIO ENGINE (MUSICAL INTELLIGENCE) ---
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx, osc, gainNode;
+
+    function initAudio() {
+        if(!audioCtx) {
+            audioCtx = new AudioCtx();
+            // Master Gain (Volume)
+            gainNode = audioCtx.createGain();
+            gainNode.gain.value = 0.1; // Low volume default
+            gainNode.connect(audioCtx.destination);
+        }
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    // A. PIANO
+    window.playNote = function(idx, type) {
+        initAudio();
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.connect(g); g.connect(audioCtx.destination);
+        
+        // Logika Nada
+        let freq = 261.63; // C4
+        if(type === 'piano') {
+            // f(x) = x + 2 (Contoh sederhana: geser 2 semitone)
+            // Rumus frekuensi nada: f = f0 * (2)^(n/12)
+            let n = idx + 2; 
+            freq = 261.63 * Math.pow(2, n/12);
+        } else if(type === 'piano_fib') {
+            // Hanya bunyi jika idx adalah angka Fibonacci? (Visual saja mungkin lebih mudah)
+            const fib = [0, 1, 1, 2, 3, 5, 8, 13];
+            if(fib.includes(idx)) freq = 261.63 * Math.pow(2, idx/12);
+            else { freq = 100; g.gain.value = 0.05; } // Nada 'salah' (buzz)
+        }
+
+        o.frequency.value = freq;
+        o.type = 'triangle';
+        
+        // Envelope (ADSR simple)
+        g.gain.setValueAtTime(0, audioCtx.currentTime);
+        g.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.05);
+        g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        
+        o.start(); o.stop(audioCtx.currentTime + 0.5);
+    };
+
+    // B. GRAPH SOUND
+    let gsPoints = [];
+    window.initGs = function() {
+        const cv = document.getElementById('cv-gs');
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        cv.width = cv.parentElement.clientWidth; cv.height = cv.parentElement.clientHeight;
+        
+        let isDrawing = false;
+        cv.onmousedown = e => { isDrawing=true; gsPoints=[]; };
+        cv.onmouseup = () => isDrawing=false;
+        cv.onmousemove = e => {
+            if(!isDrawing) return;
+            const rect = cv.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            gsPoints.push({x, y});
+            
+            // Draw
+            ctx.fillStyle = '#606C38';
+            ctx.fillRect(x, y, 3, 3);
+        };
+    };
+    window.clearGs = function() {
+        const cv = document.getElementById('cv-gs');
+        cv.getContext('2d').clearRect(0,0,cv.width,cv.height);
+        gsPoints = [];
+    };
+    window.playGs = function() {
+        if(gsPoints.length === 0) return alert("Gambar dulu grafiknya!");
+        initAudio();
+        // Urutkan point berdasarkan X (Waktu)
+        gsPoints.sort((a,b) => a.x - b.x);
+        
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.connect(g); g.connect(audioCtx.destination);
+        o.type = 'sine';
+        
+        const now = audioCtx.currentTime;
+        const duration = 2; // 2 detik durasi total
+        const maxH = document.getElementById('cv-gs').height;
+        
+        g.gain.setValueAtTime(0.2, now);
+        
+        gsPoints.forEach(p => {
+            // Map X ke Waktu, Y ke Frekuensi (Y makin kecil = Posisi makin atas = Frekuensi Tinggi)
+            const time = now + (p.x / document.getElementById('cv-gs').width) * duration;
+            // Y terbalik di canvas (0 di atas)
+            const normY = 1 - (p.y / maxH); 
+            const freq = 200 + (normY * 800); // Range 200Hz - 1000Hz
+            
+            o.frequency.linearRampToValueAtTime(freq, time);
+        });
+        
+        g.gain.linearRampToValueAtTime(0, now + duration);
+        o.start(now); o.stop(now + duration);
+    };
+
+    // C. SEQUENCER
+    window.toggleStep = function(el) {
+        const active = el.dataset.active === 'true';
+        el.dataset.active = !active;
+        el.querySelector('.indicator').style.opacity = !active ? '1' : '0';
+        el.querySelector('.indicator').style.transform = !active ? 'scale(1)' : 'scale(0)';
+    };
+    let seqInterval;
+    window.toggleSeq = function() {
+        const btn = document.getElementById('btn-seq');
+        if(seqInterval) {
+            clearInterval(seqInterval); seqInterval=null;
+            btn.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+            initAudio();
+            btn.innerHTML = '<i class="fas fa-stop"></i>';
+            let step = 0;
+            const steps = document.querySelectorAll('.seq-step');
+            seqInterval = setInterval(() => {
+                // Visual Highlight
+                steps.forEach(s => s.style.borderColor = '#606C38');
+                // Check Row 1 (0-7) and Row 2 (8-15)
+                const s1 = steps[step];
+                const s2 = steps[step+8];
+                
+                s1.style.borderColor = 'white';
+                s2.style.borderColor = 'white';
+                
+                // Play Sound
+                if(s1.dataset.active === 'true') playDrum(800, 'square'); // Hi-hatish
+                if(s2.dataset.active === 'true') playDrum(150, 'sine');   // Kickish
+                
+                step = (step + 1) % 8;
+            }, 250); // Tempo
+        }
+    };
+    function playDrum(f, type) {
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.connect(g); g.connect(audioCtx.destination);
+        o.frequency.value = f; o.type = type;
+        g.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        o.start(); o.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // D. CONDUCTOR
+    let condOsc, condGain;
+    window.startCond = function() {
+        initAudio();
+        condOsc = audioCtx.createOscillator();
+        condGain = audioCtx.createGain();
+        condOsc.connect(condGain); condGain.connect(audioCtx.destination);
+        condOsc.start();
+        condGain.gain.value = 0;
+    };
+    window.stopCond = function() {
+        if(condOsc) { condOsc.stop(); condOsc = null; }
+    };
+    window.updateConductor = function(e) {
+        if(!condOsc) return;
+        const y = e.offsetY;
+        const h = e.target.closest('.rounded-3xl').clientHeight; // approximate height
+        const freq = 1000 - (y/h * 800);
+        condOsc.frequency.setTargetAtTime(freq, audioCtx.currentTime, 0.1);
+        condGain.gain.setTargetAtTime(0.3, audioCtx.currentTime, 0.1);
+    };
+
+    // E. METRONOME
+    let metroInt;
+    window.updateMetro = function(val) {
+        document.getElementById('metro-val').innerText = val;
+        if(metroInt) clearInterval(metroInt);
+        const ms = 60000 / val;
+        const needle = document.getElementById('metro-needle');
+        let tick = false;
+        metroInt = setInterval(() => {
+            playDrum(1000, 'triangle'); // Tick sound
+            if(needle) needle.style.transform = tick ? 'translateX(-50%) rotate(30deg)' : 'translateX(-50%) rotate(-30deg)';
+            tick = !tick;
+        }, ms);
+    };
+    
     // --- 6. LOGIKA LAB TIMBANGAN (PHYSICS) ---
     let balState = { Lx:0, L1:0, Rx:0, R1:0, xVal:0, hex:'' };
 
@@ -1802,6 +2150,7 @@
 </script>
 </body>
 </html>
+
 
 
 
