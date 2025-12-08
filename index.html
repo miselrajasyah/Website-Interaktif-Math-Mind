@@ -864,19 +864,159 @@
         },
         { 
             id: "kinesthetic", name: "Bodily Kinesthetic", icon: "fa-running", color: "earth-800", hex: "#5E4934", 
-            desc: "Belajar dengan Gerak & Benda", 
+            desc: "Belajar dengan Gerak, Sentuhan & Aktivitas Fisik", 
             media: [
-                { title: "Timbangan PLSV", icon: "fa-balance-scale", type: "app", appType: "balance", desc: "Seimbangkan sisi kiri dan kanan untuk mencari nilai x." },
+                // --- 1. MEDIA YANG SUDAH ADA (DIPERLUAS VARIASINYA) ---
+                { 
+                    title: "Lab Timbangan", icon: "fa-balance-scale", type: "app", appType: "balance", 
+                    desc: "Simulasi Fisik: Seimbangkan beban kiri dan kanan untuk mencari nilai x." 
+                },
                 { 
                     title: "Gerak Gradien", icon: "fa-hiking", type: "task", 
-                    content: "Gunakan lenganmu! Tangan kiri bawah ke kanan atas = Gradien Positif. Tangan kiri atas ke kanan bawah = Gradien Negatif. Datar = Nol.", 
-                    desc: "Hafalan gerak tubuh untuk kemiringan garis." 
+                    desc: "Hafalan 'Muscle Memory' untuk kemiringan garis.",
+                    contentList: [
+                        { content: "GRADIEN POSITIF: Angkat tangan kirimu ke bawah, tangan kanan ke atas. Badan miring ke kanan. Seperti mendaki bukit!" },
+                        { content: "GRADIEN NEGATIF: Angkat tangan kiri ke atas, tangan kanan ke bawah. Badan miring ke kiri. Seperti meluncur turun!" },
+                        { content: "GRADIEN NOL: Rentangkan kedua tangan datar ke samping seperti pesawat. Jalanan rata!" },
+                        { content: "TAK TERDEFINISI: Tegakkan satu tangan lurus vertikal ke atas. Tebing curam!" }
+                    ] 
                 },
-                { title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", desc: "Pisahkan suku sejenis! (Misal: kumpulkan semua 'x' dan semua konstanta)." },
                 { 
-                    title: "Aljabar Tiles", icon: "fa-th-large", type: "task", 
-                    content: "Potong kertas karton: Persegi besar (x²), Persegi panjang (x), Kotak kecil (1). Susun untuk membuktikan (x+1)(x+2).", 
-                    desc: "Alat peraga manipulatif." 
+                    title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", 
+                    desc: "Latihan Motorik Halus: Geser dan kelompokkan suku sejenis dengan jarimu." 
+                },
+                { 
+                    title: "Aljabar Tiles Fisik", icon: "fa-th-large", type: "task", 
+                    desc: "Gunakan benda nyata (kertas/karton) untuk menyentuh matematika.",
+                    contentList: [
+                        { content: "PERSIAPAN: Potong kertas. Persegi Besar (10x10cm) = x². Persegi Panjang (10x1cm) = x. Kotak Kecil (1x1cm) = 1." },
+                        { content: "TANTANGAN 1: Susun bentuk '2x + 3'. Ambil 2 Persegi Panjang dan 3 Kotak Kecil. Rasakan jumlahnya." },
+                        { content: "TANTANGAN 2: Buktikan distributif 2(x+1). Buat dua tumpukan yang masing-masing berisi (1 Persegi Panjang + 1 Kotak). Gabungkan!" },
+                        { content: "TANTANGAN 3: Faktorisasi. Bisakah kamu menyusun x² + 3x + 2 menjadi satu PERSEGI PANJANG besar yang utuh?" }
+                    ]
+                },
+
+                // --- 2. 12 MEDIA BARU (AKTIVITAS FISIK) ---
+
+                // 5. Lompat Garis Bilangan (Floor Activity)
+                {
+                    title: "Lompat Bilangan", icon: "fa-shoe-prints", type: "task",
+                    desc: "Jadikan lantai ubinmu sebagai garis bilangan raksasa.",
+                    contentList: [
+                        { content: "OPERASI x + 2: Berdiri di ubin acak (sebagai x). Lompat 2 ubin ke DEPAN." },
+                        { content: "OPERASI x - 3: Berdiri di ubin acak (x). Mundur 3 langkah ke BELAKANG." },
+                        { content: "OPERASI 2x: Jika kamu berdiri di ubin ke-2, lompatlah jauh ke ubin ke-4!" }
+                    ]
+                },
+
+                // 6. Senam Variabel (Body Movement)
+                {
+                    title: "Senam Aljabar", icon: "fa-child", type: "task",
+                    desc: "Gerakkan tubuh untuk mewakili suku aljabar.",
+                    contentList: [
+                        { content: "KODE: Kepala = x² (Pangkat tinggi), Bahu = x, Pinggang = Konstanta." },
+                        { content: "SOAL: x² + 2x. Pegang Kepala, lalu tepuk Bahu 2 kali!" },
+                        { content: "SOAL: 2x² - x. Pegang Kepala 2 kali, lalu silangkan tangan di dada (tanda minus) dan pegang bahu." }
+                    ]
+                },
+
+                // 7. Navigasi Ruangan (Spatial-Kinesthetic)
+                {
+                    title: "Koordinat Ruangan", icon: "fa-map-marker-alt", type: "task",
+                    desc: "Berjalanlah sesuai titik koordinat (x, y).",
+                    contentList: [
+                        { content: "Titik (0,0) adalah kursimu. Bergeraklah ke (2, 3). Artinya: 2 langkah ke KANAN, 3 langkah ke DEPAN." },
+                        { content: "Dimana posisi (-1, -2)? Mundur 1 langkah ke KIRI, 2 langkah ke BELAKANG." },
+                        { content: "Kembali ke (0,0) secepat mungkin!" }
+                    ]
+                },
+
+                // 8. Isyarat Tangan (Hand Signs)
+                {
+                    title: "Bahasa Isyarat", icon: "fa-hands-helping", type: "task",
+                    desc: "Komunikasikan simbol matematika tanpa suara.",
+                    contentList: [
+                        { content: "Tanda '+': Silangkan kedua telunjukmu membentuk palang." },
+                        { content: "Tanda 'x' (Variabel): Silangkan kedua lengan di depan dada (Wakanda Style)." },
+                        { content: "Tanda '=': Sejajarkan kedua lengan bawahmu secara horizontal." },
+                        { content: "Tanda '<': Sikut kiri ditekuk tajam ke arah kanan." }
+                    ]
+                },
+
+                // 9. Jalan Kaki Fungsi (Speed/Rate)
+                {
+                    title: "Jalan Fungsi", icon: "fa-walking", type: "task",
+                    desc: "Rasakan perbedaan gradien lewat kecepatan jalan.",
+                    contentList: [
+                        { content: "Fungsi y = x (Standar): Jalan santai dengan tempo tetap. (Setiap 1 detik maju 1 langkah)." },
+                        { content: "Fungsi y = 2x (Curam): Jalan Cepat/Lari kecil! (Setiap 1 detik harus maju 2 langkah)." },
+                        { content: "Fungsi y = 0.5x (Landai): Jalan lambat (Slow motion). (Butuh 2 detik untuk maju 1 langkah)." }
+                    ]
+                },
+
+                // 10. Tepuk Pola (Rhythm/Movement)
+                {
+                    title: "Tepuk Irama", icon: "fa-hand-sparkles", type: "task",
+                    desc: "Rasakan pola barisan bilangan lewat tepukan tangan.",
+                    contentList: [
+                        { content: "Pola Aritmatika (+1): Tepuk 1x, jeda, Tepuk 2x, jeda, Tepuk 3x... (Irama konstan)." },
+                        { content: "Pola Geometri (x2): Tepuk 1x, jeda, Tepuk 2x, jeda, Tepuk 4x (Makin lama makin panik/cepat!)." }
+                    ]
+                },
+
+                // 11. Ukur & Rumuskan (Real Object Interaction)
+                {
+                    title: "Detektif Ukur", icon: "fa-ruler-combined", type: "input", inputType: "textarea",
+                    desc: "Interaksi benda nyata: Ukur benda di sekitarmu.",
+                    prompt: "Ambil buku atau HP. Ukur Panjang (p) dan Lebar (l) menggunakan jengkal jarimu. Tulis rumus Kelilingnya (K=2p+2l) dan hasil hitungannya!"
+                },
+
+                // 12. Manipulasi Koin (Tactile)
+                {
+                    title: "Koin PLSV", icon: "fa-coins", type: "task",
+                    desc: "Selesaikan persamaan linear menggunakan uang koin.",
+                    contentList: [
+                        { content: "SIAPKAN: Koin sebagai '1', Kunci/Penghapus sebagai 'x'." },
+                        { content: "SOAL: x + 2 = 5. Taruh 1 Kunci dan 2 Koin di kiri. Taruh 5 Koin di kanan." },
+                        { content: "PENYELESAIAN: Ambil 2 koin dari KEDUA sisi secara bersamaan. Apa yang tersisa? (x = 3)." }
+                    ]
+                },
+
+                // 13. Pantomim Aljabar (Charades)
+                {
+                    title: "Tebak Gaya", icon: "fa-theater-masks", type: "task",
+                    desc: "Mainkan tebak-tebakan gaya dengan teman/cermin.",
+                    contentList: [
+                        { content: "Peragakan '3x' tanpa bicara! (Misal: Tunjuk 3 jari, lalu silangkan tangan)." },
+                        { content: "Peragakan 'x < 5' (Tunjuk gaya x, lalu gaya badan mengecil/jongkok, lalu tunjuk 5 jari)." }
+                    ]
+                },
+
+                // 14. Finger Math (Tactile Calculation)
+                {
+                    title: "Substitusi Jari", icon: "fa-hand-point-up", type: "task",
+                    desc: "Hitung nilai fungsi f(x) dengan jari tangan.",
+                    contentList: [
+                        { content: "Rumus f(x) = 2x + 1. Jika x = 2 (acungkan 2 jari), kalikan 2 (jadi 4 jari), tambah 1 (5 jari). Hasilnya 5!" },
+                        { content: "Coba untuk x = 3 dengan jarimu. Berapa jari akhirnya?" }
+                    ]
+                },
+
+                // 15. Lempar Tangkap (Reflex)
+                {
+                    title: "Lempar Soal", icon: "fa-basketball-ball", type: "task",
+                    desc: "Latihan refleks dan kecepatan berpikir.",
+                    contentList: [
+                        { content: "Lempar bola (atau bantal) ke atas. Saat bola di udara, teriakkan nilai x dari 'x + 3 = 10'. Tangkap bola sebelum jatuh!" },
+                        { content: "Pantulkan bola ke lantai sambil menghitung kelipatan 3 (3, 6, 9, 12...)." }
+                    ]
+                },
+
+                // 16. Refleksi Gerak (Introspective)
+                {
+                    title: "Jurnal Gerak", icon: "fa-pen-alt", type: "input", inputType: "textarea",
+                    desc: "Evaluasi pengalaman fisikmu.",
+                    prompt: "Gerakan mana yang paling membantumu mengingat konsep Gradien? (Apakah gerakan tangan pesawat atau gerakan mendaki gunung?)"
                 }
             ]
         },
@@ -1429,6 +1569,7 @@
 </script>
 </body>
 </html>
+
 
 
 
