@@ -694,160 +694,170 @@
         },
         { 
             id: "spatial", name: "Visual Spatial", icon: "fa-shapes", color: "accent-orange", hex: "#BC6C25", 
-            desc: "Visualisasi Grafik & Diagram", 
+            desc: "Belajar Lewat Mata: Grafik, Gambar & Imajinasi", 
             media: [
-                // --- 1. EXISTING (DIPERLUAS & DIPERBAIKI) ---
+                // --- 1. INTERAKTIF & GAMBAR (DOMINAN) ---
+                
+                // 1. Lab Grafik (Canvas Interaktif)
                 { 
                     title: "Lab Grafik Linear", icon: "fa-chart-area", type: "app", appType: "graph", 
-                    desc: "Eksplorasi interaktif: Geser slider m (kemiringan) dan c (posisi) untuk melihat perubahan garis." 
+                    desc: "Geser slider di bawah. Lihat bagaimana garisnya BERGERAK dan BERPUTAR." 
                 },
+
+                // 2. Visualisasi Konsep (Galeri Gambar)
                 { 
-                    title: "Galeri Relasi Fungsi", icon: "fa-project-diagram", type: "image", 
-                    desc: "Kumpulan diagram panah. Geser untuk melihat jenis fungsi lainnya.",
+                    title: "Galeri Diagram Fungsi", icon: "fa-images", type: "image", 
+                    desc: "Lihat bedanya pola panah pada setiap jenis fungsi.",
                     contentList: [
-                        { title: "Fungsi Injektif (Satu-satu)", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Injection.svg/220px-Injection.svg.png", desc: "Setiap anggota domain punya pasangan unik di kodomain." },
-                        { title: "Fungsi Surjektif (Pada)", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Surjection.svg/220px-Surjection.svg.png", desc: "Semua anggota kodomain habis terpakai (punya pasangan)." },
-                        { title: "Fungsi Bijektif", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/220px-Bijection.svg.png", desc: "Satu-satu DAN Pada (Korespondensi satu-satu)." },
-                        { title: "Bukan Fungsi", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/General_Relation_Not_Function.svg/220px-General_Relation_Not_Function.svg.png", desc: "Ada anggota domain yang bercabang (punya 2 pasangan)." }
+                        { title: "Fungsi Korespondensi 1-1", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/220px-Bijection.svg.png", desc: "Perhatikan: Setiap titik di kiri punya TEPAT SATU pasangan di kanan. Pasangan serasi!" },
+                        { title: "Bukan Fungsi (Bercabang)", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/General_Relation_Not_Function.svg/220px-General_Relation_Not_Function.svg.png", desc: "Perhatikan titik paling atas bercabang dua. Ini dilarang dalam Fungsi!" },
+                        { title: "Fungsi Konstan", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Function_machine2.svg/220px-Function_machine2.svg.png", desc: "Mesin fungsi: Apapun yang masuk, keluarnya bentuk yang sama." }
                     ]
                 },
+
+                // 3. Kuis Tebak Grafik (Soal Menggunakan GAMBAR)
                 { 
-                    title: "Mind Map Aljabar", icon: "fa-sitemap", type: "app", appType: "draw", 
-                    desc: "Kanvas visual untuk menggambar pemahamanmu.",
+                    title: "Tebak Grafik", icon: "fa-eye", type: "quiz", 
+                    desc: "Amati gambar grafiknya, tebak sifatnya.",
                     contentList: [
-                        { title: "Peta Konsep PLSV", prompt: "Gambar lingkaran di tengah bertuliskan 'PLSV', lalu buat cabang ke contoh, syarat, dan cara penyelesaian." },
-                        { title: "Pohon Fungsi", prompt: "Gambar pohon di mana akarnya adalah 'Relasi' dan cabangnya adalah jenis-jenis fungsi." }
-                    ]
-                },
-                { 
-                    title: "Tebak Grafik (Level 1-10)", icon: "fa-image", type: "quiz", 
-                    desc: "Identifikasi ciri-ciri visual dari grafik.",
-                    contentList: [
-                        { question: "Grafik yang naik dari kiri ke kanan (seperti mendaki gunung) memiliki gradien...", options: ["Positif (+)", "Negatif (-)", "Nol (0)", "Tak Terhingga"], answer: 0 },
-                        { question: "Garis yang sejajar dengan sumbu-x (datar) memiliki persamaan...", options: ["y = c", "x = c", "y = x", "y = mx"], answer: 0 },
-                        { question: "Jika garis memotong sumbu-y di angka 5, maka nilai c (konstanta) adalah...", options: ["5", "-5", "0", "1/5"], answer: 0 },
-                        { question: "Manakah visual garis dengan gradien negatif?", options: ["Turun dari kiri ke kanan", "Naik dari kiri ke kanan", "Tegak lurus", "Mendatar"], answer: 0 },
-                        { question: "Titik potong dua garis dalam grafik SPLDV merepresentasikan...", options: ["Solusi Sistem", "Titik Asal", "Gradien", "Error"], answer: 0 }
-                    ]
-                },
-
-                // --- 2. 12 MEDIA BARU (VISUAL) ---
-
-                // 5. Visualisasi Kuadran
-                {
-                    title: "Pemburu Kuadran", icon: "fa-crosshairs", type: "quiz",
-                    desc: "Bayangkan sistem koordinat Kartesius.",
-                    contentList: [
-                        { question: "Di mana letak titik (-3, 5)? (x negatif, y positif)", options: ["Kuadran II", "Kuadran I", "Kuadran III", "Kuadran IV"], answer: 0 },
-                        { question: "Titik (4, -2) berada di area...", options: ["Kuadran IV", "Kuadran I", "Kuadran II", "Kuadran III"], answer: 0 },
-                        { question: "Titik (0,0) disebut sebagai...", options: ["Titik Asal (Origin)", "Titik Puncak", "Titik Potong", "Intercept"], answer: 0 }
+                        { 
+                            question: "<div class='text-center text-8xl text-accent-red mb-4'><i class='fas fa-chart-line transform -scale-x-100'></i></div>Grafik di atas turun dari kiri ke kanan. Gradiennya pasti...", 
+                            options: ["Negatif (-)", "Positif (+)", "Nol", "Tak Terhingga"], answer: 0 
+                        },
+                        { 
+                            question: "<div class='text-center text-8xl text-earth-600 mb-4'><i class='fas fa-minus'></i></div>Garis mendatar seperti ini memiliki kemiringan (gradien)...", 
+                            options: ["Nol (0)", "Satu (1)", "Tak Terdefinisi", "Sepuluh"], answer: 0 
+                        },
+                        { 
+                            question: "<div class='flex justify-center gap-4 text-6xl mb-4'><i class='fas fa-grip-lines-vertical'></i></div>Garis tegak lurus (Vertikal). Apakah ini Fungsi?", 
+                            options: ["Bukan Fungsi", "Ya, Fungsi Linear", "Fungsi Kuadrat", "Fungsi Identitas"], answer: 0, explanation: "Garis vertikal melanggar syarat fungsi (satu input x punya banyak output y)." }
                     ]
                 },
 
-                // 6. Puzzle Aljabar Tiles
+                // 4. Pola Geometris (Visual Pattern dengan EMOJI)
                 {
-                    title: "Aljabar Tiles", icon: "fa-th-large", type: "app", appType: "dragdrop",
-                    desc: "Susun bentuk geometri untuk memvisualisasikan perkalian aljabar.",
-                    // (Menggunakan logika dragdrop yang sudah ada, tapi konteks visual)
-                    items: ["Persegi Besar (x²)", "Persegi Panjang (x)", "Kotak Kecil (1)", "Persegi Panjang (x)"],
-                    explanation: "Luas total area merepresentasikan hasil perkalian suku aljabar."
-                },
-
-                // 7. Visualisasi Gradien (Metafora)
-                {
-                    title: "Visual Kemiringan", icon: "fa-mountain", type: "quiz",
-                    desc: "Analogi dunia nyata untuk gradien.",
-                    contentList: [
-                        { question: "Jalanan yang datar sempurna memiliki kemiringan...", options: ["Nol (0)", "Satu (1)", "Tak Terhingga", "Negatif"], answer: 0 },
-                        { question: "Tebing yang tegak lurus (vertikal) memiliki gradien...", options: ["Tak Terdefinisi", "Nol", "Satu", "Maksimal"], answer: 0 },
-                        { question: "Papan luncur yang curam memiliki nilai mutlak gradien yang...", options: ["Besar (misal 5)", "Kecil (misal 0.1)", "Nol", "Minus"], answer: 0 }
-                    ]
-                },
-
-                // 8. Tebak Persamaan Garis (Visual ke Simbol)
-                {
-                    title: "Cocokkan Garis", icon: "fa-grip-lines", type: "quiz",
-                    desc: "Lihat bentuk garisnya, tebak rumusnya.",
-                    contentList: [
-                        { question: "Garis memotong di (0,0) dan naik landai. Rumusnya mungkin?", options: ["y = x", "y = x + 5", "y = -x", "y = 5"], answer: 0 },
-                        { question: "Garis turun drastis dan memotong di atas. Rumusnya?", options: ["y = -3x + 5", "y = 3x + 5", "y = x - 5", "y = 3x"], answer: 0 }
-                    ]
-                },
-
-                // 9. Transformasi Grafik
-                {
-                    title: "Geser Grafik", icon: "fa-arrows-alt", type: "quiz",
-                    desc: "Apa yang terjadi pada gambar jika rumus diubah?",
-                    contentList: [
-                        { question: "Jika y = x diubah menjadi y = x + 3, garis akan...", options: ["Bergeser ke atas 3 satuan", "Bergeser ke bawah", "Jadi lebih miring", "Jadi mendatar"], answer: 0 },
-                        { question: "Jika y = x diubah menjadi y = 2x, garis akan...", options: ["Lebih curam/tegak", "Lebih landai", "Bergeser kanan", "Bergeser kiri"], answer: 0 }
-                    ]
-                },
-
-                // 10. Pola Geometris (Visual Pattern)
-                {
-                    title: "Pola Persegi", icon: "fa-square", type: "app", appType: "pattern",
-                    // Menggunakan app pattern tapi dengan clue visual
-                    seq: ["▧", "▧▧\n▧▧", "▧▧▧\n▧▧▧\n▧▧▧"], 
+                    title: "Pola Bangun Datar", icon: "fa-cubes", type: "app", appType: "pattern",
+                    // Menggunakan Emoji sebagai visual
+                    seq: ["🟦", "🟦🟦\n🟦🟦", "🟦🟦🟦\n🟦🟦🟦\n🟦🟦🟦"], 
                     ans: "16", 
-                    hint: "Hitung jumlah kotak kecil (1, 4, 9...)",
-                    opts: ["16", "12", "25", "15"]
+                    hint: "Hitung jumlah kotak biru. Lihat bentuknya makin besar.",
+                    opts: ["16", "12", "9", "20"]
                 },
 
-                // 11. Grafik Cerita (Interpreting)
+                // 5. Drag & Drop Visual (Ikon)
                 {
-                    title: "Grafik Cerita", icon: "fa-book-reader", type: "quiz",
-                    desc: "Cocokkan cerita dengan bentuk grafik jarak vs waktu.",
+                    title: "Sortir Bentuk", icon: "fa-object-group", type: "app", appType: "dragdrop",
+                    desc: "Kelompokkan gambar ke kategori yang benar!",
+                    // Menggunakan FontAwesome Icon di dalam item yang didrag
+                    items: [
+                        "<i class='fas fa-slash text-2xl'></i>", 
+                        "<i class='fas fa-bezier-curve text-2xl'></i>", 
+                        "<i class='fas fa-minus text-2xl'></i>", 
+                        "<i class='fas fa-circle-notch text-2xl'></i>"
+                    ],
+                    explanation: "Garis lurus = Linear. Garis lengkung/lingkaran = Non-Linear."
+                },
+
+                // 6. Peta Kuadran (Image Map)
+                {
+                    title: "Peta Koordinat", icon: "fa-map-marked-alt", type: "image",
+                    imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cartesian-coordinate-system.svg/300px-Cartesian-coordinate-system.svg.png",
+                    desc: "Peta Wilayah Kartesius. Kuadran I (Kanan Atas) adalah wilayah positif semua (+,+)."
+                },
+
+                // 7. Mind Mapping (Gambar Sendiri)
+                { 
+                    title: "Kanvas Aljabar", icon: "fa-paint-brush", type: "app", appType: "draw", 
+                    desc: "Ekspresikan pemahamanmu lewat coretan.",
                     contentList: [
-                        { question: "Cerita: 'Budi diam di tempat selama 5 menit'. Grafiknya?", options: ["Garis mendatar (Horizontal)", "Garis naik", "Garis turun", "Titik-titik"], answer: 0 },
-                        { question: "Cerita: 'Mobil melaju dengan kecepatan konstan'. Grafiknya?", options: ["Garis lurus miring naik", "Garis melengkung naik", "Garis mendatar", "Garis zigzag"], answer: 0 }
+                        { title: "Gambar Gradien", prompt: "Gambarlah 3 garis: Satu menanjak (Positif), satu menurun (Negatif), satu datar (Nol)." },
+                        { title: "Sistem Persamaan", prompt: "Gambarlah dua garis yang bertabrakan di satu titik (Titik Potong)." }
                     ]
                 },
 
-                // 12. Ilusi Optik Geometri
+                // 8. Visual Gradien Nyata (Foto)
                 {
-                    title: "Ilusi Geometri", icon: "fa-eye", type: "image",
-                    imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Grey_square_optical_illusion.PNG/220px-Grey_square_optical_illusion.PNG",
-                    desc: "Apakah kotak A dan B warnanya sama? (Dalam matematika, persepsi visual perlu dibuktikan dengan logika/pengukuran)."
+                    title: "Gradien Dunia Nyata", icon: "fa-camera", type: "image",
+                    desc: "Matematika ada di sekelilingmu.",
+                    contentList: [
+                        { title: "Tangga", imgSrc: "https://images.unsplash.com/photo-1596236560756-382928dc4357?q=80&w=300&auto=format&fit=crop", desc: "Kemiringan tangga = Tinggi / Alas. Ini adalah Gradien!" },
+                        { title: "Atap Rumah", imgSrc: "https://images.unsplash.com/photo-1599806112354-67f8b5425a06?q=80&w=300&auto=format&fit=crop", desc: "Atap yang curam memiliki nilai gradien yang besar agar air cepat turun." }
+                    ]
                 },
 
-                // 13. Sketsa Solusi SPLDV
+                // 9. Ilusi Optik
+                {
+                    title: "Ilusi Geometri", icon: "fa-low-vision", type: "image",
+                    imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Cafe_wall.svg/300px-Cafe_wall.svg.png",
+                    desc: "Garis-garis ini sebenarnya LURUS dan SEJAJAR (Gradien sama), tapi matamu melihatnya miring. Gunakan Aljabar untuk membuktikannya!"
+                },
+
+                // 10. Puzzle Aljabar Tiles (Visual Block)
+                {
+                    title: "Puzzle Luas", icon: "fa-th", type: "app", appType: "dragdrop",
+                    desc: "Susun blok warna untuk membuat persegi panjang.",
+                    items: [
+                        "<div class='w-8 h-8 bg-blue-500 text-white text-xs flex items-center justify-center'>x²</div>", 
+                        "<div class='w-4 h-8 bg-green-500 text-white text-xs flex items-center justify-center'>x</div>", 
+                        "<div class='w-4 h-4 bg-yellow-500 text-xs flex items-center justify-center border'>1</div>"
+                    ],
+                    explanation: "Visualisasi persamaan kuadrat dengan luas area."
+                },
+
+                // 11. Sketsa Solusi
                 {
                     title: "Sketsa Solusi", icon: "fa-pencil-ruler", type: "app", appType: "draw",
-                    desc: "Latihan menggambar perkiraan solusi.",
+                    desc: "Latihan memvisualisasikan solusi SPLDV tanpa menghitung.",
                     contentList: [
-                        { title: "Satu Solusi", prompt: "Gambarlah dua garis sembarang yang berpotongan di SATU titik (Membentuk huruf X)." },
-                        { title: "Tanpa Solusi", prompt: "Gambarlah dua garis SEJAJAR (seperti rel kereta) yang tidak akan pernah bertemu." }
+                        { title: "Satu Solusi", prompt: "Gambarlah huruf 'X'. Titik temunya adalah solusi." },
+                        { title: "Tanpa Solusi", prompt: "Gambarlah rel kereta api (Garis Sejajar). Mereka tidak pernah bertemu." }
                     ]
                 },
 
-                // 14. Flashcard Simbol Geometri
+                // 12. Simbol Visual (Flashcard Ikon)
                 {
-                    title: "Simbol Visual", icon: "fa-shapes", type: "flashcard",
-                    desc: "Simbol-simbol dalam diagram.",
+                    title: "Simbol Geometri", icon: "fa-icons", type: "flashcard",
+                    desc: "Bahasa gambar dalam matematika.",
                     contentList: [
-                        { cards: [{f:"⊥", b:"Tegak Lurus (Membentuk sudut 90 derajat)"}] },
-                        { cards: [{f:"//", b:"Sejajar (Memiliki gradien yang sama)"}] },
-                        { cards: [{f:"Δy / Δx", b:"Rumus Gradien (Perubahan tegak dibagi perubahan mendatar)"}] }
+                        { cards: [{f:"<i class='fas fa-equals text-4xl'></i>", b:"Sama Dengan (Seimbang Kiri Kanan)"}] },
+                        { cards: [{f:"<i class='fas fa-not-equal text-4xl'></i>", b:"Pertidaksamaan (Berat Sebelah)"}] },
+                        { cards: [{f:"⊥", b:"Tegak Lurus (Membentuk siku 90°)"}] }
                     ]
                 },
 
-                // 15. Domain & Range Visual
+                // 13. Transformasi Grafik (Kuis Visual)
                 {
-                    title: "Bayangan Fungsi", icon: "fa-lightbulb", type: "quiz",
-                    desc: "Memahami Domain/Range lewat metafora bayangan.",
+                    title: "Geser Grafik", icon: "fa-arrows-alt", type: "quiz",
+                    desc: "Bayangkan grafik bergerak.",
                     contentList: [
-                        { question: "Jika grafik disinari dari ATAS, bayangan pada sumbu-X disebut...", options: ["Domain", "Range", "Kodomain", "Fungsi"], answer: 0 },
-                        { question: "Jika grafik disinari dari SAMPING, bayangan pada sumbu-Y disebut...", options: ["Range", "Domain", "Relasi", "Konstanta"], answer: 0 }
+                        { question: "Jika garis <b class='text-blue-500'>y = x</b> digeser ke <b class='text-red-500'>ATAS</b> sebanyak 3 satuan, persamaannya jadi...", options: ["y = x + 3", "y = x - 3", "y = 3x", "y = x/3"], answer: 0 },
+                        { question: "Garis mana yang paling 'Curam' (Menanjak tajam)?", options: ["y = 10x", "y = 2x", "y = x", "y = 0.5x"], answer: 0 }
                     ]
                 },
 
-                // 16. Refleksi Diri Visual
+                // 14. Bayangan Fungsi
                 {
-                    title: "Peta Perasaan", icon: "fa-smile-beam", type: "app", appType: "draw",
-                    desc: "Gambar ekspresi wajahmu saat mengerjakan soal grafik.",
+                    title: "Bayangan Domain", icon: "fa-lightbulb", type: "image",
+                    imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Function_color_example_3.svg/300px-Function_color_example_3.svg.png",
+                    desc: "Bayangkan Domain sebagai 'Warna Asal' dan Range sebagai 'Warna Hasil'."
+                },
+
+                // 15. Emosi Grafik (Draw)
+                {
+                    title: "Emosi Grafik", icon: "fa-smile-wink", type: "app", appType: "draw",
                     contentList: [
-                        { prompt: "Gambarlah emoji yang mewakili perasaanmu tentang materi Grafik Garis Lurus." }
+                        { prompt: "Gambarlah wajah tersenyum menggunakan parabola (y = x²)!" },
+                        { prompt: "Gambarlah wajah sedih menggunakan parabola terbalik (y = -x²)!" }
+                    ]
+                },
+
+                // 16. Tebak Titik (Kuis Visual)
+                {
+                    title: "Tebak Lokasi", icon: "fa-crosshairs", type: "quiz",
+                    desc: "Visualisasikan posisi titik.",
+                    contentList: [
+                        { question: "Titik (0, 5) berada di...", options: ["Menempel di sumbu Y (Tegak)", "Menempel di sumbu X (Datar)", "Melayang di Kuadran I", "Titik Tengah"], answer: 0 },
+                        { question: "Titik mana yang paling KIRI?", options: ["(-5, 2)", "(0, 2)", "(5, 2)", "(10, 2)"], answer: 0 }
                     ]
                 }
             ]
@@ -1419,6 +1429,7 @@
 </script>
 </body>
 </html>
+
 
 
 
