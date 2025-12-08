@@ -333,9 +333,11 @@
     // --- 1. DATA STRUCTURE (REVISED FOR ALGEBRA PHASE D) ---
     const intelligenceData = [
         { 
+{ 
             id: "linguistic", name: "Verbal Linguistic", icon: "fa-comments", color: "accent-yellow", hex: "#DDA15E", 
             desc: "Memahami Aljabar lewat Kata & Cerita", 
             media: [
+                // --- KONTEN LAMA (DIPERTAHANKAN) ---
                 { 
                     title: "Penerjemah Aljabar", icon: "fa-language", type: "app", appType: "story", 
                     desc: "Ubah kalimat sehari-hari menjadi bentuk aljabar.",
@@ -364,8 +366,7 @@
                     contentList: [
                         { prompt: "Jelaskan Sifat Komutatif (a+b = b+a) dengan analogi perjalanan pulang-pergi." },
                         { prompt: "Jelaskan Sifat Distributif a(b+c) = ab + ac menggunakan analogi membagikan permen." },
-                        { prompt: "Kenapa (a-b) tidak sama dengan (b-a)? Jelaskan dengan contoh hutang." },
-                        { prompt: "Buat cerita tentang Variabel X yang mencari nilai aslinya dalam persamaan 2x + 5 = 15." }
+                        { prompt: "Kenapa (a-b) tidak sama dengan (b-a)? Jelaskan dengan contoh hutang." }
                     ]
                 },
                 { 
@@ -373,9 +374,98 @@
                     desc: "Istilah Sistem Persamaan Linear.",
                     contentList: [
                         { question: "Metode menghilangkan satu variabel disebut?", options: ["Eliminasi", "Substitusi", "Campuran", "Grafik"], answer: 0 },
-                        { question: "Metode mengganti variabel dengan persamaan lain?", options: ["Substitusi", "Eliminasi", "Distribusi", "Asosiasi"], answer: 0 },
-                        { question: "Titik potong dua garis dalam grafik SPLDV menunjukan?", options: ["Himpunan Penyelesaian", "Gradien", "Intercept", "Domain"], answer: 0 }
+                        { question: "Metode mengganti variabel dengan persamaan lain?", options: ["Substitusi", "Eliminasi", "Distribusi", "Asosiasi"], answer: 0 }
                     ]
+                },
+
+                // --- 10 VARIASI MEDIA BARU ---
+                
+                // 1. Etimologi & Sejarah (Flashcard)
+                {
+                    title: "Asal Kata Aljabar", icon: "fa-history", type: "flashcard",
+                    desc: "Sejarah istilah matematika.",
+                    contentList: [
+                        { cards: [{f:"Al-Jabr (Bahasa Arab)", b:"Berarti 'Pengumpulan kembali bagian yang rusak' atau penyelesaian."}] },
+                        { cards: [{f:"Variabel", b:"Berasal dari kata 'Vary' (Berubah). Sesuatu yang nilainya bisa ganti-ganti."}] },
+                        { cards: [{f:"Konstanta", b:"Berasal dari kata 'Constant' (Tetap). Nilai yang tidak berubah."}] }
+                    ]
+                },
+
+                // 2. Sinonim Matematika (Quiz)
+                {
+                    title: "Sinonim Kata Operasi", icon: "fa-quote-right", type: "quiz",
+                    desc: "Kata kunci dalam soal cerita.",
+                    contentList: [
+                        { question: "Kata manakah yang BERBEDA arti dengan simbol '+' (Tambah)?", options: ["Selisih", "Jumlah", "Total", "Gabungan"], answer: 0 },
+                        { question: "Kata 'Dua kali lipat dari' dalam aljabar ditulis sebagai...", options: ["2x", "x + 2", "x²", "x/2"], answer: 0 },
+                        { question: "Kata 'Kurang dari' (misal: 5 kurang dari x) ditulis...", options: ["x - 5", "5 - x", "5 < x", "x < 5"], answer: 0 }
+                    ]
+                },
+
+                // 3. Susun Definisi (Sort App - Reused Logic)
+                {
+                    title: "Susun Kalimat Definisi", icon: "fa-sort-alpha-down", type: "app", appType: "sort",
+                    desc: "Urutkan kata acak menjadi definisi yang benar.",
+                    items: ["Persamaan", "Linear", "Satu", "Variabel", "Adalah", "Kalimat", "Terbuka", "Dengan", "Tanda", "Sama Dengan"],
+                    explanation: "PLSV adalah kalimat terbuka yang dihubungkan tanda sama dengan dan hanya punya 1 variabel."
+                },
+
+                // 4. Tebak Tokoh/Istilah (Chat Simulation)
+                {
+                    title: "Tebak: Siapakah Aku?", icon: "fa-user-secret", type: "app", appType: "chat",
+                    desc: "Tebak istilah aljabar dari petunjuk percakapan.",
+                    chatData: [
+                        {sender:"Misteri", msg:"Aku adalah sebuah huruf kecil."}, 
+                        {sender:"Misteri", msg:"Aku berdiri sendiri tanpa teman angka."},
+                        {sender:"Misteri", msg:"Nilaiku belum diketahui."},
+                        {sender:"You", msg:"Apakah kamu Variabel?"},
+                        {sender:"Misteri", msg:"Benar! Tapi lebih tepatnya... Variabel Jomblo?"}
+                    ]
+                },
+
+                // 5. Analogi & Metafora (Input Esai)
+                {
+                    title: "Analogi Substitusi", icon: "fa-pen-nib", type: "input", inputType: "textarea",
+                    desc: "Latihan berpikir metaforis.",
+                    prompt: "Bayangkan metode SUBSTITUSI (mengganti) seperti pemain cadangan sepak bola. Jelaskan proses pergantian pemain x dengan angka 5!"
+                },
+
+                // 6. Pantun Matematika (Input Kreatif)
+                {
+                    title: "Pantun Rumus", icon: "fa-feather-alt", type: "input", inputType: "textarea",
+                    desc: "Menghafal rumus lewat sastra.",
+                    prompt: "Buatlah pantun 4 baris yang berakhiran a-b-a-b tentang 'Gradien' (Kemiringan Garis)."
+                },
+
+                // 7. Debat Argumen (Input Kritis)
+                {
+                    title: "Debat Kesalahan Umum", icon: "fa-gavel", type: "input", inputType: "textarea",
+                    desc: "Argumentasi logika verbal.",
+                    prompt: "Temanmu berkata: '3x + 5 sama dengan 8x'. Tuliskan kalimat sanggahanmu untuk menjelaskan kenapa itu salah!"
+                },
+
+                // 8. Kosa Kata Gradien (Quiz)
+                {
+                    title: "Bahasa Grafik", icon: "fa-chart-line", type: "quiz",
+                    desc: "Menerjemahkan visual ke kata sifat.",
+                    contentList: [
+                        { question: "Jika garis naik dari kiri ke kanan, kita menyebutnya...", options: ["Positif / Menanjak", "Negatif / Menurun", "Nol / Datar", "Tak Terdefinisi"], answer: 0 },
+                        { question: "Garis yang 'Landai' memiliki nilai gradien yang...", options: ["Mendekati Nol", "Sangat Besar", "Negatif Besar", "Tak Terhingga"], answer: 0 }
+                    ]
+                },
+
+                // 9. Langkah Soal Cerita (Sort App)
+                {
+                    title: "Logika Soal Cerita", icon: "fa-list-ol", type: "app", appType: "sort",
+                    desc: "Urutkan langkah menerjemahkan soal cerita.",
+                    items: ["Baca soal dengan teliti", "Tentukan pemisalan (Misal x = buku)", "Buat model matematika", "Selesaikan persamaan", "Tulis kesimpulan"],
+                },
+
+                // 10. Jurnal Refleksi Konsep (Input)
+                {
+                    title: "Surat untuk 'X'", icon: "fa-envelope-open-text", type: "input", inputType: "textarea",
+                    desc: "Personifikasi matematika.",
+                    prompt: "Tulis surat pendek untuk Variabel X. Tanyakan kenapa dia suka bersembunyi dan bagaimana perasaanmu saat menemukannya?"
                 }
             ]
         },
@@ -969,3 +1059,4 @@
 </script>
 </body>
 </html>
+
