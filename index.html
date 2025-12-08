@@ -1256,121 +1256,53 @@
             id: "naturalist", name: "Naturalist", icon: "fa-leaf", color: "earth-900", hex: "#283618", 
             desc: "Belajar dari Alam: Pola, Lingkungan & Makhluk Hidup", 
             media: [
-                // --- 1. MEDIA LAMA (DIPERLUAS) ---
-                { 
-                    title: "Fibonacci Alam", icon: "fa-seedling", type: "app", appType: "pattern", 
-                    desc: "Tebak jumlah kelopak bunga atau cangkang siput.",
-                    seq: ["1", "1", "2", "3", "5"], ans: "8", hint: "Jumlahkan 2 angka sebelumnya (Fibonacci)", opts: ["7", "8", "9", "10"]
-                },
-                { 
-                    title: "Simulasi Tumbuh", icon: "fa-tree", type: "app", appType: "plant_grow", 
-                    desc: "Atur penyiraman (x) untuk melihat tinggi tanaman (y). Model: y = 2x + 5.", 
-                },
-                { 
-                    title: "Taksonomi Aljabar", icon: "fa-sitemap", type: "app", appType: "dragdrop", 
-                    desc: "Klasifikasikan spesies aljabar ke habitat yang benar.", 
-                    items: ["2x", "5y", "x²", "7", "-3x", "10"], 
-                    explanation: "Kelompokkan Suku Sejenis (Satu Spesies) dan Konstanta (Abiotik)."
-                },
-                { 
-                    title: "Populasi Kelinci", icon: "fa-paw", type: "quiz", 
-                    desc: "Pola perkembangbiakan hewan.",
-                    contentList: [
-                        { question: "Sepasang kelinci melahirkan 2 anak setiap bulan. Polanya: 2, 4, 8, 16... Ini adalah barisan?", options: ["Geometri (Rasio)", "Aritmatika (Beda)", "Linear", "Tetap"], answer: 0 },
-                        { question: "Jika wabah menyerang, populasi turun drastis. Grafiknya akan...", options: ["Turun curam (Gradien Negatif)", "Naik terus", "Mendatar", "Vertikal"], answer: 0 }
-                    ]
-                },
+                // 1. FIBONACCI (Existing)
+                { title: "Fibonacci Alam", icon: "fa-seedling", type: "app", appType: "pattern", seq: ["1", "1", "2", "3", "5"], ans: "8", hint: "Jumlahkan 2 angka sebelumnya", opts: ["7", "8", "9", "10"] },
 
-                // --- 2. 12 MEDIA BARU (NATURE MATH) ---
+                // 2. SIMULASI TUMBUH (Visual Tanaman)
+                { title: "Simulasi Tumbuh", icon: "fa-tree", type: "app", appType: "plant_grow", desc: "Siram tanaman (Variable x) untuk melihat pertumbuhannya (Fungsi y)." },
 
-                // 5. HUKUM JANGKRIK (Dolbear's Law)
-                {
-                    title: "Suhu Jangkrik", icon: "fa-bug", type: "app", appType: "nature_calc", subtype: "cricket",
-                    desc: "Hitung suhu udara berdasarkan bunyi jangkrik. Rumus: T = 50 + (n-40)/4.",
-                },
+                // 3. TAKSONOMI (Drag Drop)
+                { title: "Taksonomi Aljabar", icon: "fa-sitemap", type: "app", appType: "dragdrop", desc: "Klasifikasikan spesies aljabar.", items: ["2x", "5y", "x²", "7", "-3x", "10"], explanation: "Kelompokkan Suku Sejenis." },
 
-                // 6. JEJAK KARBON (Environmental Math)
-                {
-                    title: "Jejak Karbon", icon: "fa-smog", type: "app", appType: "nature_calc", subtype: "carbon",
-                    desc: "Hitung emisi CO2 harianmu. Transportasi (x) + Listrik (y).",
-                },
+                // 4. POPULASI KELINCI (Quiz)
+                { title: "Populasi Kelinci", icon: "fa-paw", type: "quiz", contentList: [{question: "Pola 2, 4, 8, 16... adalah?", options: ["Geometri", "Aritmatika", "Linear", "Tetap"], answer: 0}] },
 
-                // 7. PREDIKSI CUACA (Fungsi)
-                {
-                    title: "Pola Cuaca", icon: "fa-cloud-sun-rain", type: "quiz",
-                    desc: "Baca grafik suhu vs waktu.",
-                    contentList: [
-                        { question: "Suhu naik 2°C setiap jam dari jam 6 pagi. Model matematikanya?", options: ["T = 2x + T_awal", "T = x - 2", "T = 2x²", "T = 2"], answer: 0 },
-                        { question: "Kapan suhu mencapai puncaknya? (Lihat titik balik maksimum pada grafik parabola)", options: ["Siang Hari", "Malam Hari", "Pagi Hari", "Subuh"], answer: 0 }
-                    ]
-                },
+                // 5. SUHU JANGKRIK (Calculator)
+                { title: "Suhu Jangkrik", icon: "fa-bug", type: "app", appType: "cricket", desc: "Jangkrik adalah termometer alami. Hitung suhunya!" },
 
-                // 8. GRADIEN SUNGAI (Topografi)
-                {
-                    title: "Gradien Sungai", icon: "fa-water", type: "app", appType: "river",
-                    desc: "Air mengalir dari tinggi ke rendah. Atur kemiringan sungai agar aliran lancar.",
-                },
+                // 6. JEJAK KARBON (Environmental)
+                { title: "Jejak Karbon", icon: "fa-smog", type: "app", appType: "carbon", desc: "Seimbangkan emisi (x) dengan jumlah pohon (y)." },
 
-                // 9. FOTOSINTESIS (Input Output)
-                {
-                    title: "Mesin Daun", icon: "fa-sun", type: "app", appType: "quiz",
-                    desc: "Input: Cahaya & Air. Output: Gula & Oksigen.",
-                    contentList: [
-                        { question: "Semakin banyak cahaya (x), semakin banyak Oksigen (y). Ini hubungan...", options: ["Berbanding Lurus (Linear Positif)", "Berbanding Terbalik", "Konstan", "Nol"], answer: 0 },
-                        { question: "Tanaman mati jika air = 0. Maka grafik harus dimulai dari...", options: ["Titik (0,0)", "Titik (0, 10)", "Titik Negatif", "Tak Terhingga"], answer: 0 }
-                    ]
-                },
+                // 7. POLA CUACA (Quiz)
+                { title: "Pola Cuaca", icon: "fa-cloud-sun-rain", type: "quiz", contentList: [{question: "Suhu naik 2°C per jam. Modelnya?", options: ["T = 2x + Awal", "T = x - 2", "T = 2x²", "T = 2"], answer: 0}] },
 
-                // 10. SARANG LEBAH (Pola Geometri)
-                {
-                    title: "Sarang Lebah", icon: "fa-cube", type: "app", appType: "pattern",
-                    desc: "Kenapa lebah memilih Hexagon? (Efisiensi Luas).",
-                    seq: ["▲", "■", "⬡", "?"], ans: "⬡", hint: "Segitiga(3), Kotak(4), Hexagon(6) adalah tiling pattern. Pilih Hexagon lagi untuk pola sarang.", opts: ["⬡", "●", "★", "▲"]
-                },
+                // 8. GRADIEN SUNGAI (Physics/Canvas)
+                { title: "Gradien Sungai", icon: "fa-water", type: "app", appType: "river", desc: "Atur kemiringan sungai (m) untuk mengendalikan arus air." },
 
-                // 11. RANTAI MAKANAN (Sistem Persamaan)
-                {
-                    title: "Rantai Makanan", icon: "fa-link", type: "app", appType: "food_chain",
-                    desc: "Seimbangkan ekosistem. Jika Rumput (x) habis, Rusa (y) punah.",
-                },
+                // 9. MESIN DAUN (Photosynthesis)
+                { title: "Mesin Daun", icon: "fa-sun", type: "app", appType: "leaf_machine", desc: "Input Cahaya (x) & Air (y) -> Output Gula (z). Cek reaksinya!" },
 
-                // 12. KONSERVASI AIR (Linear)
-                {
-                    title: "Hemat Air", icon: "fa-tint", type: "input", inputType: "textarea",
-                    desc: "Keran bocor menetes 5ml per menit. Buat model aljabarnya!",
-                    prompt: "Jika y = total air terbuang dan x = menit. Tulis rumusnya (y = ...)"
-                },
+                // 10. SARANG LEBAH (Pattern)
+                { title: "Sarang Lebah", icon: "fa-cube", type: "app", appType: "pattern", seq: ["▲", "■", "⬡", "?"], ans: "⬡", hint: "Pilih pola yang paling efisien menutup ruang.", opts: ["⬡", "●", "★", "▲"] },
 
-                // 13. LINGKARAN TAHUN (Usia Pohon)
-                {
-                    title: "Usia Pohon", icon: "fa-history", type: "quiz",
-                    desc: "Menghitung umur dari pola lingkaran batang.",
-                    contentList: [
-                        { question: "Setiap tahun pohon menambah 1 lingkaran (Cincin). Jika ada 50 cincin, umurnya?", options: ["50 Tahun", "25 Tahun", "100 Tahun", "Tidak tahu"], answer: 0 },
-                        { question: "Lingkaran lebar berarti musim hujan (tumbuh cepat). Lingkaran sempit berarti...", options: ["Musim Kemarau", "Pohon Mati", "Musim Salju", "Kebakaran"], answer: 0 }
-                    ]
-                },
+                // 11. RANTAI MAKANAN (System Balance)
+                { title: "Rantai Makanan", icon: "fa-link", type: "app", appType: "food_chain", desc: "Jaga keseimbangan ekosistem Rumput, Rusa, dan Serigala." },
 
-                // 14. BAKTERI BELAH DIRI (Eksponensial)
-                {
-                    title: "Petri Dish", icon: "fa-vial", type: "app", appType: "bacteria",
-                    desc: "Lihat bakteri membelah diri 1 jadi 2, 2 jadi 4 (2^n).",
-                },
+                // 12. HEMAT AIR (Modeling)
+                { title: "Hemat Air", icon: "fa-tint", type: "input", inputType: "textarea", prompt: "Keran bocor menetes 5ml/menit. Tulis rumus y (total air) terhadap x (menit)." },
 
-                // 15. MIGRASI BURUNG (Koordinat)
-                {
-                    title: "Navigasi Burung", icon: "fa-dove", type: "app", appType: "migration",
-                    desc: "Burung terbang dari (2,2) ke (8,10). Hitung jarak tempuhnya.",
-                },
+                // 13. LINGKARAN TAHUN (Quiz)
+                { title: "Usia Pohon", icon: "fa-history", type: "quiz", contentList: [{question: "1 Lingkaran = 1 Tahun. Jika diameter bertambah 2cm/thn, ini fungsi?", options: ["Linear", "Kuadrat", "Tetap", "Acak"], answer: 0}] },
 
-                // 16. DATA BENCANA (Statistik Alam)
-                {
-                    title: "Data Gempa", icon: "fa-house-damage", type: "app", appType: "quiz",
-                    desc: "Interpretasi data Scatter Plot.",
-                    contentList: [
-                        { question: "Semakin dekat ke pusat gempa (x kecil), kerusakan (y) semakin besar. Ini korelasi...", options: ["Negatif", "Positif", "Nol", "Linear"], answer: 0 }
-                    ]
-                }
+                // 14. PETRI DISH (Bakteri)
+                { title: "Petri Dish", icon: "fa-vial", type: "app", appType: "bacteria", desc: "Simulasi pembelahan sel eksponensial (2^n)." },
+
+                // 15. NAVIGASI BURUNG (Coordinate)
+                { title: "Navigasi Burung", icon: "fa-dove", type: "app", appType: "bird_nav", desc: "Bantu burung migrasi dari titik A ke B menggunakan koordinat." },
+
+                // 16. DATA GEMPA (Scatter Plot)
+                { title: "Data Gempa", icon: "fa-house-damage", type: "app", appType: "quake", desc: "Analisis persebaran titik gempa pada peta koordinat." }
             ]
         },
     ];
@@ -2393,11 +2325,189 @@
                     <button class="mt-4 px-6 py-2 bg-earth-700 text-white rounded-full text-sm" onclick="addXP(5); alert('Poin eksplorasi ditambahkan!')">Klaim Poin</button>
                 </div>
             </div>`;
+            if(item.appType === 'plant_grow') return `
+            <div class="h-full flex flex-col items-center justify-end animate-fade-in relative overflow-hidden bg-gradient-to-t from-[#8D6E63] to-[#B3E5FC] rounded-3xl border-4 border-[#5D4037]">
+                <div class="absolute top-6 right-6 text-6xl animate-spin-slow opacity-90">☀️</div>
+                <div class="absolute top-10 left-10 text-4xl opacity-80 animate-bounce-slow" style="animation-duration: 3s">☁️</div>
+
+                <div id="plant-root" class="relative z-10 transition-all duration-700 ease-out origin-bottom flex flex-col items-center" style="height: 50px; width: 20px; background: #4CAF50;">
+                    <div id="plant-flower" class="absolute -top-10 scale-0 transition-transform duration-500 text-5xl">🌻</div>
+                    <div class="absolute bottom-10 -left-8 w-8 h-4 bg-green-600 rounded-tl-full rounded-bl-full origin-right transform rotate-[-20deg]"></div>
+                    <div class="absolute bottom-20 -right-8 w-8 h-4 bg-green-600 rounded-tr-full rounded-br-full origin-left transform rotate-[20deg]"></div>
+                </div>
+                
+                <div class="w-full h-16 bg-[#5D4037] z-20 flex items-center justify-center relative shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+                    <span class="text-white/50 text-xs italic absolute bottom-2">Tanah Subur (Konstanta)</span>
+                </div>
+
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur p-4 rounded-xl shadow-lg border border-green-200 w-64">
+                    <div class="flex justify-between text-xs font-bold text-green-800 uppercase mb-2">
+                        <span>Air (x)</span> <span id="p-x-val">0 L</span>
+                    </div>
+                    <input type="range" min="0" max="10" value="0" class="w-full accent-green-600 h-2 bg-green-200 rounded-lg appearance-none cursor-pointer" oninput="growPlant(this.value)">
+                    <div class="mt-3 pt-3 border-t border-green-100">
+                        <p class="text-xs text-earth-600">Model: <b class="text-green-700">y = 2x + 5</b></p>
+                        <p class="text-lg font-bold text-earth-800">Tinggi: <span id="p-y-val">5</span> cm</p>
+                    </div>
+                </div>
+            </div>`;
+            if(item.appType === 'cricket') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gradient-to-b from-[#1a237e] to-[#000000] rounded-3xl p-6 relative overflow-hidden text-white">
+                <div class="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+                <div class="z-10 text-center">
+                    <div class="relative inline-block">
+                        <i class="fas fa-bug text-6xl text-green-400 mb-4 animate-bounce" id="cricket-icon" style="animation-duration: 0.5s"></i>
+                        <div class="absolute -right-4 -top-2 text-yellow-300 font-bold text-xs bg-black/50 px-2 rounded-full border border-yellow-300">Chirp!</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 text-green-200">Termometer Alam</h3>
+                    <p class="text-sm text-blue-200 mb-8 max-w-xs mx-auto">Jangkrik berbunyi lebih cepat saat suhu panas. Coba atur jumlah bunyi!</p>
+                    
+                    <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20">
+                        <label class="block text-xs font-bold text-green-300 uppercase mb-2">Bunyi per Menit (n)</label>
+                        <input type="range" min="40" max="200" value="40" class="w-full accent-green-400 mb-4" oninput="calcCricket(this.value)">
+                        <div class="text-4xl font-mono font-bold text-yellow-300" id="crick-res">10°C</div>
+                        <p class="text-xs text-white/50 mt-2">Rumus: T = 10 + (n - 40) / 7</p>
+                    </div>
+                </div>
+            </div>`;
+            if(item.appType === 'carbon') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-[#E0F7FA] rounded-3xl p-6 relative">
+                <div class="flex gap-8 items-end mb-8 relative z-10">
+                    <div class="text-center group">
+                        <i class="fas fa-smog text-6xl text-gray-600 transition-transform duration-500" id="carb-icon"></i>
+                        <p class="text-xs font-bold text-gray-500 mt-2">Emisi (x)</p>
+                    </div>
+                    <div class="text-2xl font-bold text-red-500">VS</div>
+                    <div class="text-center group">
+                        <i class="fas fa-tree text-6xl text-green-600 transition-transform duration-500" id="tree-icon"></i>
+                        <p class="text-xs font-bold text-green-600 mt-2">Penyerap (y)</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-sm z-10">
+                    <div class="mb-4">
+                        <label class="flex justify-between text-xs font-bold text-gray-500 uppercase mb-1"><span>🚗 Perjalanan (km)</span> <span id="c-km">0</span></label>
+                        <input type="range" min="0" max="100" value="0" class="w-full accent-gray-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" oninput="calcCarbon()">
+                    </div>
+                    <div class="mb-6">
+                        <label class="flex justify-between text-xs font-bold text-green-600 uppercase mb-1"><span>🌳 Pohon Ditanam</span> <span id="c-tree">0</span></label>
+                        <input type="range" min="0" max="20" value="0" class="w-full accent-green-600 h-2 bg-green-100 rounded-lg appearance-none cursor-pointer" oninput="calcCarbon()">
+                    </div>
+                    <div class="p-4 rounded-xl text-center transition-colors duration-300" id="carb-status">
+                        <div class="text-xs uppercase font-bold opacity-70">Status Neraca</div>
+                        <div class="text-xl font-bold" id="carb-res">Seimbang</div>
+                    </div>
+                </div>
+            </div>`;
+            if(item.appType === 'river') return `
+            <div class="h-full flex flex-col animate-fade-in relative rounded-3xl overflow-hidden border-2 border-blue-200 cursor-pointer" onclick="addRock(event)">
+                <canvas id="cv-river" class="w-full h-full block bg-[#81D4FA]"></canvas>
+                <div class="absolute top-4 left-4 bg-white/80 backdrop-blur p-3 rounded-xl shadow-lg">
+                    <label class="text-xs font-bold text-blue-800 uppercase block mb-1">Kemiringan (m)</label>
+                    <input type="range" min="0" max="40" value="10" class="w-32 accent-blue-600" oninput="drawRiver(this.value)">
+                </div>
+                <div class="absolute bottom-4 left-4 text-xs font-bold text-white bg-black/20 px-3 py-1 rounded-full pointer-events-none">Klik sungai untuk taruh batu!</div>
+                <script>setTimeout(()=>drawRiver(10), 500);
+            </div>`;
+            if(item.appType === 'leaf_machine') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-green-50 rounded-3xl relative overflow-hidden">
+                <div class="relative w-64 h-80">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl text-green-500 fill-current">
+                        <path d="M50 95 C 20 80, 0 50, 50 5 C 100 50, 80 80, 50 95 Z" />
+                    </svg>
+                    
+                    <div class="absolute top-1/4 -left-10 bg-yellow-100 p-2 rounded-lg shadow border border-yellow-300 flex items-center gap-2">
+                        <i class="fas fa-sun text-yellow-500 animate-spin-slow"></i> 
+                        <input type="number" id="in-light" value="0" class="w-10 bg-transparent font-bold text-center outline-none" oninput="calcLeaf()">
+                    </div>
+                    <div class="absolute bottom-1/4 -left-10 bg-blue-100 p-2 rounded-lg shadow border border-blue-300 flex items-center gap-2">
+                        <i class="fas fa-tint text-blue-500 animate-bounce"></i> 
+                        <input type="number" id="in-water" value="0" class="w-10 bg-transparent font-bold text-center outline-none" oninput="calcLeaf()">
+                    </div>
+
+                    <div class="absolute top-1/2 -right-12 bg-white p-2 rounded-lg shadow border border-green-300">
+                        <div class="text-xs font-bold text-green-800">GULA (z)</div>
+                        <div id="out-sugar" class="text-xl font-bold text-green-600">0</div>
+                    </div>
+                </div>
+                <p class="mt-4 text-earth-600 text-sm font-medium">Rumus Daun: z = 2x + y</p>
+            </div>`;
+            if(item.appType === 'food_chain') return `
+            <div class="h-full flex flex-col items-center animate-fade-in bg-[#FFF8E1] rounded-3xl p-6">
+                <h3 class="font-bold text-earth-800 mb-6">Neraca Ekosistem</h3>
+                <div class="flex items-center gap-4 w-full max-w-md flex-1">
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div id="fc-grass" class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center text-2xl transition-all duration-500">🌿</div>
+                        <input type="range" min="0" max="100" value="50" class="h-32 -rotate-90 accent-green-600 w-8" oninput="updateEco('grass', this.value)">
+                    </div>
+                    <i class="fas fa-chevron-right text-earth-300"></i>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div id="fc-deer" class="w-16 h-16 bg-orange-200 rounded-full flex items-center justify-center text-2xl transition-all duration-500">🦌</div>
+                        <div class="h-32 w-2 bg-gray-100 rounded-full relative overflow-hidden">
+                            <div id="bar-deer" class="absolute bottom-0 w-full bg-orange-400 transition-all duration-500" style="height: 50%"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-earth-300"></i>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div id="fc-wolf" class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center text-2xl transition-all duration-500">🐺</div>
+                        <div class="h-32 w-2 bg-gray-100 rounded-full relative overflow-hidden">
+                            <div id="bar-wolf" class="absolute bottom-0 w-full bg-gray-600 transition-all duration-500" style="height: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="eco-msg" class="mt-4 p-3 bg-white rounded-xl shadow text-sm font-bold text-earth-600 w-full text-center">
+                    Geser populasi rumput!
+                </div>
+            </div>`;
+            if(item.appType === 'bacteria') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-gray-900 rounded-3xl p-6 relative">
+                <div class="w-64 h-64 rounded-full border-4 border-white/10 bg-black relative shadow-[0_0_30px_rgba(74,222,128,0.2)] overflow-hidden cursor-pointer active:scale-95 transition" id="petri-dish" onclick="splitBacteria()">
+                    <div class="bacteria w-4 h-4 bg-green-500 rounded-full absolute top-1/2 left-1/2 -ml-2 -mt-2 shadow-[0_0_10px_#4ade80] animate-pulse"></div>
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 transition hover:opacity-100">
+                        <span class="text-white/80 font-bold bg-black/50 px-2 py-1 rounded">Klik untuk Belah</span>
+                    </div>
+                </div>
+                
+                <div class="mt-8 grid grid-cols-2 gap-8 w-full max-w-xs text-white">
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/10 text-center">
+                        <div class="text-xs text-gray-400 uppercase">Waktu (n)</div>
+                        <div id="bac-n" class="text-3xl font-mono font-bold text-green-400">0</div>
+                    </div>
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/10 text-center">
+                        <div class="text-xs text-gray-400 uppercase">Total (2ⁿ)</div>
+                        <div id="bac-total" class="text-3xl font-mono font-bold text-green-400">1</div>
+                    </div>
+                </div>
+            </div>`;
+            if(item.appType === 'bird_nav') return `
+            <div class="h-full flex flex-col animate-fade-in bg-blue-50 rounded-3xl relative overflow-hidden border-2 border-blue-200">
+                <canvas id="cv-bird" class="w-full h-full block cursor-crosshair" onmousedown="moveBird(event)"></canvas>
+                <div class="absolute top-4 right-4 bg-white/90 p-3 rounded-xl shadow text-right">
+                    <div class="text-xs font-bold text-blue-400 uppercase">Koordinat</div>
+                    <div id="bird-coor" class="text-xl font-mono font-bold text-blue-800">(0, 0)</div>
+                </div>
+                <div class="absolute bottom-4 left-4 text-xs font-bold text-blue-500 bg-white/80 px-3 py-1 rounded-full pointer-events-none">
+                    Klik peta untuk memandu burung!
+                </div>
+                <script>setTimeout(initBirdMap, 500);
+            </div>`;
+            
 
             // Fallback untuk helper forms
             return `<div class="p-10 text-center">App Under Construction</div>`;
         }
-
+if(item.appType === 'quake') return `
+            <div class="h-full flex flex-col animate-fade-in bg-earth-50 rounded-3xl p-4 border border-earth-200">
+                <h3 class="font-bold text-earth-800 text-center mb-2">Peta Sebaran Gempa</h3>
+                <div class="flex-1 bg-white rounded-xl border border-earth-200 relative overflow-hidden" id="quake-map">
+                    <div class="absolute inset-0" style="background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div class="text-xs text-earth-500">Sumbu X: Jarak (km)<br>Sumbu Y: Kekuatan (SR)</div>
+                    <button onclick="genQuake()" class="px-4 py-2 bg-red-500 text-white rounded-lg font-bold shadow hover:bg-red-600"><i class="fas fa-sync mr-2"></i>Data Baru</button>
+                </div>
+                <script>setTimeout(genQuake, 500);
+            </div>`;
         // --- FALLBACK UTAMA RENDERAPP (Jika tidak ada tipe yang cocok) ---
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${cat.hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
 
@@ -3621,6 +3731,248 @@
         }
         addXP(2);
     };
+
+    // --- 15. LOGIKA NATURALIST APPS ---
+
+    // A. PLANT GROW
+    window.growPlant = function(val) {
+        const h = 50 + (val * 20); // Base height + growth
+        const stem = document.getElementById('plant-root');
+        const flower = document.getElementById('plant-flower');
+        
+        stem.style.height = h + 'px';
+        document.getElementById('p-x-val').innerText = val + " L";
+        document.getElementById('p-y-val').innerText = (parseInt(val)*2 + 5);
+
+        if(val >= 8) {
+            flower.style.transform = "scale(1)";
+            addXP(1);
+        } else {
+            flower.style.transform = "scale(0)";
+        }
+    };
+
+    // B. CRICKET
+    window.calcCricket = function(n) {
+        // T = 10 + (n - 40) / 7
+        const t = 10 + (n - 40) / 7;
+        document.getElementById('crick-res').innerText = Math.round(t) + "°C";
+        
+        // Animasi ikon jangkrik makin cepat jika n tinggi
+        const dur = 100 / n; 
+        document.getElementById('cricket-icon').style.animationDuration = dur + "s";
+    };
+
+    // C. CARBON
+    window.calcCarbon = function() {
+        const km = document.getElementById('c-km').innerText = document.querySelector('input[oninput="calcCarbon()"]').value;
+        const tree = document.getElementById('c-tree').innerText = document.querySelectorAll('input[oninput="calcCarbon()"]')[1].value;
+        
+        // Emisi: 0.2kg per km. Serap: 1kg per pohon
+        const emit = km * 0.2;
+        const absorb = tree * 1;
+        const res = document.getElementById('carb-res');
+        const st = document.getElementById('carb-status');
+        const icon1 = document.getElementById('carb-icon');
+        const icon2 = document.getElementById('tree-icon');
+
+        if(absorb > emit) {
+            res.innerText = "Positif! (Udara Bersih)";
+            st.className = "p-4 rounded-xl text-center bg-green-100 text-green-800";
+            icon2.style.transform = "scale(1.2)"; icon1.style.transform = "scale(0.8)";
+        } else if (absorb < emit) {
+            res.innerText = "Negatif! (Polusi)";
+            st.className = "p-4 rounded-xl text-center bg-gray-200 text-gray-800";
+            icon1.style.transform = "scale(1.2)"; icon2.style.transform = "scale(0.8)";
+        } else {
+            res.innerText = "Netral (Seimbang)";
+            st.className = "p-4 rounded-xl text-center bg-blue-100 text-blue-800";
+            icon1.style.transform = "scale(1)"; icon2.style.transform = "scale(1)";
+        }
+    };
+
+    // D. RIVER (CANVAS)
+    window.drawRiver = function(slope) {
+        const cv = document.getElementById('cv-river');
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        const w = cv.width = cv.parentElement.clientWidth;
+        const h = cv.height = cv.parentElement.clientHeight;
+
+        ctx.clearRect(0,0,w,h);
+        
+        // Langit
+        const grad = ctx.createLinearGradient(0,0,0,h);
+        grad.addColorStop(0, '#81D4FA');
+        grad.addColorStop(1, '#B3E5FC');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,w,h);
+
+        // Gunung (Miring sesuai slope)
+        ctx.fillStyle = '#5D4037';
+        ctx.beginPath();
+        const startY = h/2 - (slope * 2); 
+        ctx.moveTo(0, h);
+        ctx.lineTo(0, startY); // Titik kiri atas gunung
+        ctx.lineTo(w, h);      // Titik kanan bawah
+        ctx.fill();
+
+        // Air Sungai
+        ctx.strokeStyle = '#29B6F6';
+        ctx.lineWidth = 15;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(0, startY + 10);
+        // Bezier curve untuk efek air
+        ctx.quadraticCurveTo(w/2, h - 20, w, h + 10);
+        ctx.stroke();
+
+        // Buih air (Particles) - Static representation
+        ctx.fillStyle = 'white';
+        for(let i=0; i<slope; i++) {
+            const rx = Math.random() * w;
+            const ry = h - (Math.random() * 50);
+            ctx.beginPath(); ctx.arc(rx, ry, 2, 0, Math.PI*2); ctx.fill();
+        }
+    };
+    window.addRock = function(e) {
+        // Efek visual klik (splash)
+        const el = document.createElement('div');
+        el.className = 'absolute text-xl animate-ping pointer-events-none';
+        el.innerHTML = '🪨';
+        el.style.left = e.offsetX + 'px';
+        el.style.top = e.offsetY + 'px';
+        e.target.parentElement.appendChild(el);
+        setTimeout(()=>el.remove(), 500);
+    };
+
+    // E. LEAF MACHINE
+    window.calcLeaf = function() {
+        const l = parseInt(document.getElementById('in-light').value)||0;
+        const w = parseInt(document.getElementById('in-water').value)||0;
+        const sugar = (2 * l) + w;
+        document.getElementById('out-sugar').innerText = sugar;
+        if(sugar > 20) addXP(1);
+    };
+
+    // F. FOOD CHAIN
+    window.updateEco = function(type, val) {
+        // Logic: Rumput naik -> Rusa naik -> Serigala naik
+        // Rumus Rusa = 0.8 * Rumput
+        // Rumus Serigala = 0.5 * Rusa
+        
+        const deerH = val * 0.8;
+        const wolfH = deerH * 0.5;
+
+        document.getElementById('bar-deer').style.height = deerH + '%';
+        document.getElementById('bar-wolf').style.height = wolfH + '%';
+
+        const msg = document.getElementById('eco-msg');
+        if(val < 20) msg.innerText = "Bahaya! Kelaparan massal.";
+        else if(val > 80) msg.innerText = "Hutan rimbun, semua kenyang!";
+        else msg.innerText = "Ekosistem Seimbang.";
+    };
+
+    // G. BACTERIA
+    let bacN = 0;
+    window.splitBacteria = function() {
+        if(bacN > 8) {
+            // Reset
+            bacN = 0;
+            document.getElementById('petri-dish').innerHTML = '<div class="bacteria w-4 h-4 bg-green-500 rounded-full absolute top-1/2 left-1/2 -ml-2 -mt-2 shadow-[0_0_10px_#4ade80] animate-pulse"></div><div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 transition hover:opacity-100"><span class="text-white/80 font-bold bg-black/50 px-2 py-1 rounded">Klik untuk Belah</span></div>';
+        } else {
+            bacN++;
+            const total = Math.pow(2, bacN);
+            // Tambah bakteri baru (visual)
+            const parent = document.getElementById('petri-dish');
+            const currentCount = parent.querySelectorAll('.bacteria').length;
+            const needed = total - currentCount;
+            
+            for(let i=0; i<needed; i++) {
+                const b = document.createElement('div');
+                b.className = 'bacteria w-3 h-3 bg-green-400 rounded-full absolute shadow-[0_0_5px_#4ade80] transition transform scale-0';
+                b.style.top = (Math.random()*80 + 10) + '%';
+                b.style.left = (Math.random()*80 + 10) + '%';
+                parent.appendChild(b);
+                setTimeout(()=>b.style.transform="scale(1)", 50);
+            }
+        }
+        document.getElementById('bac-n').innerText = bacN;
+        document.getElementById('bac-total').innerText = Math.pow(2, bacN);
+    };
+
+    // H. BIRD NAV
+    window.initBirdMap = function() {
+        const cv = document.getElementById('cv-bird');
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        cv.width = cv.parentElement.clientWidth; cv.height = cv.parentElement.clientHeight;
+        
+        // Draw Grid
+        ctx.strokeStyle = '#BFDBFE';
+        ctx.lineWidth = 1;
+        const step = 40;
+        for(let x=0; x<cv.width; x+=step) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,cv.height); ctx.stroke(); }
+        for(let y=0; y<cv.height; y+=step) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(cv.width,y); ctx.stroke(); }
+
+        // Start Point A
+        ctx.fillStyle = '#EF4444'; ctx.beginPath(); ctx.arc(40, cv.height-40, 5, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#1E3A8A'; ctx.font='12px bold sans-serif'; ctx.fillText("A (Home)", 50, cv.height-40);
+    };
+    window.moveBird = function(e) {
+        const cv = document.getElementById('cv-bird');
+        const ctx = cv.getContext('2d');
+        const rect = cv.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Draw Line from Home
+        initBirdMap(); // Clear old lines
+        ctx.beginPath();
+        ctx.moveTo(40, cv.height-40);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = '#2563EB'; ctx.lineWidth=2; ctx.setLineDash([5,5]);
+        ctx.stroke();
+
+        // Draw Bird
+        ctx.font = '20px serif'; ctx.fillText('🕊️', x-10, y);
+        
+        // Update Coor text (Map canvas pixels to Cartesian approx)
+        const mapX = Math.round((x - 40) / 40);
+        const mapY = Math.round((cv.height - 40 - y) / 40);
+        document.getElementById('bird-coor').innerText = `(${mapX}, ${mapY})`;
+    };
+
+    // I. QUAKE DATA
+    window.genQuake = function() {
+        const map = document.getElementById('quake-map');
+        if(!map) return;
+        // Clear old dots (keep grid bg)
+        map.innerHTML = '<div class="absolute inset-0" style="background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 20px 20px;"></div>';
+        
+        // Generate 20 points
+        for(let i=0; i<20; i++) {
+            const dot = document.createElement('div');
+            // Random Pos
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            // Logic: Dekat pusat (0,0) = Besar (Kuat). Jauh = Kecil.
+            // Distance from bottom-left (0, 100% top)
+            // Let's say epicenter is bottom left (0,0 in math terms)
+            const dist = Math.sqrt(x*x + y*y);
+            const size = Math.max(5, 30 - (dist * 0.2)); // Max 30px
+            const color = size > 20 ? 'bg-red-500' : (size > 10 ? 'bg-orange-400' : 'bg-yellow-300');
+
+            dot.className = `absolute rounded-full opacity-70 border border-white shadow-sm ${color} transition transform scale-0`;
+            dot.style.left = x + '%';
+            dot.style.bottom = y + '%';
+            dot.style.width = size + 'px';
+            dot.style.height = size + 'px';
+            
+            map.appendChild(dot);
+            setTimeout(() => dot.style.transform = "scale(1)", i*50);
+        }
+    };
     
     // --- 5. PROFILE & AI ---
     window.openProfile = function() {
@@ -4125,6 +4477,7 @@
 </script>
 </body>
 </html>
+
 
 
 
