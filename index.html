@@ -2491,12 +2491,7 @@
                 </div>
                 <script>setTimeout(initBirdMap, 500);
             </div>`;
-            
-
-            // Fallback untuk helper forms
-            return `<div class="p-10 text-center">App Under Construction</div>`;
-        }
-if(item.appType === 'quake') return `
+            if(item.appType === 'quake') return `
             <div class="h-full flex flex-col animate-fade-in bg-earth-50 rounded-3xl p-4 border border-earth-200">
                 <h3 class="font-bold text-earth-800 text-center mb-2">Peta Sebaran Gempa</h3>
                 <div class="flex-1 bg-white rounded-xl border border-earth-200 relative overflow-hidden" id="quake-map">
@@ -2508,6 +2503,10 @@ if(item.appType === 'quake') return `
                 </div>
                 <script>setTimeout(genQuake, 500);
             </div>`;
+
+            // Fallback untuk helper forms
+            return `<div class="p-10 text-center">App Under Construction</div>`;
+        }
         // --- FALLBACK UTAMA RENDERAPP (Jika tidak ada tipe yang cocok) ---
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${cat.hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
 
@@ -4477,6 +4476,7 @@ if(item.appType === 'quake') return `
 </script>
 </body>
 </html>
+
 
 
 
