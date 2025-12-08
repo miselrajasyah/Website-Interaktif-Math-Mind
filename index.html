@@ -1304,7 +1304,7 @@
                 // 16. DATA GEMPA (Scatter Plot)
                 { title: "Data Gempa", icon: "fa-house-damage", type: "app", appType: "quake", desc: "Analisis persebaran titik gempa pada peta koordinat." }
             ]
-        },
+        }
     ];
 
     // --- 2. INITIALIZATION & RENDER LOGIC ---
@@ -2503,6 +2503,10 @@
                 </div>
                 <script>setTimeout(genQuake, 500);
             </div>`;
+
+            // Fallback untuk helper forms
+            return `<div class="p-10 text-center">App Under Construction</div>`;
+        }
             
         // --- FALLBACK UTAMA RENDERAPP (Jika tidak ada tipe yang cocok) ---
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${cat.hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
@@ -4473,6 +4477,7 @@
 </script>
 </body>
 </html>
+
 
 
 
