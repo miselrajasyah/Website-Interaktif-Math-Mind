@@ -866,158 +866,50 @@
             id: "kinesthetic", name: "Bodily Kinesthetic", icon: "fa-running", color: "earth-800", hex: "#5E4934", 
             desc: "Belajar dengan Gerak, Sentuhan & Aktivitas Fisik", 
             media: [
-                // --- 1. MEDIA YANG SUDAH ADA (DIPERLUAS VARIASINYA) ---
-                { 
-                    title: "Lab Timbangan", icon: "fa-balance-scale", type: "app", appType: "balance", 
-                    desc: "Simulasi Fisik: Seimbangkan beban kiri dan kanan untuk mencari nilai x." 
-                },
-                { 
-                    title: "Gerak Gradien", icon: "fa-hiking", type: "task", 
-                    desc: "Hafalan 'Muscle Memory' untuk kemiringan garis.",
-                    contentList: [
-                        { content: "GRADIEN POSITIF: Angkat tangan kirimu ke bawah, tangan kanan ke atas. Badan miring ke kanan. Seperti mendaki bukit!" },
-                        { content: "GRADIEN NEGATIF: Angkat tangan kiri ke atas, tangan kanan ke bawah. Badan miring ke kiri. Seperti meluncur turun!" },
-                        { content: "GRADIEN NOL: Rentangkan kedua tangan datar ke samping seperti pesawat. Jalanan rata!" },
-                        { content: "TAK TERDEFINISI: Tegakkan satu tangan lurus vertikal ke atas. Tebing curam!" }
-                    ] 
-                },
-                { 
-                    title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", 
-                    desc: "Latihan Motorik Halus: Geser dan kelompokkan suku sejenis dengan jarimu." 
-                },
-                { 
-                    title: "Aljabar Tiles Fisik", icon: "fa-th-large", type: "task", 
-                    desc: "Gunakan benda nyata (kertas/karton) untuk menyentuh matematika.",
-                    contentList: [
-                        { content: "PERSIAPAN: Potong kertas. Persegi Besar (10x10cm) = x². Persegi Panjang (10x1cm) = x. Kotak Kecil (1x1cm) = 1." },
-                        { content: "TANTANGAN 1: Susun bentuk '2x + 3'. Ambil 2 Persegi Panjang dan 3 Kotak Kecil. Rasakan jumlahnya." },
-                        { content: "TANTANGAN 2: Buktikan distributif 2(x+1). Buat dua tumpukan yang masing-masing berisi (1 Persegi Panjang + 1 Kotak). Gabungkan!" },
-                        { content: "TANTANGAN 3: Faktorisasi. Bisakah kamu menyusun x² + 3x + 2 menjadi satu PERSEGI PANJANG besar yang utuh?" }
-                    ]
-                },
+                // 1. TIMBANGAN (Sudah Interaktif)
+                { title: "Lab Timbangan", icon: "fa-balance-scale", type: "app", appType: "balance", desc: "Simulasi Fisik: Seimbangkan beban kiri dan kanan." },
 
-                // --- 2. 12 MEDIA BARU (AKTIVITAS FISIK) ---
+                // 2. GRADIENT RACER (Game Balap Miring)
+                { title: "Gradient Racer", icon: "fa-biking", type: "app", appType: "racer", desc: "Miringkan sepeda (Slider) sesuai curamnya bukit gradien!" },
 
-                // 5. Lompat Garis Bilangan (Floor Activity)
-                {
-                    title: "Lompat Bilangan", icon: "fa-shoe-prints", type: "task",
-                    desc: "Jadikan lantai ubinmu sebagai garis bilangan raksasa.",
-                    contentList: [
-                        { content: "OPERASI x + 2: Berdiri di ubin acak (sebagai x). Lompat 2 ubin ke DEPAN." },
-                        { content: "OPERASI x - 3: Berdiri di ubin acak (x). Mundur 3 langkah ke BELAKANG." },
-                        { content: "OPERASI 2x: Jika kamu berdiri di ubin ke-2, lompatlah jauh ke ubin ke-4!" }
-                    ]
-                },
+                // 3. SORTIR VARIABEL (Drag Drop)
+                { title: "Sortir Variabel", icon: "fa-hand-paper", type: "app", appType: "dragdrop", desc: "Kelompokkan suku sejenis dengan jarimu.", items: ["3x", "5", "-2x", "10", "x", "-7"], explanation: "Gabungkan x dengan x, angka dengan angka." },
 
-                // 6. Senam Variabel (Body Movement)
-                {
-                    title: "Senam Aljabar", icon: "fa-child", type: "task",
-                    desc: "Gerakkan tubuh untuk mewakili suku aljabar.",
-                    contentList: [
-                        { content: "KODE: Kepala = x² (Pangkat tinggi), Bahu = x, Pinggang = Konstanta." },
-                        { content: "SOAL: x² + 2x. Pegang Kepala, lalu tepuk Bahu 2 kali!" },
-                        { content: "SOAL: 2x² - x. Pegang Kepala 2 kali, lalu silangkan tangan di dada (tanda minus) dan pegang bahu." }
-                    ]
-                },
+                // 4. ALJABAR TILES (Builder)
+                { title: "Konstruktor Tiles", icon: "fa-th-large", type: "app", appType: "tiles", desc: "Susun balok-balok untuk membangun persamaan '2x + 3'." },
 
-                // 7. Navigasi Ruangan (Spatial-Kinesthetic)
-                {
-                    title: "Koordinat Ruangan", icon: "fa-map-marker-alt", type: "task",
-                    desc: "Berjalanlah sesuai titik koordinat (x, y).",
-                    contentList: [
-                        { content: "Titik (0,0) adalah kursimu. Bergeraklah ke (2, 3). Artinya: 2 langkah ke KANAN, 3 langkah ke DEPAN." },
-                        { content: "Dimana posisi (-1, -2)? Mundur 1 langkah ke KIRI, 2 langkah ke BELAKANG." },
-                        { content: "Kembali ke (0,0) secepat mungkin!" }
-                    ]
-                },
+                // 5. FROG JUMP (Garis Bilangan)
+                { title: "Lompat Katak", icon: "fa-frog", type: "app", appType: "jumper", desc: "Tekan KANAN/KIRI untuk melompat di garis bilangan sesuai operasi hitung." },
 
-                // 8. Isyarat Tangan (Hand Signs)
-                {
-                    title: "Bahasa Isyarat", icon: "fa-hands-helping", type: "task",
-                    desc: "Komunikasikan simbol matematika tanpa suara.",
-                    contentList: [
-                        { content: "Tanda '+': Silangkan kedua telunjukmu membentuk palang." },
-                        { content: "Tanda 'x' (Variabel): Silangkan kedua lengan di depan dada (Wakanda Style)." },
-                        { content: "Tanda '=': Sejajarkan kedua lengan bawahmu secara horizontal." },
-                        { content: "Tanda '<': Sikut kiri ditekuk tajam ke arah kanan." }
-                    ]
-                },
+                // 6. SIMON SAYS (Senam Simbol)
+                { title: "Senam Simbol", icon: "fa-child", type: "app", appType: "simon", desc: "Ikuti gerakan instruktur! Klik ikon tubuh yang sesuai dengan variabel." },
 
-                // 9. Jalan Kaki Fungsi (Speed/Rate)
-                {
-                    title: "Jalan Fungsi", icon: "fa-walking", type: "task",
-                    desc: "Rasakan perbedaan gradien lewat kecepatan jalan.",
-                    contentList: [
-                        { content: "Fungsi y = x (Standar): Jalan santai dengan tempo tetap. (Setiap 1 detik maju 1 langkah)." },
-                        { content: "Fungsi y = 2x (Curam): Jalan Cepat/Lari kecil! (Setiap 1 detik harus maju 2 langkah)." },
-                        { content: "Fungsi y = 0.5x (Landai): Jalan lambat (Slow motion). (Butuh 2 detik untuk maju 1 langkah)." }
-                    ]
-                },
+                // 7. LABIRIN KOORDINAT (Navigasi)
+                { title: "Labirin (x,y)", icon: "fa-map-signs", type: "app", appType: "maze", desc: "Pandu titik merah menuju koordinat tujuan menggunakan tombol panah." },
 
-                // 10. Tepuk Pola (Rhythm/Movement)
-                {
-                    title: "Tepuk Irama", icon: "fa-hand-sparkles", type: "task",
-                    desc: "Rasakan pola barisan bilangan lewat tepukan tangan.",
-                    contentList: [
-                        { content: "Pola Aritmatika (+1): Tepuk 1x, jeda, Tepuk 2x, jeda, Tepuk 3x... (Irama konstan)." },
-                        { content: "Pola Geometri (x2): Tepuk 1x, jeda, Tepuk 2x, jeda, Tepuk 4x (Makin lama makin panik/cepat!)." }
-                    ]
-                },
+                // 8. COCOK ISYARAT (Memory Game)
+                { title: "Memory Isyarat", icon: "fa-hands-helping", type: "app", appType: "memory", desc: "Cari pasangan kartu: Simbol Matematika vs Isyarat Tangan." },
 
-                // 11. Ukur & Rumuskan (Real Object Interaction)
-                {
-                    title: "Detektif Ukur", icon: "fa-ruler-combined", type: "input", inputType: "textarea",
-                    desc: "Interaksi benda nyata: Ukur benda di sekitarmu.",
-                    prompt: "Ambil buku atau HP. Ukur Panjang (p) dan Lebar (l) menggunakan jengkal jarimu. Tulis rumus Kelilingnya (K=2p+2l) dan hasil hitungannya!"
-                },
+                // 9. SPEED RUNNER (Fungsi Kecepatan)
+                { title: "Speed Runner", icon: "fa-tachometer-alt", type: "app", appType: "runner", desc: "Atur kecepatan lari karakter agar sesuai dengan grafik fungsi." },
 
-                // 12. Manipulasi Koin (Tactile)
-                {
-                    title: "Koin PLSV", icon: "fa-coins", type: "task",
-                    desc: "Selesaikan persamaan linear menggunakan uang koin.",
-                    contentList: [
-                        { content: "SIAPKAN: Koin sebagai '1', Kunci/Penghapus sebagai 'x'." },
-                        { content: "SOAL: x + 2 = 5. Taruh 1 Kunci dan 2 Koin di kiri. Taruh 5 Koin di kanan." },
-                        { content: "PENYELESAIAN: Ambil 2 koin dari KEDUA sisi secara bersamaan. Apa yang tersisa? (x = 3)." }
-                    ]
-                },
+                // 10. RHYTHM MASTER (Tepuk Pola)
+                { title: "Rhythm Master", icon: "fa-drum", type: "app", appType: "rhythm_game", desc: "Tekan SPASI tepat pada ketukan pola barisan bilangan!" },
 
-                // 13. Pantomim Aljabar (Charades)
-                {
-                    title: "Tebak Gaya", icon: "fa-theater-masks", type: "task",
-                    desc: "Mainkan tebak-tebakan gaya dengan teman/cermin.",
-                    contentList: [
-                        { content: "Peragakan '3x' tanpa bicara! (Misal: Tunjuk 3 jari, lalu silangkan tangan)." },
-                        { content: "Peragakan 'x < 5' (Tunjuk gaya x, lalu gaya badan mengecil/jongkok, lalu tunjuk 5 jari)." }
-                    ]
-                },
+                // 11. PENGGARIS VIRTUAL (Ukur)
+                { title: "Ukur Benda", icon: "fa-ruler", type: "app", appType: "ruler", desc: "Geser penggaris digital untuk mengukur keliling bangun datar." },
 
-                // 14. Finger Math (Tactile Calculation)
-                {
-                    title: "Substitusi Jari", icon: "fa-hand-point-up", type: "task",
-                    desc: "Hitung nilai fungsi f(x) dengan jari tangan.",
-                    contentList: [
-                        { content: "Rumus f(x) = 2x + 1. Jika x = 2 (acungkan 2 jari), kalikan 2 (jadi 4 jari), tambah 1 (5 jari). Hasilnya 5!" },
-                        { content: "Coba untuk x = 3 dengan jarimu. Berapa jari akhirnya?" }
-                    ]
-                },
+                // 12. KOIN BALANCE (Drag Drop)
+                { title: "Teka-teki Koin", icon: "fa-coins", type: "app", appType: "dragdrop", desc: "Pisahkan koin emas (positif) dan koin perak (negatif).", items: ["🪙", "🪙", "⚪", "⚪", "🪙"], explanation: "Koin sejenis dikumpulkan." },
 
-                // 15. Lempar Tangkap (Reflex)
-                {
-                    title: "Lempar Soal", icon: "fa-basketball-ball", type: "task",
-                    desc: "Latihan refleks dan kecepatan berpikir.",
-                    contentList: [
-                        { content: "Lempar bola (atau bantal) ke atas. Saat bola di udara, teriakkan nilai x dari 'x + 3 = 10'. Tangkap bola sebelum jatuh!" },
-                        { content: "Pantulkan bola ke lantai sambil menghitung kelipatan 3 (3, 6, 9, 12...)." }
-                    ]
-                },
+                // 13. EMOJI CHARADES (Tebak Gaya)
+                { title: "Tebak Emoji", icon: "fa-theater-masks", type: "quiz", desc: "Pilih emoji yang menggambarkan 'Gradien Negatif'!", contentList: [{question:"Mana ekspresi untuk Gradien Negatif (Turun)?", options:["📉","📈","➡️","⬆️"], answer:0}, {question:"Mana ekspresi untuk x² (Positif)?", options:["😊 (Senyum)","☹️ (Cemberut)","😐 (Datar)","🤔"], answer:0}] },
 
-                // 16. Refleksi Gerak (Introspective)
-                {
-                    title: "Jurnal Gerak", icon: "fa-pen-alt", type: "input", inputType: "textarea",
-                    desc: "Evaluasi pengalaman fisikmu.",
-                    prompt: "Gerakan mana yang paling membantumu mengingat konsep Gradien? (Apakah gerakan tangan pesawat atau gerakan mendaki gunung?)"
-                }
+                // 14. DIGITAL FINGERS (Hitung Jari)
+                { title: "Hitung Jari", icon: "fa-hand-paper", type: "app", appType: "fingers", desc: "Klik jari untuk melipat/membuka. Representasikan nilai x = 3." },
+
+                // 15. REFLEX MATH (Game Tangkap Bola - Sudah Ada)
+                { title: "Reflex Math", icon: "fa-basketball-ball", type: "app", appType: "reflex", desc: "Tangkap bola jawaban yang benar sebelum jatuh!" }
             ]
         },
         { 
@@ -1606,6 +1498,89 @@
                     <button onclick="playGs()" class="px-6 py-2 bg-earth-700 text-white rounded-lg font-bold shadow-lg hover:bg-earth-800"><i class="fas fa-play"></i> MAINKAN GRAFIK</button>
                 </div>
             </div>`;
+        if(['jumper', 'maze', 'runner', 'racer'].includes(item.appType)) return `
+            <div class="h-full flex flex-col animate-fade-in">
+                <div class="relative flex-1 bg-earth-800 rounded-3xl overflow-hidden border-4 border-earth-600 shadow-xl group cursor-pointer" onclick="startGame('${item.appType}')">
+                    <canvas id="cv-game-${item.appType}" class="w-full h-full block"></canvas>
+                    <div id="overlay-${item.appType}" class="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white backdrop-blur-sm z-10 transition-opacity">
+                        <i class="fas fa-play-circle text-6xl mb-4 text-accent-yellow animate-pulse"></i>
+                        <h3 class="text-2xl font-bold">Klik untuk Main</h3>
+                        <p class="text-sm opacity-80 mt-2 text-center max-w-xs">${item.desc}</p>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white/20 px-3 py-1 rounded text-xs text-white font-mono pointer-events-none">Status: <span id="status-${item.appType}">Ready</span></div>
+                </div>
+                ${item.appType === 'jumper' ? '<div class="mt-4 flex justify-center gap-4"><button onmousedown="gameInput(\'left\')" class="p-4 bg-earth-200 rounded-full shadow-lg active:scale-90"><i class="fas fa-arrow-left"></i></button><button onmousedown="gameInput(\'right\')" class="p-4 bg-earth-200 rounded-full shadow-lg active:scale-90"><i class="fas fa-arrow-right"></i></button></div>' : ''}
+                ${item.appType === 'maze' ? '<div class="mt-4 grid grid-cols-3 gap-2 w-32 mx-auto"><div class="col-start-2"><button onmousedown="gameInput(\'up\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-up"></i></button></div><div class="col-start-1 row-start-2"><button onmousedown="gameInput(\'left\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-left"></i></button></div><div class="col-start-3 row-start-2"><button onmousedown="gameInput(\'right\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-right"></i></button></div><div class="col-start-2 row-start-3"><button onmousedown="gameInput(\'down\')" class="w-full py-2 bg-earth-200 rounded shadow active:scale-90"><i class="fas fa-arrow-down"></i></button></div></div>' : ''}
+                ${item.appType === 'racer' ? '<div class="mt-4 px-8"><input type="range" min="-45" max="45" value="0" class="w-full h-4 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-earth-700" oninput="gameInput(this.value)"></div>' : ''}
+            </div>`;
+        if(item.appType === 'tiles') return `
+            <div class="h-full flex flex-col animate-fade-in relative">
+                <div class="flex-1 bg-white border-2 border-dashed border-earth-300 rounded-2xl mb-4 relative overflow-hidden" id="tile-canvas">
+                    <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-earth-200 font-bold text-4xl select-none pointer-events-none">AREA KERJA</p>
+                </div>
+                <div class="flex gap-2 justify-center bg-earth-100 p-4 rounded-xl overflow-x-auto">
+                    <div draggable="true" ondragstart="ddStartTile(event, 'x2')" class="w-16 h-16 bg-blue-500 border-2 border-blue-700 cursor-grab flex items-center justify-center text-white font-bold shadow hover:scale-105 transition shrink-0">x²</div>
+                    <div draggable="true" ondragstart="ddStartTile(event, 'x')" class="w-8 h-16 bg-green-500 border-2 border-green-700 cursor-grab flex items-center justify-center text-white font-bold shadow hover:scale-105 transition shrink-0">x</div>
+                    <div draggable="true" ondragstart="ddStartTile(event, '1')" class="w-8 h-8 bg-yellow-400 border-2 border-yellow-600 cursor-grab flex items-center justify-center text-yellow-900 font-bold shadow hover:scale-105 transition shrink-0">1</div>
+                    <button onclick="document.getElementById('tile-canvas').innerHTML=''" class="ml-4 px-4 py-2 bg-red-100 text-red-500 rounded-lg hover:bg-red-200"><i class="fas fa-trash"></i></button>
+                </div>
+                    document.getElementById('tile-canvas').addEventListener('dragover', e=>e.preventDefault());
+                    document.getElementById('tile-canvas').addEventListener('drop', e=>{
+                        e.preventDefault(); const t = e.dataTransfer.getData('type');
+                        const el = document.createElement('div');
+                        const cls = {'x2':'w-16 h-16 bg-blue-500 text-white','x':'w-8 h-16 bg-green-500 text-white','1':'w-8 h-8 bg-yellow-400 text-yellow-900'};
+                        el.className = cls[t] + ' absolute border border-white/20 shadow-sm flex items-center justify-center font-bold select-none cursor-move';
+                        el.innerText = t;
+                        el.style.left = (e.offsetX-20)+'px'; el.style.top = (e.offsetY-20)+'px';
+                        el.onmousedown = function(ev){ this.style.zIndex=10; const sX=ev.clientX-this.offsetLeft, sY=ev.clientY-this.offsetTop; document.onmousemove=m=>{this.style.left=(m.clientX-sX)+'px';this.style.top=(m.clientY-sY)+'px'}; document.onmouseup=()=>{document.onmousemove=null;this.style.zIndex=1;} };
+                        e.target.appendChild(el);
+                    });
+                    window.ddStartTile = (e,t) => e.dataTransfer.setData('type', t);
+            </div>`;
+        if(item.appType === 'rhythm_game') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-900 rounded-3xl relative overflow-hidden text-center text-white p-4">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-2">Pola: 1 - 2 - 4 - 8</h3>
+                    <div class="flex gap-2 justify-center">
+                        <div id="rhy-1" class="w-4 h-4 rounded-full bg-white/20"></div>
+                        <div id="rhy-2" class="w-4 h-4 rounded-full bg-white/20"></div>
+                        <div id="rhy-3" class="w-4 h-4 rounded-full bg-white/20"></div>
+                        <div id="rhy-4" class="w-4 h-4 rounded-full bg-white/20"></div>
+                    </div>
+                </div>
+                <div id="rhy-target" class="w-32 h-32 rounded-full border-4 border-white/30 flex items-center justify-center text-4xl shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-transform duration-100">
+                    <i class="fas fa-drum"></i>
+                </div>
+                <p class="mt-8 text-sm opacity-70">Tekan SPASI atau KLIK lingkaran saat lingkaran menyala!</p>
+                <div id="rhy-msg" class="absolute bottom-10 font-bold text-xl h-6 text-accent-yellow"></div>
+                <button onclick="startRhythm()" class="absolute inset-0 bg-black/60 z-10 flex items-center justify-center text-2xl font-bold hover:bg-black/50 transition">MULAI</button>
+            </div>`;
+        if(item.appType === 'fingers') return `
+            <div class="h-full flex flex-col items-center justify-center animate-fade-in bg-earth-50 rounded-3xl p-4">
+                <h3 class="text-xl font-bold text-earth-800 mb-8">Representasikan x = <span id="fin-target">3</span></h3>
+                <div class="flex gap-4">
+                    ${[1,2,3,4,5].map(i => `
+                        <div onclick="toggleFinger(this)" class="finger w-12 h-32 bg-earth-200 rounded-t-full border-2 border-earth-300 cursor-pointer hover:bg-earth-300 transition-all transform origin-bottom relative shadow-md" data-up="false">
+                            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-bold text-earth-500">${i}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <p class="mt-8 text-earth-600 font-medium">Klik jari untuk melipat/mengangkat</p>
+                <button onclick="checkFinger()" class="mt-4 px-6 py-2 bg-earth-700 text-white rounded-lg shadow">Cek Jawaban</button>
+            </div>`;
+        if(item.appType === 'ruler') return `
+            <div class="h-full flex flex-col animate-fade-in relative overflow-hidden bg-white rounded-3xl border border-earth-200 select-none">
+                <div class="absolute top-20 left-10 w-32 h-20 bg-blue-100 border-2 border-blue-400 flex items-center justify-center text-blue-500 font-bold">Buku (P=?)</div>
+                
+                <div id="drag-ruler" class="absolute bottom-10 left-10 w-[400px] h-16 bg-yellow-200 border border-yellow-500 shadow-xl cursor-move flex items-end px-2" onmousedown="dragStart(event, this)">
+                    ${Array.from({length:21}).map((_,i)=>`<div class="flex-1 border-r border-black/50 h-full relative group"><span class="absolute -top-4 -right-1 text-xs font-mono">${i}</span><div class="h-1/2 border-r border-black/30 absolute right-1/2 bottom-0"></div></div>`).join('')}
+                </div>
+                <div class="absolute top-4 right-4 bg-earth-50 p-4 rounded-xl shadow border border-earth-100">
+                    <p class="text-xs font-bold text-earth-400 uppercase">Hasil Ukur</p>
+                    <input type="number" id="ruler-inp" placeholder="cm" class="w-20 p-1 border-b-2 border-earth-300 outline-none font-mono text-lg">
+                    <button onclick="if(document.getElementById('ruler-inp').value=='8'){alert('Benar!');addXP(10);}else{alert('Coba lagi. Geser penggaris ke sisi buku.');}" class="bg-earth-700 text-white px-3 py-1 rounded text-sm ml-2">Cek</button>
+                </div>
+            </div>`;
 
         return `<div class="text-center animate-fade-in p-10"><i class="fas ${item.icon} text-6xl opacity-20 mb-4" style="color:${hex}"></i><p class="text-earth-600 font-serif text-lg">Modul Interaktif Siap.</p></div>`;
     }
@@ -1749,6 +1724,190 @@
         const isV = /[a-zA-Z]/.test(el.innerText); const ok = (t==='var'&&isV) || (t==='const'&&!isV);
         if(ok) { e.currentTarget.querySelector('div').appendChild(el); el.className="px-3 py-1 bg-white border border-green-500 text-green-700 rounded shadow-sm text-sm font-bold"; el.draggable=false; addXP(5); }
         else { el.classList.add('bg-red-100','shake'); setTimeout(()=>el.classList.remove('bg-red-100','shake'),500); }
+    };
+    
+    // --- 8. LOGIKA GAME KINESTETIK (ALL IN ONE) ---
+    
+    // Global Game State
+    let gameLoop, gameState = { active: false, type: '', pos: 0, score: 0 };
+
+    window.startGame = function(type) {
+        if(gameState.active) return; // Prevent double start
+        gameState = { active: true, type: type, pos: 50, score: 0, enemy: 100, vel: 0 };
+        document.getElementById(`overlay-${type}`).style.opacity = '0';
+        document.getElementById(`overlay-${type}`).style.pointerEvents = 'none';
+        
+        if(type === 'jumper') gameState.pos = 1; // Posisi awal di garis bilangan
+        if(type === 'maze') gameState.pos = {x:1, y:1}; // Grid 10x10
+        if(type === 'racer') gameState.angle = 0;
+
+        gameLoop = requestAnimationFrame(() => gameTick(type));
+    };
+
+    window.gameInput = function(val) {
+        if(!gameState.active) return;
+        if(gameState.type === 'jumper') {
+            if(val === 'right') gameState.pos++;
+            if(val === 'left') gameState.pos--;
+            document.getElementById(`status-jumper`).innerText = `Posisi: ${gameState.pos}`;
+        }
+        if(gameState.type === 'maze') {
+            if(val==='up') gameState.pos.y--;
+            if(val==='down') gameState.pos.y++;
+            if(val==='left') gameState.pos.x--;
+            if(val==='right') gameState.pos.x++;
+            // Batas dinding
+            gameState.pos.x = Math.max(0, Math.min(10, gameState.pos.x));
+            gameState.pos.y = Math.max(0, Math.min(10, gameState.pos.y));
+        }
+        if(gameState.type === 'racer') {
+            gameState.angle = parseInt(val);
+        }
+    };
+
+    function gameTick(type) {
+        if(!gameState.active) return;
+        const cv = document.getElementById(`cv-game-${type}`);
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        
+        // Resize Canvas
+        cv.width = cv.parentElement.clientWidth; cv.height = cv.parentElement.clientHeight;
+        const w = cv.width, h = cv.height;
+
+        ctx.clearRect(0,0,w,h);
+
+        // --- RENDER LOGIC ---
+        if(type === 'jumper') {
+            // Background Garis Bilangan
+            ctx.strokeStyle = '#fff'; ctx.lineWidth=2;
+            ctx.beginPath(); ctx.moveTo(0, h/2); ctx.lineTo(w, h/2); ctx.stroke();
+            
+            // Player (Katak)
+            const unit = w/10;
+            const x = gameState.pos * unit + (w/2); // 0 di tengah
+            ctx.fillStyle = '#4ADE80'; // Green
+            ctx.beginPath(); ctx.arc(x, h/2 - 20, 15, 0, Math.PI*2); ctx.fill();
+            // Mata
+            ctx.fillStyle='black'; ctx.beginPath(); ctx.arc(x-5, h/2-25, 2, 0, Math.PI*2); ctx.arc(x+5, h/2-25, 2, 0, Math.PI*2); ctx.fill();
+            
+            // Target
+            ctx.fillStyle = 'rgba(255,255,0,0.3)';
+            ctx.beginPath(); ctx.arc((3*unit + w/2), h/2, 20, 0, Math.PI*2); ctx.fill();
+            ctx.fillStyle = '#fff'; ctx.fillText('Target: 3', 10, 20);
+
+            if(gameState.pos === 3) { ctx.fillStyle='gold'; ctx.fillText('MENANG!', w/2-30, h/2-50); addXP(1); }
+        }
+
+        if(type === 'maze') {
+            const size = Math.min(w,h)/10;
+            // Grid
+            ctx.strokeStyle = '#ffffff20';
+            for(let i=0;i<10;i++) for(let j=0;j<10;j++) ctx.strokeRect(i*size, j*size, size, size);
+            
+            // Player
+            ctx.fillStyle = '#F87171'; // Red
+            ctx.fillRect(gameState.pos.x * size + 2, gameState.pos.y * size + 2, size-4, size-4);
+
+            // Target (5,5)
+            ctx.fillStyle = '#34D399'; // Green
+            ctx.fillRect(5 * size, 5 * size, size, size);
+            ctx.fillStyle = 'white'; ctx.font = '10px monospace'; ctx.fillText('FINISH', 5*size+2, 5*size+size/2);
+
+            if(gameState.pos.x===5 && gameState.pos.y===5) { gameState.active=false; alert('Sampai!'); addXP(10); }
+        }
+
+        if(type === 'racer') {
+            // Langit & Tanah
+            ctx.fillStyle = '#38BDF8'; ctx.fillRect(0,0,w,h/2);
+            ctx.fillStyle = '#166534'; ctx.fillRect(0,h/2,w,h/2);
+            
+            // Bukit (Miring sesuai input slider)
+            ctx.save();
+            ctx.translate(w/2, h/2);
+            ctx.rotate(gameState.angle * Math.PI / 180);
+            
+            ctx.fillStyle = '#65A30D';
+            ctx.fillRect(-w, 0, w*2, h); // Tanah miring
+            
+            // Sepeda
+            ctx.fillStyle = 'white';
+            ctx.fillRect(-20, -30, 40, 30);
+            ctx.beginPath(); ctx.arc(-15, 0, 10, 0, Math.PI*2); ctx.arc(15, 0, 10, 0, Math.PI*2); ctx.fillStyle='black'; ctx.fill();
+            
+            ctx.restore();
+
+            // Instruksi
+            ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif';
+            ctx.fillText(`Sudut: ${gameState.angle}°`, 20, 30);
+            if(gameState.angle > 15) ctx.fillText("Nanjak Berat! (m > 0)", 20, 50);
+            else if(gameState.angle < -15) ctx.fillText("Turun Cepat! (m < 0)", 20, 50);
+            else ctx.fillText("Datar (m ≈ 0)", 20, 50);
+        }
+
+        gameLoop = requestAnimationFrame(() => gameTick(type));
+    }
+
+    // --- Helper untuk Fingers & Rhythm ---
+    window.toggleFinger = function(el) {
+        const isUp = el.dataset.up === 'true';
+        if(isUp) {
+            el.style.transform = 'scaleY(1)'; 
+            el.style.backgroundColor = '#E6E2D3'; // Warna kulit
+            el.dataset.up = 'false';
+        } else {
+            el.style.transform = 'scaleY(0.6)'; // Melipat
+            el.style.backgroundColor = '#BC6C25'; // Warna gelap
+            el.dataset.up = 'true';
+        }
+    };
+    window.checkFinger = function() {
+        const folded = document.querySelectorAll('.finger[data-up="true"]').length;
+        // Logic terbalik: Jari terlipat biasanya menghitung 0, tapi di sini kita anggap 'menunjukkan angka' dengan sisa jari berdiri?
+        // Sederhananya: Hitung jari yang BERDIRI (scaleY 1).
+        const standing = document.querySelectorAll('.finger[data-up="false"]').length;
+        if(standing === 3) { alert("Benar! 3 Jari."); addXP(10); } else alert(`Itu ${standing} jari. Coba buat 3.`);
+    };
+
+    window.startRhythm = function() {
+        // Simple mock rhythm
+        const target = document.getElementById('rhy-target');
+        const seq = [1, 2, 4, 8];
+        let i = 0;
+        target.parentElement.querySelector('button').style.display='none';
+        
+        const interval = setInterval(() => {
+            if(i >= seq.length) { clearInterval(interval); return; }
+            target.style.transform = 'scale(1.2)';
+            target.style.borderColor = '#FACC15';
+            document.getElementById(`rhy-${i+1}`).style.backgroundColor = '#FACC15';
+            setTimeout(() => {
+                target.style.transform = 'scale(1)';
+                target.style.borderColor = 'rgba(255,255,255,0.3)';
+            }, 200);
+            i++;
+        }, 1000);
+        
+        // Input handler
+        document.body.onkeydown = (e) => {
+            if(e.code === 'Space') {
+                document.getElementById('rhy-msg').innerText = "GREAT!";
+                setTimeout(()=>document.getElementById('rhy-msg').innerText="", 500);
+                addXP(2);
+            }
+        };
+    };
+
+    // --- Helper Drag Ruler ---
+    window.dragStart = function(e, el) {
+        e.preventDefault();
+        let shiftX = e.clientX - el.getBoundingClientRect().left;
+        let shiftY = e.clientY - el.getBoundingClientRect().top;
+        document.onmousemove = function(ev) {
+            el.style.left = ev.pageX - shiftX - 20 + 'px'; // -20 offset parent padding
+            el.style.top = ev.pageY - shiftY - 100 + 'px';
+        };
+        document.onmouseup = function() { document.onmousemove = null; };
     };
     
     // --- 5. PROFILE & AI ---
@@ -2163,6 +2322,7 @@
 </script>
 </body>
 </html>
+
 
 
 
