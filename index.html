@@ -419,7 +419,7 @@
     let userProfile = {
         name: '', lang: 'id', streak: 1, lastVisit: new Date().toDateString(), xp: 0, badges: [],
         progress: { modulesVisited: {}, timePerType: {}, quizzesTaken: 0, quizzesCorrect: 0 }
-
+    };
     function loadUser() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if(saved) {
