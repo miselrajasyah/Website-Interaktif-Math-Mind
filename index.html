@@ -415,9 +415,8 @@
 <script>
     // --- 0. DATA PRIVACY & STORAGE MANAGER ---
     const STORAGE_KEY = 'math_minds_user_v2_aljabar';
-    // Perbarui inisialisasi userProfile agar menyimpan preferensi bahasa
     let userProfile = {
-        name: '', lang: 'id', streak: 1, lastVisit: new Date().toDateString(), xp: 0, badges: [],
+        name: '', streak: 1, lastVisit: new Date().toDateString(), xp: 0, badges: [],
         progress: { modulesVisited: {}, timePerType: {}, quizzesTaken: 0, quizzesCorrect: 0 }
     };
     function loadUser() {
