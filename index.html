@@ -420,24 +420,6 @@
         name: '', lang: 'id', streak: 1, lastVisit: new Date().toDateString(), xp: 0, badges: [],
         progress: { modulesVisited: {}, timePerType: {}, quizzesTaken: 0, quizzesCorrect: 0 }
 
-// Tambahkan fungsi ini untuk menangani perpindahan bahasa
-    function toggleLanguage() {
-        userProfile.lang = (userProfile.lang === 'id' ? 'en' : 'id');
-        saveUser();
-    
-    // Memberikan feedback visual sederhana
-        const msg = userProfile.lang === 'en' ? "Language changed to English" : "Bahasa diubah ke Indonesia";
-        alert(msg);
-        
-    // Render ulang UI yang terpengaruh
-    renderSidebar();
-    renderSections();
-    
-    // Opsional: Anda bisa memperbarui teks greeting di sini
-        const name = userProfile.name || 'Siswa';
-        document.getElementById('user-greeting').textContent = userProfile.lang === 'en' ? `Hello, ${name}!` : `Halo, ${name}!`;
-    }
-
     function loadUser() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if(saved) {
